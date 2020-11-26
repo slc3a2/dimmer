@@ -1,0 +1,38 @@
+{ 
+  "name": "关灯",
+  "manifest_version": 2,
+  "version": "1.0.0",
+  "author": "codedance98@gmail.com",
+  "description": "暗黑模式一键切换",
+  "browser_action": {
+    "default_title": "关灯",
+    "default_popup": "./popup/index.html"
+  },
+  "background": {
+    "page": "background/index.html"
+  },
+  "content_scripts": [
+    {
+      "js": [
+        "/inject/index.js"
+      ],
+      "css": [
+        "/inject/index.css"
+      ],
+      "matches": [
+        "<all_urls>"
+      ],
+      "run_at": "document_end"
+    }
+  ],
+  "permissions": [
+    "storage",
+    "tabs",
+    "notifications"
+  ],
+  "web_accessible_resources":[
+    "assets/logo.png",
+    "assets/logo-transparent.png"
+  ],
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
+}

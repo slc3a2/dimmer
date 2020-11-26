@@ -1,0 +1,114 @@
+*{
+  padding: 0;
+  margin: 0;
+}
+html.dark {
+  filter: invert(100) hue-rotate(180deg);
+  transition: filter 1s;
+}
+body {
+  text-align: center;
+  background-color: #E0E5EC;
+  user-select: none;
+}
+.wrapper{
+  box-sizing: border-box;
+  padding: 70px 20px;
+  width: 300px;
+
+}
+h2 {
+  font-size: 20px;
+  margin-top: 50px;
+  
+}
+.flex-wrap{
+  display:flex;
+  justify-content: space-around;
+  flex-wrap:wrap;
+  box-sizing: border-box;
+  padding: 0 35px;
+  margin-top: 50px;
+}
+.flex-wrap section {
+  width:50%;
+
+}
+section{
+  margin-top: 30px;
+}
+section.nomarg{
+  margin-top: 0;
+}
+section button.round{
+  width:50px;
+  height:50px;
+  padding:0;
+}
+.theme_space_neoskeuo {
+  --space-3xs: 2px;
+  --space-2xs: 4px;
+  --space-xs: 8px;
+  --space-s: 12px;
+  --space-m: 16px;
+  --space-l: 20px;
+  --space-xl: 24px;
+  --space-2xl: 32px;
+  --space-3xl: 40px;
+  --space-4xl: 48px;
+  --space-5xl: 72px;
+  --space-6xl: 96px;
+}
+.theme {
+  --radius-default: 16px;
+  --radius-s: 12px;
+  --radius-xs: 6px;
+}
+.theme_font_neoskeuo {
+  --font-primary: 'Montserrat', 'Helvetica', 'Helvetica Neue', 'Segoe UI', 'Arial', sans-serif;
+  --font-digital: 'Digital', monospace;
+  font-family: var(--font-primary);
+}
+.theme_color_neoskeuo {
+  --color-bg-default: rgba(238, 240, 245, 1);
+  --color-typo-primary: rgba(48, 52, 84, 1);
+  --color-typo-link: rgba(0, 80, 220, 1);
+  --color-control-bg-default: rgba(240, 242, 247, 1);
+  --color-control-bg-action: hsla(220, 100%, 54%, 1);
+  --color-shadow: 12, 13, 18;
+  --color-light: 255, 255, 255;
+  --color-glow: 0, 150, 255;
+}
+.button {
+  width:140px;
+  height:80px;
+  display: inline-block;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  text-align: center;
+  font-size: 18px;
+  font-family: var(--font-primary);
+  color: var(--color-typo-primary);
+  border: none;
+  border-radius: var(--radius-default);
+  background-color: var(--color-bg-default);
+  cursor: pointer;
+  outline: none;
+  text-shadow: 0 -1px 0 rgba( var(--color-shadow), 0.08), 0 1px 0 rgba( var(--color-light), 1);
+  box-shadow: inset 1px 1px 1px rgba( var(--color-light), 1), -2px -2px 2px rgba( var(--color-light), 0.9), -4px -4px 6px rgba( var(--color-light), 0.9), -8px -8px 16px rgba( var(--color-light), 0.9), -12px -12px 24px rgba( var(--color-light), 0.9), inset -1px -1px 1px rgba( var(--color-shadow), 0.06), 2px 2px 2px rgba( var(--color-shadow), 0.08), 4px 4px 6px rgba( var(--color-shadow), 0.08), 8px 8px 16px rgba( var(--color-shadow), 0.08), 12px 12px 24px rgba( var(--color-shadow), 0.08);
+  -webkit-transition: color 0.3s, text-shadow 0.3s, box-shadow 0.6s;
+  transition: color 0.3s, text-shadow 0.3s, box-shadow 0.6s;
+}
+.button:hover {
+  color: var(--color-typo-link);
+  text-shadow: 0 -1px 0 rgba( var(--color-shadow), 0.08), 0 1px 0 rgba( var(--color-light), 1), 0 0 1px rgba( var(--color-light), 0.7), 0 0 4px rgba( var(--color-glow), 0.08), 0 0 8px rgba( var(--color-glow), 0.08);
+  box-shadow: inset 1px 1px 1px rgba( var(--color-light), 1), -3px -3px 3px rgba( var(--color-light), 1), -5px -5px 6px rgba( var(--color-light), 1), -10px -10px 16px rgba( var(--color-light), 1), -14px -14px 24px rgba( var(--color-light), 1), inset -1px -1px 1px rgba( var(--color-shadow), 0.06), 3px 3px 3px rgba( var(--color-shadow), 0.085), 5px 5px 6px rgba( var(--color-shadow), 0.085), 10px 10px 16px rgba( var(--color-shadow), 0.085), 14px 14px 24px rgba( var(--color-shadow), 0.085);
+}
+
+.button:active {
+  box-shadow: 1px 1px 1px rgba( var(--color-light), 1), inset -2px -2px 2px rgba( var(--color-light), 0.9), inset -3px -3px 4px rgba( var(--color-light), 0.9), inset -6px -6px 12px rgba( var(--color-light), 0.9), inset -8px -8px 16px rgba( var(--color-light), 0.9), -1px -1px 1px rgba( var(--color-shadow), 0.06), inset 2px 2px 2px rgba( var(--color-shadow), 0.08), inset 3px 3px 4px rgba( var(--color-shadow), 0.08), inset 6px 6px 12px rgba( var(--color-shadow), 0.08), inset 8px 8px 16px rgba( var(--color-shadow), 0.08);
+}
+.button.cur{
+  box-shadow: 1px 1px 1px rgba( var(--color-light), 1), inset -2px -2px 2px rgba( var(--color-light), 0.9), inset -3px -3px 4px rgba( var(--color-light), 0.9), inset -6px -6px 12px rgba( var(--color-light), 0.9), inset -8px -8px 16px rgba( var(--color-light), 0.9), -1px -1px 1px rgba( var(--color-shadow), 0.06), inset 2px 2px 2px rgba( var(--color-shadow), 0.08), inset 3px 3px 4px rgba( var(--color-shadow), 0.08), inset 6px 6px 12px rgba( var(--color-shadow), 0.08), inset 8px 8px 16px rgba( var(--color-shadow), 0.08);
+}
