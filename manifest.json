@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "author": "codedance98@gmail.com",
   "description": "暗黑模式一键切换",
+  "icons": { "16": "imgs/logo16.png", "128": "imgs/logo128.png" },
   "browser_action": {
     "default_title": "关灯",
     "default_popup": "./popup/index.html"
