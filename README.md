@@ -1,2 +1,2 @@
 # oh-my-dimmer
-👋  chrome扩展程序，暗黑模式一键切换。
+👋  chrome扩展程序，网页一键切换暗黑模式。
