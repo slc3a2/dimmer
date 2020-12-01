@@ -43,7 +43,7 @@ window.onload = function(){
   })
   
   document.querySelector('.gh').onclick = function(e) {
-    window.open('https://github.com/codedance98')
+    window.open('https://github.com/codedance98/oh-my-dimmer')
   }
   
   document.querySelector('.score').onclick = function(e) {
