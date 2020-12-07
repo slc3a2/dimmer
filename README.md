@@ -7,7 +7,7 @@
 
 上网了解了下，发现有个非常简单的属性可以操作，主要使用`css3`的`filter`滤镜属性`invert(1) hue-rotate(180deg)`来实现，`invert`控制页面元素颜色反转，默认值是`0`，完全反转是`1`，`hue-rotate`用于给图片设置颜色反转，`0`是无变化，`180deg`是完全反转，超过`360deg`的值相当于又绕一圈。也算是复习一下chrome扩展相关知识并学习一下sketch软件。花了一天时候做出来，由于扩展清单文件使用了`<all_urls>`权限，发到扩展商店审核花了五天左右。   
  
-关灯这个名字来自`v2ex`的`@chocovon`的创意，非常感谢
+关灯这个名字来自`v2ex`的`@chocovon`的创意，非常感谢。
 ## 资源
 
 - [谷歌安装](https://chrome.google.com/webstore/detail/%E5%85%B3%E7%81%AF/dnidbhhpcjgffjophhebfelbcnonoclh?hl=zh-CN) 
