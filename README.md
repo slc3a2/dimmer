@@ -1,6 +1,6 @@
 ## oh-my-dimmer
 >👋 chrome扩展程序，暗黑模式一键切换。chrome扩展商店搜「关灯」
-<div style='text-align:center;'><img width='600px'  src='https://i.loli.net/2020/12/07/XRlEvnZ6pBchHtT.png' alt='example'/></div>
+<div style='display: flex;align-items: center;justify-content: center;'><img width='600px' src='https://i.loli.net/2020/12/07/XRlEvnZ6pBchHtT.png' style='border: 1px solid #666;' alt='example'/></div>
 
 ## 介绍  
 迫于晚上看网页太亮，本人还有干眼症！就想做一个网页扩展使用。   
