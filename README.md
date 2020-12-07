@@ -10,9 +10,8 @@
 关灯这个名字来自`v2ex`的`@chocovon`的创意，非常感谢。
 ## 资源
 
-- [谷歌安装](https://chrome.google.com/webstore/detail/%E5%85%B3%E7%81%AF/dnidbhhpcjgffjophhebfelbcnonoclh?hl=zh-CN) 
-- [国内安装](https://www.chromefor.com/ohmycookie_v1-1-2/)
-
+- [谷歌商店安装](https://chrome.google.com/webstore/detail/%E5%85%B3%E7%81%AF/dnidbhhpcjgffjophhebfelbcnonoclh?hl=zh-CN) 
+- [国内镜像安装](https://www.chromefor.com/%e5%85%b3%e7%81%af_v1-0-0/)
 
 ## 版本
 
