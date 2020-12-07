@@ -11,7 +11,7 @@
 ## 资源
 
 - [谷歌商店安装](https://chrome.google.com/webstore/detail/%E5%85%B3%E7%81%AF/dnidbhhpcjgffjophhebfelbcnonoclh?hl=zh-CN) 
-- [国内镜像安装](https://www.chromefor.com/%e5%85%b3%e7%81%af_v1-0-0/)
+- [国内镜像安装](https://www.chromefor.com/%e5%85%b3%e7%81%af_v1-0-1/)
 
 ## 版本
 
