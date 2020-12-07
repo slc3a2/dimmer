@@ -16,10 +16,7 @@ function changeModeHandle() {
     let message = {
         info: 'changeMode'
     }
-    console.log(tabs[0].id)
     chrome.tabs.sendMessage(tabs[0].id, message, res => {
-        console.log('popup=>content')
-        console.log(res)
     })
   })
 }
@@ -33,7 +30,6 @@ window.onload = function(){
         info: 'getMode'
     }
     chrome.tabs.sendMessage(tabs[0].id, message, res => {
-        console.log(res)
         if(res.has){
           document.querySelector('.normal').classList.add('cur')
         }else{
@@ -47,6 +43,6 @@ window.onload = function(){
   }
   
   document.querySelector('.score').onclick = function(e) {
-    window.open('https://github.com/codedance98')
+    window.open('https://chrome.google.com/webstore/detail/%E5%85%B3%E7%81%AF/dnidbhhpcjgffjophhebfelbcnonoclh?hl=zh-CN')
   }
 }
