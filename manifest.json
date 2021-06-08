@@ -1,7 +1,7 @@
 { 
   "name": "关灯",
   "manifest_version": 2,
-  "version": "1.0.2",
+  "version": "1.0.3",
   "author": "codedance98@gmail.com",
   "description": "暗黑模式一键切换",
   "icons": { "16": "imgs/logo16.png", "128": "imgs/logo128.png" },
