@@ -1,4 +1,7 @@
-
+html.dark{
+  filter: invert(100) hue-rotate(180deg);
+  transition: filter 1s;
+}
 html.dark img, html.dark video{
   filter: invert(100) hue-rotate(180deg);
   transition: filter 1s;
