@@ -1,4 +1,4 @@
-## oh-my-dimmer
+## dimmer
 >👋  chrome扩展程序，暗黑模式一键切换。chrome扩展商店搜「关灯」
 <div style='display: flex;align-items: center;justify-content: center;'><img width='600px' src='https://i.loli.net/2020/12/07/XRlEvnZ6pBchHtT.png' style='border: 1px solid #666;' alt='example'/></div>
 
