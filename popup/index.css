@@ -1,4 +1,4 @@
-*{
+* {
   padding: 0;
   margin: 0;
 }
@@ -8,42 +8,39 @@ html.dimmer-dark {
 }
 body {
   text-align: center;
-  background-color: #E0E5EC;
+  background-color: #e0e5ec;
   user-select: none;
 }
-.wrapper{
+.wrapper {
   box-sizing: border-box;
   padding: 70px 20px 110px;
   width: 300px;
-
 }
 h2 {
   font-size: 20px;
   margin-top: 50px;
-  
 }
-.flex-wrap{
-  display:flex;
+.flex-wrap {
+  display: flex;
   justify-content: space-around;
-  flex-wrap:wrap;
+  flex-wrap: wrap;
   box-sizing: border-box;
   padding: 0 35px;
   margin-top: 50px;
 }
 .flex-wrap section {
-  width:50%;
-
+  width: 50%;
 }
-section{
+section {
   margin-top: 30px;
 }
-section.nomarg{
+section.nomarg {
   margin-top: 0;
 }
-section button.round{
-  width:50px;
-  height:50px;
-  padding:0;
+section button.round {
+  width: 50px;
+  height: 50px;
+  padding: 0;
 }
 .theme_space_neoskeuo {
   --space-3xs: 2px;
@@ -65,8 +62,9 @@ section button.round{
   --radius-xs: 6px;
 }
 .theme_font_neoskeuo {
-  --font-primary: 'Montserrat', 'Helvetica', 'Helvetica Neue', 'Segoe UI', 'Arial', sans-serif;
-  --font-digital: 'Digital', monospace;
+  --font-primary: "Montserrat", "Helvetica", "Helvetica Neue", "Segoe UI",
+    "Arial", sans-serif;
+  --font-digital: "Digital", monospace;
   font-family: var(--font-primary);
 }
 .theme_color_neoskeuo {
@@ -80,8 +78,8 @@ section button.round{
   --color-glow: 0, 150, 255;
 }
 .button {
-  width:140px;
-  height:80px;
+  width: 140px;
+  height: 80px;
   display: inline-block;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -95,20 +93,59 @@ section button.round{
   background-color: var(--color-bg-default);
   cursor: pointer;
   outline: none;
-  text-shadow: 0 -1px 0 rgba( var(--color-shadow), 0.08), 0 1px 0 rgba( var(--color-light), 1);
-  box-shadow: inset 1px 1px 1px rgba( var(--color-light), 1), -2px -2px 2px rgba( var(--color-light), 0.9), -4px -4px 6px rgba( var(--color-light), 0.9), -8px -8px 16px rgba( var(--color-light), 0.9), -12px -12px 24px rgba( var(--color-light), 0.9), inset -1px -1px 1px rgba( var(--color-shadow), 0.06), 2px 2px 2px rgba( var(--color-shadow), 0.08), 4px 4px 6px rgba( var(--color-shadow), 0.08), 8px 8px 16px rgba( var(--color-shadow), 0.08), 12px 12px 24px rgba( var(--color-shadow), 0.08);
+  text-shadow: 0 -1px 0 rgba(var(--color-shadow), 0.08),
+    0 1px 0 rgba(var(--color-light), 1);
+  box-shadow: inset 1px 1px 1px rgba(var(--color-light), 1),
+    -2px -2px 2px rgba(var(--color-light), 0.9),
+    -4px -4px 6px rgba(var(--color-light), 0.9),
+    -8px -8px 16px rgba(var(--color-light), 0.9),
+    -12px -12px 24px rgba(var(--color-light), 0.9),
+    inset -1px -1px 1px rgba(var(--color-shadow), 0.06),
+    2px 2px 2px rgba(var(--color-shadow), 0.08),
+    4px 4px 6px rgba(var(--color-shadow), 0.08),
+    8px 8px 16px rgba(var(--color-shadow), 0.08),
+    12px 12px 24px rgba(var(--color-shadow), 0.08);
   -webkit-transition: color 0.3s, text-shadow 0.3s, box-shadow 0.6s;
   transition: color 0.3s, text-shadow 0.3s, box-shadow 0.6s;
 }
 .button:hover {
   color: var(--color-typo-link);
-  text-shadow: 0 -1px 0 rgba( var(--color-shadow), 0.08), 0 1px 0 rgba( var(--color-light), 1), 0 0 1px rgba( var(--color-light), 0.7), 0 0 4px rgba( var(--color-glow), 0.08), 0 0 8px rgba( var(--color-glow), 0.08);
-  box-shadow: inset 1px 1px 1px rgba( var(--color-light), 1), -3px -3px 3px rgba( var(--color-light), 1), -5px -5px 6px rgba( var(--color-light), 1), -10px -10px 16px rgba( var(--color-light), 1), -14px -14px 24px rgba( var(--color-light), 1), inset -1px -1px 1px rgba( var(--color-shadow), 0.06), 3px 3px 3px rgba( var(--color-shadow), 0.085), 5px 5px 6px rgba( var(--color-shadow), 0.085), 10px 10px 16px rgba( var(--color-shadow), 0.085), 14px 14px 24px rgba( var(--color-shadow), 0.085);
+  text-shadow: 0 -1px 0 rgba(var(--color-shadow), 0.08),
+    0 1px 0 rgba(var(--color-light), 1), 0 0 1px rgba(var(--color-light), 0.7),
+    0 0 4px rgba(var(--color-glow), 0.08), 0 0 8px rgba(var(--color-glow), 0.08);
+  box-shadow: inset 1px 1px 1px rgba(var(--color-light), 1),
+    -3px -3px 3px rgba(var(--color-light), 1),
+    -5px -5px 6px rgba(var(--color-light), 1),
+    -10px -10px 16px rgba(var(--color-light), 1),
+    -14px -14px 24px rgba(var(--color-light), 1),
+    inset -1px -1px 1px rgba(var(--color-shadow), 0.06),
+    3px 3px 3px rgba(var(--color-shadow), 0.085),
+    5px 5px 6px rgba(var(--color-shadow), 0.085),
+    10px 10px 16px rgba(var(--color-shadow), 0.085),
+    14px 14px 24px rgba(var(--color-shadow), 0.085);
 }
 
 .button:active {
-  box-shadow: 1px 1px 1px rgba( var(--color-light), 1), inset -2px -2px 2px rgba( var(--color-light), 0.9), inset -3px -3px 4px rgba( var(--color-light), 0.9), inset -6px -6px 12px rgba( var(--color-light), 0.9), inset -8px -8px 16px rgba( var(--color-light), 0.9), -1px -1px 1px rgba( var(--color-shadow), 0.06), inset 2px 2px 2px rgba( var(--color-shadow), 0.08), inset 3px 3px 4px rgba( var(--color-shadow), 0.08), inset 6px 6px 12px rgba( var(--color-shadow), 0.08), inset 8px 8px 16px rgba( var(--color-shadow), 0.08);
+  box-shadow: 1px 1px 1px rgba(var(--color-light), 1),
+    inset -2px -2px 2px rgba(var(--color-light), 0.9),
+    inset -3px -3px 4px rgba(var(--color-light), 0.9),
+    inset -6px -6px 12px rgba(var(--color-light), 0.9),
+    inset -8px -8px 16px rgba(var(--color-light), 0.9),
+    -1px -1px 1px rgba(var(--color-shadow), 0.06),
+    inset 2px 2px 2px rgba(var(--color-shadow), 0.08),
+    inset 3px 3px 4px rgba(var(--color-shadow), 0.08),
+    inset 6px 6px 12px rgba(var(--color-shadow), 0.08),
+    inset 8px 8px 16px rgba(var(--color-shadow), 0.08);
 }
-.button.cur{
-  box-shadow: 1px 1px 1px rgba( var(--color-light), 1), inset -2px -2px 2px rgba( var(--color-light), 0.9), inset -3px -3px 4px rgba( var(--color-light), 0.9), inset -6px -6px 12px rgba( var(--color-light), 0.9), inset -8px -8px 16px rgba( var(--color-light), 0.9), -1px -1px 1px rgba( var(--color-shadow), 0.06), inset 2px 2px 2px rgba( var(--color-shadow), 0.08), inset 3px 3px 4px rgba( var(--color-shadow), 0.08), inset 6px 6px 12px rgba( var(--color-shadow), 0.08), inset 8px 8px 16px rgba( var(--color-shadow), 0.08);
+.button.cur {
+  box-shadow: 1px 1px 1px rgba(var(--color-light), 1),
+    inset -2px -2px 2px rgba(var(--color-light), 0.9),
+    inset -3px -3px 4px rgba(var(--color-light), 0.9),
+    inset -6px -6px 12px rgba(var(--color-light), 0.9),
+    inset -8px -8px 16px rgba(var(--color-light), 0.9),
+    -1px -1px 1px rgba(var(--color-shadow), 0.06),
+    inset 2px 2px 2px rgba(var(--color-shadow), 0.08),
+    inset 3px 3px 4px rgba(var(--color-shadow), 0.08),
+    inset 6px 6px 12px rgba(var(--color-shadow), 0.08),
+    inset 8px 8px 16px rgba(var(--color-shadow), 0.08);
 }

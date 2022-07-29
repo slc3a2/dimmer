@@ -1,8 +1,8 @@
-{ 
+{
   "name": "关灯",
   "manifest_version": 2,
   "version": "1.0.4",
-  "author": "codedance98@gmail.com",
+  "author": "slc3a2@gmail.com",
   "description": "暗黑模式一键切换",
   "icons": { "16": "imgs/logo16.png", "128": "imgs/logo128.png" },
   "browser_action": {
@@ -14,22 +14,14 @@
   },
   "content_scripts": [
     {
-      "js": [
-        "/inject/index.js"
-      ],
-      "css": [
-        "/inject/index.css"
-      ],
-      "matches": [
-        "<all_urls>"
-      ],
+      "js": ["/inject/index.js"],
+      "css": ["/inject/index.css"],
+      "matches": ["<all_urls>"],
       "run_at": "document_end"
     }
   ],
-  "permissions": [
-    "tabs"
-  ],
-  "web_accessible_resources":[
+  "permissions": [],
+  "web_accessible_resources": [
     "assets/logo.png",
     "assets/logo-transparent.png"
   ],
