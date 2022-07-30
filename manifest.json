@@ -3,7 +3,7 @@
   "manifest_version": 2,
   "version": "1.0.5",
   "author": "slc3a2@gmail.com",
-  "description": "暗黑模式一键切换",
+  "description": "Webpage Theme changer",
   "icons": { "16": "imgs/logo16.png", "128": "imgs/logo128.png" },
   "browser_action": {
     "default_title": "关灯",
