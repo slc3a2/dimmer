@@ -1,0 +1,149 @@
+.appContainer {
+  display: flex;
+  // background-color: #e0e0e0;
+  background-color: #e6e7ee;
+  .imgContainer {
+    width: 1000px;
+    height: 750px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-image: linear-gradient(to right, rgb(43, 192, 228), rgb(234, 236, 198));
+    // transition: backgroundImage 250ms;
+    .margin {
+      overflow: hidden;
+      .theme {
+        width: 100%;
+        height: 17px;
+        align-items: center;
+        box-sizing: border-box;
+        padding-left: 10px;
+        padding-right: 10px;
+        display: none;
+        &.macosLight {
+          display: flex;
+          background-color: #e0e0e0;
+          p {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            margin-right: 5px;
+            &:nth-child(1) {
+              background: rgb(238, 105, 94);
+            }
+            &:nth-child(2) {
+              background: rgb(246, 189, 79);
+            }
+            &:nth-child(3) {
+              background: rgb(96, 191, 82);
+            }
+          }
+        }
+        &.macosDark {
+          display: flex;
+          background-color: rgb(61, 64, 67);
+          p {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            margin-right: 5px;
+            &:nth-child(1) {
+              background: rgb(238, 105, 94);
+            }
+            &:nth-child(2) {
+              background: rgb(246, 189, 79);
+            }
+            &:nth-child(3) {
+              background: rgb(96, 191, 82);
+            }
+          }
+        }
+        &.windowsDark {
+          background-color: rgb(61, 64, 67);
+          display: flex;
+          justify-content: flex-end;
+          p {
+            width: 25px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            svg {
+              width: 7px;
+              height: 7px;
+            }
+          }
+        }
+        &.windowsLight {
+          background-color: #fff;
+          display: flex;
+          justify-content: flex-end;
+          p {
+            width: 25px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            svg {
+              width: 7px;
+              height: 7px;
+            }
+          }
+        }
+      }
+      .imgPadding {
+        box-sizing: border-box;
+        background-color: '#fff';
+        overflow: hidden;
+        img {
+          width: 100%;
+          height: auto;
+          display: block;
+        }
+      }
+    }
+  }
+  .sidebar {
+    padding-top: 50px;
+    padding-left: 10px;
+    .item {
+      margin-bottom: 30px;
+      margin-left: 10px;
+      .title {
+        margin: 0;
+        padding: 0;
+        text-indent: 0em;
+        line-height: 1.3;
+        color: #31344b;
+        font-size: 16px;
+        font-family: 'Nunito Sans', sans-serif;
+        font-weight: 400;
+        margin-bottom: 20px;
+      }
+      input[type='color'] {
+        cursor: pointer;
+        border: none;
+        padding: 0;
+        border-radius: 8px;
+        box-shadow: 2px 2px 5px #b8b9be, -3px -3px 7px #fff;
+        border-radius: 8px;
+        overflow: hidden;
+        &:active {
+          box-shadow: inset 5px 5px 10px #b3b3b3, inset -5px -5px 10px #ffffff;
+        }
+      }
+      input[type='color']::-webkit-color-swatch-wrapper {
+        padding: 0;
+        margin: 0;
+        border: none;
+      }
+      input[type='color']::-webkit-color-swatch {
+        padding: 0;
+        margin: 0;
+        border: none;
+      }
+    }
+  }
+}
