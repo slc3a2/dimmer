@@ -94,12 +94,9 @@ const Slider = ({
     const trackEle = track.current
     if (trackEle) {
       const rect = (trackEle as HTMLElement).getBoundingClientRect()
-      // const x = e.clientX - rect.left
-      // const percent = (x / rect.width) * 100
-      // setValue(Math.round(percent))
       const x =
         Math.round((((e.clientX - rect.left) / rect.width) * (max - min)) / step) * step + min
-      if (x < 0) {
+      if (x < min) {
         return
       }
       if (rect.left + rect.width <= e.clientX) {

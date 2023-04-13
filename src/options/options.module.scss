@@ -113,14 +113,43 @@
       height: 1px;
       width: 100%;
       background-color: #fff;
-      margin-bottom: 25px;
+      margin-bottom: 15px;
+      margin-top: 5px;
     }
     .item {
-      margin-bottom: 20px;
+      margin-bottom: 10px;
       margin-left: 10px;
       &:last-child {
         margin-bottom: 0;
       }
+      &.colorInput {
+        margin-bottom: 0;
+      }
+      label {
+        width: 40px;
+        height: 40px;
+        display: block;
+        .colorInput {
+          width: 100%;
+          height: 100%;
+          border-radius: 8px;
+          box-shadow: 2px 2px 5px #b8b9be, -3px -3px 7px #fff;
+          cursor: pointer;
+          position: relative;
+          z-index: 2;
+          box-sizing: border-box;
+          padding: 5px;
+          &:active {
+            box-shadow: inset 5px 5px 10px #b3b3b3, inset -5px -5px 10px #ffffff;
+          }
+          .currentPaddingColor {
+            width: 100%;
+            height: 100%;
+            border-radius: 8px;
+          }
+        }
+      }
+      
       .title {
         margin: 0;
         padding: 0;
@@ -133,13 +162,18 @@
         margin-bottom: 20px;
       }
       input[type='color'] {
-        cursor: pointer;
         border: none;
         padding: 0;
         border-radius: 8px;
         box-shadow: 2px 2px 5px #b8b9be, -3px -3px 7px #fff;
         border-radius: 8px;
         overflow: hidden;
+        visibility: hidden;
+        position: relative;
+        z-index: 1;
+        top: -10px;
+        width: 2px;
+        height: 2px;
         &:active {
           box-shadow: inset 5px 5px 10px #b3b3b3, inset -5px -5px 10px #ffffff;
         }

@@ -13,21 +13,13 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
 const captureVisibleArea = () => {
   chrome.tabs.captureVisibleTab((screenshotUrl) => {
-    console.log(screenshotUrl)
-    // chrome.runtime.openOptionsPage()
-    // let optionsId = undefined
-    // console.log(chrome.runtime.getURL('options.html'))
     chrome.tabs.create({ url: chrome.runtime.getURL('options.html') }, function (tab) {
-      console.log(tab)
-      // optionsId = tab.id
       setTimeout(() => {
         if (tab.id) {
           chrome.tabs.sendMessage(tab.id, { method: 'pushImgSource', data: { url: screenshotUrl } }) //发送一个消息来调用选项中的方法
         }
       }, 1000)
     })
-    // console.log(optionsId)
-
     // chrome.scripting.executeScript({
     //     target: {tabId: tabId}, //tabId代表选项卡ID，可以使用chrome.tabs.query()获取
     //     files: ['options.js'] // options.js 是选项页面中的脚本文件，可以在这里调用选项方法
@@ -44,7 +36,6 @@ const captureVisibleArea = () => {
     //   chrome.tabs.onUpdated.removeListener(listener)
 
     //   var views = chrome.runtime.getViews()
-    //   console.log(views)
     //   for (var i = 0; i < views.length; i++) {
     //     var view = views[i]
     //     if (view.location.href == viewTabUrl) {

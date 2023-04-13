@@ -34,9 +34,10 @@ function App() {
   const [margin, setMargin] = useState(0)
   const [radius, setRadius] = useState(0)
   const [shadow, setShadow] = useState(0)
+  const [shadowBlur, setShadowBlur] = useState(10)
   const [theme, setTheme] = useState('null')
-  const [paddingColor, setPaddingColor] = useState('')
-  const [bgColor, setBgColor] = useState(LIST[0].value)
+  const [paddingColor, setPaddingColor] = useState('#CAA5C9')
+  const [bgColor, setBgColor] = useState(LIST[6].value)
   const imgContainer = useRef(null)
 
   useEffect(() => {
@@ -63,6 +64,25 @@ function App() {
     setShadow(value)
   }
 
+  const setShadowBlurHandler =  (value: number) => {
+    setShadowBlur(value)
+  }
+
+  const setThemeHandler = (item: listItem) => {
+    setTheme(item.id)
+  }
+
+  const setPaddingColorHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value) {
+      setPaddingColor(e.target.value)
+    }
+  }
+
+  const setBgColorHandler = (item: PickerItem) => {
+    setBgColor(item.value)
+  }
+
+
   const saveHandler = () => {
     if (imgContainer.current) {
       const node = imgContainer.current as HTMLElement
@@ -88,22 +108,6 @@ function App() {
     }
   }
 
-  const setThemeHandler = (item: listItem) => {
-    console.log(item.id)
-    setTheme(item.id)
-  }
-
-  const setPaddingColorHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value)
-    if (e.target.value) {
-      setPaddingColor(e.target.value)
-    }
-  }
-
-  const setBgColorHandler = (item: PickerItem) => {
-    setBgColor(item.value)
-  }
-
   return (
     <main className={styles.appContainer}>
       <div className={styles.imgContainer} ref={imgContainer} style={{ background: `${bgColor}` }}>
@@ -112,7 +116,7 @@ function App() {
           style={{
             margin: `${margin}px`,
             borderRadius: `${radius}px`,
-            boxShadow: `${shadow}px ${shadow}px 10px rgba(0,0,0,0.1)`,
+            boxShadow: `${shadow}px ${shadow}px ${shadowBlur}px rgba(0,0,0,0.1)`,
           }}
         >
           <div
@@ -206,12 +210,23 @@ function App() {
             }}
             max={50}
             min={0}
+            defaultValue={15}
           />
         </div>
-        <div className={styles.item}>
+        <div className={cls(styles.item, styles.colorInput)}>
           <p className={styles.title}>Padding Color</p>
+          <label htmlFor="select-color">
+            <div className={styles.colorInput}>
+              <div 
+                className={styles.currentPaddingColor} 
+                style={{ background: `${paddingColor}`}}
+              ></div>
+            </div>
+          </label>
           <input
             type="color"
+            id='select-color'
+            value={paddingColor}
             onChange={(e) => {
               setPaddingColorHandler(e)
             }}
@@ -236,14 +251,26 @@ function App() {
             }}
             max={20}
             min={0}
+            defaultValue={5}
           />
         </div>
         <div className={styles.item}>
-          <p className={styles.title}>Shadow</p>
+          <p className={styles.title}>Shadow Size</p>
           <Slider
             onChange={(value) => {
               setShadowHandler(value)
             }}
+            max={30}
+            min={0}
+          />
+        </div>
+        <div className={styles.item}>
+          <p className={styles.title}>Shadow Blur</p>
+          <Slider
+            onChange={(value) => {
+              setShadowBlurHandler(value)
+            }}
+            defaultValue={10}
             max={30}
             min={0}
           />
