@@ -1,8 +1,6 @@
 import { useRef, useState, useEffect } from 'react'
 import cls from 'classnames'
 
-import Button from '@/components/Button'
-
 import styles from './index.module.scss'
 import { LIST, PickerItem } from './constant'
 
@@ -48,7 +46,7 @@ const Picker = (props: PickerProps) => {
           return (
             <div
               className={styles.item}
-              style={{ backgroundImage: `${item.value}` }}
+              style={{ background: `${item.value}` }}
               key={item.id}
               onClick={() => {
                 itemClickHandler(item)

@@ -43,6 +43,17 @@ const Dropdown = (props: DropdownProps) => {
     <div ref={dropdownRef} className={styles.wrap}>
       <Button onClick={() => setVisible(!visible)}>{value}</Button>
       <ul className={cls(styles.list, visible ? styles.visible : null)}>
+        <li
+          className={styles.item}
+          onClick={() => {
+            itemClickHandler({
+              name: 'None',
+              id: '',
+            })
+          }}
+        >
+          None
+        </li>
         {list.map((item) => {
           return (
             <li

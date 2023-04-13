@@ -29,7 +29,7 @@ const dropdownList = [
 ]
 
 function App() {
-  const [src, setSrc] = useState('create-chrome-ext')
+  const [src, setSrc] = useState('')
   const [padding, setPadding] = useState(0)
   const [margin, setMargin] = useState(0)
   const [radius, setRadius] = useState(0)
@@ -82,7 +82,7 @@ function App() {
       domtoimage.toPng(node, options).then((base64: string) => {
         const a = document.createElement('a')
         a.href = base64
-        a.download = 'Image.png'
+        a.download = 'snap_image.png'
         a.click()
       })
     }
@@ -106,11 +106,7 @@ function App() {
 
   return (
     <main className={styles.appContainer}>
-      <div
-        className={styles.imgContainer}
-        ref={imgContainer}
-        style={{ backgroundImage: `${bgColor}` }}
-      >
+      <div className={styles.imgContainer} ref={imgContainer} style={{ background: `${bgColor}` }}>
         <div
           className={styles.margin}
           style={{
@@ -227,7 +223,7 @@ function App() {
             onChange={(value) => {
               setMarginHandler(value)
             }}
-            max={100}
+            max={200}
             min={0}
             defaultValue={50}
           />
@@ -271,13 +267,15 @@ function App() {
           />
         </div>
 
+        <span className={styles.line}></span>
+
         <div className={styles.item}>
           <Button
             onClick={() => {
               saveHandler()
             }}
           >
-            Download
+            Export
           </Button>
         </div>
       </div>
