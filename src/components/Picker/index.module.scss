@@ -62,16 +62,23 @@
       margin-bottom: 10px;
       box-shadow: 2px 2px 5px #b8b9be, -3px -3px 7px #fff;
       &.transparent {
-        background-size: 20px 20px;
-        background-position: 0 0, 10px 10px;
-        background-image: 
-          linear-gradient(45deg,#eee 25%,transparent 0,transparent 75%,#eee 0,#eee),
+        background-size: 10px 10px;
+        background-position: 0 0, 5px 5px;
+        background-image: linear-gradient(
+            45deg,
+            #eee 25%,
+            transparent 0,
+            transparent 75%,
+            #eee 0,
+            #eee
+          ),
           linear-gradient(45deg, #eee 25%, #fff 0, #fff 75%, #eee 0, #eee);
       }
       &:nth-child(4n + 4) {
         margin-right: 0;
       }
-      &:hover, &.current {
+      &:hover,
+      &.current {
         box-shadow: inset 5px 5px 10px #b3b3b3, inset -5px -5px 10px #ffffff;
       }
     }

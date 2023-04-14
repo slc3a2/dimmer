@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import domtoimage from 'dom-to-image'
 import cls from 'classnames'
+import queryString from 'query-string'
 
 import Button from '@/components/Button'
 import Slider from '@/components/Slider'
@@ -28,6 +29,8 @@ const dropdownList = [
   },
 ]
 
+const { id } = queryString.parse(window.location.search)
+
 function App() {
   const [src, setSrc] = useState('')
   const [padding, setPadding] = useState(0)
@@ -41,12 +44,18 @@ function App() {
   const imgContainer = useRef(null)
 
   useEffect(() => {
-    chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-      if (request.method === 'pushImgSource') {
-        sendResponse({ result: 'options method has been called' })
-        setSrc(request.data.url)
-      }
-    })
+    const tempSrc = window.sessionStorage.getItem(`${id}`)
+    if (tempSrc) {
+      setSrc(tempSrc)
+    } else {
+      chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+        if (request.method === 'pushImgSource') {
+          sendResponse({ result: 'options method has been called' })
+          setSrc(request.data.url)
+          window.sessionStorage.setItem(`${id}`, request.data.url)
+        }
+      })
+    }
   }, [])
 
   const setPaddingHandler = (value: number) => {
@@ -64,7 +73,7 @@ function App() {
     setShadow(value)
   }
 
-  const setShadowBlurHandler =  (value: number) => {
+  const setShadowBlurHandler = (value: number) => {
     setShadowBlur(value)
   }
 
@@ -81,7 +90,6 @@ function App() {
   const setBgColorHandler = (item: PickerItem) => {
     setBgColor(item.value)
   }
-
 
   const saveHandler = () => {
     if (imgContainer.current) {
@@ -217,15 +225,15 @@ function App() {
           <p className={styles.title}>Padding Color</p>
           <label htmlFor="select-color">
             <div className={styles.colorInput}>
-              <div 
-                className={styles.currentPaddingColor} 
-                style={{ background: `${paddingColor}`}}
+              <div
+                className={styles.currentPaddingColor}
+                style={{ background: `${paddingColor}` }}
               ></div>
             </div>
           </label>
           <input
             type="color"
-            id='select-color'
+            id="select-color"
             value={paddingColor}
             onChange={(e) => {
               setPaddingColorHandler(e)
