@@ -203,7 +203,7 @@ function App() {
             onChange={(value) => {
               setMarginHandler(value)
             }}
-            max={200}
+            max={201}
             min={0}
             defaultValue={50}
           />

@@ -36,12 +36,12 @@ const radioThemeList = [
 
 const radioThemeColorList = [
   {
-    label: '🌚',
+    label: 'Dark',
     id: uuidv4(),
     name: 'dark',
   },
   {
-    label: '🌝',
+    label: 'Light',
     id: uuidv4(),
     name: 'light',
   },

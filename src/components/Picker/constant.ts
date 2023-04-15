@@ -46,11 +46,12 @@ const LIST: PickerList = [
   {
     id: 8,
     // value: 'linear-gradient(to right, rgb(79, 172, 254) 0%, rgb(0, 242, 254) 100%)',
-    value: 'linear-gradient(to top, #9be15d 0%, #00e3ae 100%)'
+    // value: 'linear-gradient(to top, #9be15d 0%, #00e3ae 100%)'
+    value: 'linear-gradient(45deg, #FA8BFF 0%, #2BD2FF 52%, #2BFF88 90%)',
   },
   {
     id: 9,
-    value: 'linear-gradient(rgb(42, 245, 152) 0%, rgb(0, 158, 253) 100%)',
+    value: 'linear-gradient(45deg, #85FFBD 0%, #FFFB7D 100%)',
   },
   {
     id: 10,
