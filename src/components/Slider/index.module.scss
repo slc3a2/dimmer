@@ -2,7 +2,6 @@
   position: relative;
   width: 300px;
   height: 20px;
-  margin-bottom: 10px;
   user-select: none;
   .sliderTrack {
     position: absolute;
@@ -31,7 +30,6 @@
       height: 20px;
       border-radius: 50%;
       cursor: grab;
-      // box-shadow: 2px 2px 4px #b8b9be, -2px -2px 4px #fff;
       box-shadow: 2px 2px 4px #b8b9be, 0px 0px 4px #fff;
       background: #e6e7ee;
       transition: transform 250ms;
@@ -42,7 +40,7 @@
     }
     .value {
       color: #44476a;
-      border: 0.0625rem solid #d1d9e6;
+      border: 1px solid #d1d9e6;
       padding: 5px 10px;
       text-align: center;
       white-space: nowrap;

@@ -28,6 +28,7 @@ function App() {
   const [paddingColor, setPaddingColor] = useState('#CAA5C9')
   const [bgColor, setBgColor] = useState(LIST[6].value)
   const [loading, setLoading] = useState(true)
+  const [downloadLading, setDownloadLading] = useState(false)
   const imgContainer = useRef(null)
 
   useEffect(() => {
@@ -84,7 +85,8 @@ function App() {
     setBgColor(item.value)
   }
 
-  const saveHandler = () => {
+  const downloadHandler = () => {
+    if (downloadLading) return
     if (imgContainer.current) {
       const node = imgContainer.current as HTMLElement
       const scale = 3
@@ -100,6 +102,10 @@ function App() {
         quality: 1,
         style,
       }
+      setDownloadLading(true)
+      setTimeout(() => {
+        setDownloadLading(false)
+      }, 1300)
       domtoimage.toPng(node, options).then((base64: string) => {
         const a = document.createElement('a')
         a.href = base64
@@ -245,26 +251,12 @@ function App() {
           <Radio list={radioThemeList} onChange={(item: RadioItem) => {
             setThemeHandler(item)
           }}/>
-          {/* <Radio list={radioThemeColorList} /> */}
-          {/* <Dropdown
-            list={dropdownList}
-            onChange={(key) => {
-              setThemeHandler(key)
-            }}
-          /> */}
         </div>
         <div className={cls(styles.item)}>
           <p className={styles.title}>Theme Color</p>
-          {/* <Radio list={radioThemeList} /> */}
           <Radio list={radioThemeColorList} onChange={(item: RadioItem) => {
             setThemeColorHandler(item)
           }}/>
-          {/* <Dropdown
-            list={dropdownList}
-            onChange={(key) => {
-              setThemeHandler(key)
-            }}
-          /> */}
         </div>
 
         <div className={cls(styles.item, styles.background)}>
@@ -280,8 +272,9 @@ function App() {
 
         <div className={styles.item}>
           <Button
+            loading={downloadLading}
             onClick={() => {
-              saveHandler()
+              downloadHandler()
             }}
           >
             Download

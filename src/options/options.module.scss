@@ -6,6 +6,7 @@
     transform: rotate(360deg);
   }
 }
+
 .appContainer {
   display: flex;
   background-color: #e6e7ee;
@@ -121,10 +122,9 @@
       width: 100%;
       background-color: #fff;
       margin-bottom: 15px;
-      margin-top: 5px;
     }
     .item {
-      margin-bottom: 10px;
+      margin-bottom: 15px;
       margin-left: 10px;
       &:last-child {
         margin-bottom: 0;
@@ -146,6 +146,8 @@
           z-index: 2;
           box-sizing: border-box;
           padding: 5px;
+          border: 1px solid transparent;
+          border-color: #d1d9e6;
           &:active {
             box-shadow: inset 5px 5px 10px #b3b3b3, inset -5px -5px 10px #ffffff;
           }

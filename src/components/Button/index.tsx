@@ -6,6 +6,7 @@ import styles from './index.module.scss'
 interface ButtonProps {
   children: any
   className?: string
+  loading?: boolean
   onClick?: () => void
 }
 
@@ -17,12 +18,20 @@ const Button = (props: ButtonProps) => {
   }
   return (
     <button
-      className={cls(styles.button, props.className)}
+      className={cls(styles.button, props.className, props.loading ? styles.disabled : '')}
       onClick={() => {
         clickHandler()
       }}
-    >
-      <span>{props.children}</span>
+    > 
+      {
+        props.loading
+        ?
+        <span className={styles.loading} style={{ opacity: `${props.loading ? 1 : 0}` }}></span>
+        :
+        null
+      }
+      <span className={cls(styles.content, props.loading ? styles.hidden : '')}>{props.children}</span>
+      
     </button>
   )
 }
