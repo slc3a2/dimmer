@@ -6,14 +6,14 @@ export default defineManifest({
   version: '1.0.0',
   manifest_version: 3,
   icons: {
-    '16': 'img/logo-16.png',
-    '32': 'img/logo-34.png',
-    '48': 'img/logo-48.png',
-    '128': 'img/logo-128.png',
+    '16': 'img/logo.png',
+    '32': 'img/logo.png',
+    '48': 'img/logo.png',
+    '128': 'img/logo.png',
   },
   action: {
     default_popup: 'popup.html',
-    default_icon: 'img/logo-48.png',
+    default_icon: 'img/logo.png',
   },
   options_page: 'options.html',
   background: {
@@ -28,7 +28,7 @@ export default defineManifest({
   ],
   web_accessible_resources: [
     {
-      resources: ['img/logo-16.png', 'img/logo-34.png', 'img/logo-48.png', 'img/logo-128.png'],
+      resources: ['img/logo.png',],
       matches: [],
     },
   ],
