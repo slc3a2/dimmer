@@ -62,7 +62,7 @@ const LIST: PickerList = [
   },
   {
     id: 12,
-    value: 'linear-gradient(180deg, #52ACFF 12%, #FFE32C 50%, #62f215 100%)'
+    value: 'linear-gradient(180deg, #52ACFF 25%, #FFE32C 100%)',
   },
   {
     id: 13,

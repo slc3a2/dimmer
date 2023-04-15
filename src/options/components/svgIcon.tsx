@@ -1,12 +1,12 @@
 const DARK_COLOR = '#e0e0e0'
 const LIGHT_COLOR = '#2c2c2c'
 
-const COLORS = {
+const COLORS: Record<string, string> = {
   dark: DARK_COLOR,
   light: LIGHT_COLOR,
 }
 
-const WindowsIconZoomOut = (props: { theme: 'dark' | 'light' }) => {
+const WindowsIconZoomOut = (props: { theme: string }) => {
   return (
     <svg
       className="icon"
@@ -26,7 +26,7 @@ const WindowsIconZoomOut = (props: { theme: 'dark' | 'light' }) => {
   )
 }
 
-const WindowsIconZoomIn = (props: { theme: 'dark' | 'light' }) => {
+const WindowsIconZoomIn = (props: { theme: string}) => {
   return (
     <svg
       className="icon"
@@ -46,7 +46,7 @@ const WindowsIconZoomIn = (props: { theme: 'dark' | 'light' }) => {
   )
 }
 
-const WindowsIconClose = (props: { theme: 'dark' | 'light' }) => {
+const WindowsIconClose = (props: { theme: string }) => {
   return (
     <svg
       className="icon"

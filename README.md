@@ -1,4 +1,4 @@
-# SnapX
+# Colora
 
 > A Chrome extension for taking screenshots of selected areas, visible areas, and whole web pages.
 
@@ -13,7 +13,7 @@
 run the command
 
 ```shell
-$ cd snapxs
+$ cd colora
 
 $ npm run start
 ```
@@ -21,7 +21,7 @@ $ npm run start
 ### Chrome Extension Developer Mode
 
 1. set your Chrome browser 'Developer mode' up
-2. click 'Load unpacked', and select `snapx/build` folder
+2. click 'Load unpacked', and select `colora/build` folder
 
 ### Nomal FrontEnd Developer Mode
 

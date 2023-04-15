@@ -1,6 +1,4 @@
 .radioItem {
-  // width: 60px;
-  // height: 30px;
   border: 0;
   border-radius: 0px;
   font-family: 'Urbanist,sans-serif';
@@ -17,13 +15,17 @@
   border-radius: 8px;
   cursor: pointer;
   user-select: none;
+  height: 25px;
   &:active {
     box-shadow: inset 5px 5px 10px #b3b3b3, inset -5px -5px 10px #ffffff;
   }
   label {
     position: relative;
-    padding-left: 20px;
+    padding-left: 25px;
     box-sizing: border-box;
+    cursor: pointer;
+    display: block;
+    font-size: 14px;
     &::before {
       content: ' ';
       width: 18px;
@@ -62,6 +64,7 @@
   }
   input[type='radio'] {
     opacity: 0;
+    display: none;
   }
   // cursor: pointer;
   // border: 0;

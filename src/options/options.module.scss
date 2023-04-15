@@ -33,7 +33,7 @@
     transform: translate(-50%, -50%);
   }
   .imgContainer {
-    width: 1100px;
+    width: calc(100% - 380px);
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -52,26 +52,7 @@
         padding-left: 10px;
         padding-right: 10px;
         display: none;
-        &.macosLight {
-          display: flex;
-          background-color: #e0e0e0;
-          p {
-            width: 5px;
-            height: 5px;
-            border-radius: 50%;
-            margin-right: 5px;
-            &:nth-child(1) {
-              background: rgb(238, 105, 94);
-            }
-            &:nth-child(2) {
-              background: rgb(246, 189, 79);
-            }
-            &:nth-child(3) {
-              background: rgb(96, 191, 82);
-            }
-          }
-        }
-        &.macosDark {
+        &.macos {
           display: flex;
           background-color: rgb(61, 64, 67);
           p {
@@ -89,8 +70,11 @@
               background: rgb(96, 191, 82);
             }
           }
+          &.light {
+            background-color: #fff;
+          }
         }
-        &.windowsDark {
+        &.windows {
           background-color: rgb(61, 64, 67);
           display: flex;
           justify-content: flex-end;
@@ -105,21 +89,10 @@
               height: 7px;
             }
           }
-        }
-        &.windowsLight {
-          background-color: #fff;
-          display: flex;
-          justify-content: flex-end;
-          p {
-            width: 25px;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #666;
-            svg {
-              width: 7px;
-              height: 7px;
+          &.light {
+            background-color: #fff;
+            p {
+              color: #666;
             }
           }
         }
@@ -137,6 +110,7 @@
     }
   }
   .sidebar {
+    width: 380px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -192,7 +166,7 @@
         font-size: 16px;
         font-family: 'Nunito Sans', sans-serif;
         font-weight: 400;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
       }
       input[type='color'] {
         border: none;

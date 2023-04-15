@@ -1,9 +1,8 @@
 import { defineManifest } from '@crxjs/vite-plugin'
 
 export default defineManifest({
-  name: 'snapx',
-  description:
-    'A Chrome extension for taking screenshots of selected areas, visible areas, and whole web pages.',
+  name: 'Colora',
+  description: 'Lightweight and user-friendly screenshot editing tool.',
   version: '1.0.0',
   manifest_version: 3,
   icons: {

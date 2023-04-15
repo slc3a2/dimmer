@@ -3,6 +3,7 @@ import domtoimage from 'dom-to-image'
 import cls from 'classnames'
 import queryString from 'query-string'
 
+
 import Button from '@/components/Button'
 import Slider from '@/components/Slider'
 import Dropdown, { listItem } from '@/components/Dropdown'
@@ -10,67 +11,8 @@ import Radio, { RadioItem } from '@/components/Radio'
 import Picker, { PickerItem, LIST } from '@/components/Picker'
 
 import styles from './options.module.scss'
+import { dropdownList, radioThemeList, radioThemeColorList } from './constant'
 import { WindowsIconZoomOut, WindowsIconZoomIn, WindowsIconClose } from './components/svgIcon'
-
-const dropdownList = [
-  {
-    name: 'Macos Dark',
-    id: 'macosDark',
-  },
-  {
-    name: 'Macos Light',
-    id: 'macosLight',
-  },
-  {
-    name: 'Windows Dark',
-    id: 'windowsDark',
-  },
-  {
-    name: 'Windows Light',
-    id: 'windowsLight',
-  },
-]
-
-const radioThemeList = [
-  {
-    label: 'None',
-    id: '0',
-  },
-  {
-    label: 'Macos',
-    id: '1',
-  },
-  {
-    label: 'Windows',
-    id: '2',
-  },
-]
-
-const radioThemeColorList = [
-  {
-    label: '🌚 Dark',
-    id: '0',
-  },
-  {
-    label: '🌝 Light',
-    id: '1',
-  },
-]
-
-const radioList = [
-  {
-    label: 'None',
-    id: '0',
-  },
-  {
-    label: 'Macos',
-    id: '1',
-  },
-  {
-    label: 'Windows',
-    id: '2',
-  },
-]
 
 const { id } = queryString.parse(window.location.search)
 
@@ -81,7 +23,8 @@ function App() {
   const [radius, setRadius] = useState(0)
   const [shadow, setShadow] = useState(0)
   const [shadowBlur, setShadowBlur] = useState(10)
-  const [theme, setTheme] = useState('null')
+  const [theme, setTheme] = useState('None')
+  const [themeColor, setThemeColor] = useState('dark')
   const [paddingColor, setPaddingColor] = useState('#CAA5C9')
   const [bgColor, setBgColor] = useState(LIST[6].value)
   const [loading, setLoading] = useState(true)
@@ -121,8 +64,14 @@ function App() {
     setShadowBlur(value)
   }
 
-  const setThemeHandler = (item: listItem) => {
-    setTheme(item.id)
+  const setThemeHandler = (item: RadioItem) => {
+    setTheme(item.label)
+  }
+
+  const setThemeColorHandler = (item: RadioItem) => {
+    if(item.name) {
+      setThemeColor(item.name)
+    }
   }
 
   const setPaddingColorHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -154,7 +103,8 @@ function App() {
       domtoimage.toPng(node, options).then((base64: string) => {
         const a = document.createElement('a')
         a.href = base64
-        a.download = 'snap_image.png'
+        const date = new Date().getTime()
+        a.download = `colora_image_${date}.png`
         a.click()
       })
     }
@@ -180,13 +130,12 @@ function App() {
           <div
             className={cls(
               styles.theme,
-              theme === 'macosDark' && styles.macosDark,
-              theme === 'macosLight' && styles.macosLight,
-              theme === 'windowsDark' && styles.windowsDark,
-              theme === 'windowsLight' && styles.windowsLight,
+              theme === 'Macos' && styles.macos,
+              theme === 'Windows' && styles.windows,
+              themeColor === 'light' ? styles.light : ''
             )}
           >
-            {['macosDark', 'macosLight'].includes(theme) ? (
+            {theme === 'Macos' ? (
               <>
                 <p></p>
                 <p></p>
@@ -195,13 +144,13 @@ function App() {
             ) : (
               <>
                 <p>
-                  <WindowsIconZoomOut theme="dark" />
+                  <WindowsIconZoomOut theme={themeColor} />
                 </p>
                 <p>
-                  <WindowsIconZoomIn theme="dark" />
+                  <WindowsIconZoomIn theme={themeColor} />
                 </p>
                 <p>
-                  <WindowsIconClose theme="dark" />
+                  <WindowsIconClose theme={themeColor} />
                 </p>
               </>
             )}
@@ -293,14 +242,29 @@ function App() {
         </div>
         <div className={cls(styles.item, styles.center)}>
           <p className={styles.title}>Theme</p>
-          <Radio list={radioThemeList} />
-          <Radio list={radioThemeColorList} />
-          <Dropdown
+          <Radio list={radioThemeList} onChange={(item: RadioItem) => {
+            setThemeHandler(item)
+          }}/>
+          {/* <Radio list={radioThemeColorList} /> */}
+          {/* <Dropdown
             list={dropdownList}
             onChange={(key) => {
               setThemeHandler(key)
             }}
-          />
+          /> */}
+        </div>
+        <div className={cls(styles.item)}>
+          <p className={styles.title}>Theme Color</p>
+          {/* <Radio list={radioThemeList} /> */}
+          <Radio list={radioThemeColorList} onChange={(item: RadioItem) => {
+            setThemeColorHandler(item)
+          }}/>
+          {/* <Dropdown
+            list={dropdownList}
+            onChange={(key) => {
+              setThemeHandler(key)
+            }}
+          /> */}
         </div>
 
         <div className={cls(styles.item, styles.background)}>
@@ -320,7 +284,7 @@ function App() {
               saveHandler()
             }}
           >
-            Export
+            Download
           </Button>
         </div>
       </div>
