@@ -1,0 +1,12 @@
+.radioWrap {
+  .item {
+    margin-right: 20px;
+    &.current {
+      label {
+        &::after {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}

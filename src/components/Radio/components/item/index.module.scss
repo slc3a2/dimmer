@@ -1,0 +1,85 @@
+.radioItem {
+  // width: 60px;
+  // height: 30px;
+  border: 0;
+  border-radius: 0px;
+  font-family: 'Urbanist,sans-serif';
+  color: #31344b;
+  letter-spacing: 0.025em;
+  border-radius: 4px;
+  background-color: #e6e7ee;
+  border: 0.0625rem solid transparent;
+  box-shadow: 4px 4px 8px #b3b3b3, 1px 1px 3px #ffffff;
+  border-color: #d1d9e6;
+  transition: all 0.2s ease;
+  padding: 5px 10px;
+  box-shadow: 2px 2px 5px #b8b9be, -3px -3px 7px #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  user-select: none;
+  &:active {
+    box-shadow: inset 5px 5px 10px #b3b3b3, inset -5px -5px 10px #ffffff;
+  }
+  label {
+    position: relative;
+    padding-left: 20px;
+    box-sizing: border-box;
+    &::before {
+      content: ' ';
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: inline-block;
+      position: absolute;
+      left: 0;
+      top: 3px;
+      padding: 1px;
+      transition: opacity 0.3s linear;
+      color: #31344b;
+      font-weight: 900;
+      border: 0;
+      background-color: #d1d9e6;
+      box-shadow: inset 1px 2px 2px #b8b9be, inset -5px -2px 4px #fff;
+      box-sizing: border-box;
+    }
+    &::after {
+      content: ' ';
+      width: 8px;
+      height: 8px;
+      position: absolute;
+      top: 7px;
+      left: 4px;
+      background-color: #31344b;
+      border: 4px solid #31344b;
+      opacity: 0;
+      border-radius: 50%;
+      display: inline-block;
+      padding: 1px;
+      transition: opacity 0.3s linear;
+      box-sizing: border-box;
+      background-color: #ccc;
+    }
+  }
+  input[type='radio'] {
+    opacity: 0;
+  }
+  // cursor: pointer;
+  // border: 0;
+  // border-radius: 0px;
+  // font-family: 'Urbanist,sans-serif';
+  // color: #31344b;
+  // letter-spacing: 0.025em;
+  // border-radius: 4px;
+  // background-color: #e6e7ee;
+  // border: 0.0625rem solid transparent;
+  // box-shadow: 4px 4px 8px #b3b3b3, 1px 1px 3px #ffffff;
+  // border-color: #d1d9e6;
+  // transition: all 0.2s ease;
+  // padding: 5px 10px;
+  // box-shadow: 2px 2px 5px #b8b9be, -3px -3px 7px #fff;
+  // border-radius: 8px;
+  // user-select: none;
+  // &:active {
+  //   box-shadow: inset 5px 5px 10px #b3b3b3, inset -5px -5px 10px #ffffff;
+  // }
+}

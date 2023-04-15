@@ -6,9 +6,11 @@ import queryString from 'query-string'
 import Button from '@/components/Button'
 import Slider from '@/components/Slider'
 import Dropdown, { listItem } from '@/components/Dropdown'
+import Radio, { RadioItem } from '@/components/Radio'
 import Picker, { PickerItem, LIST } from '@/components/Picker'
 
 import styles from './options.module.scss'
+import { WindowsIconZoomOut, WindowsIconZoomIn, WindowsIconClose } from './components/svgIcon'
 
 const dropdownList = [
   {
@@ -29,6 +31,47 @@ const dropdownList = [
   },
 ]
 
+const radioThemeList = [
+  {
+    label: 'None',
+    id: '0',
+  },
+  {
+    label: 'Macos',
+    id: '1',
+  },
+  {
+    label: 'Windows',
+    id: '2',
+  },
+]
+
+const radioThemeColorList = [
+  {
+    label: '🌚 Dark',
+    id: '0',
+  },
+  {
+    label: '🌝 Light',
+    id: '1',
+  },
+]
+
+const radioList = [
+  {
+    label: 'None',
+    id: '0',
+  },
+  {
+    label: 'Macos',
+    id: '1',
+  },
+  {
+    label: 'Windows',
+    id: '2',
+  },
+]
+
 const { id } = queryString.parse(window.location.search)
 
 function App() {
@@ -41,6 +84,7 @@ function App() {
   const [theme, setTheme] = useState('null')
   const [paddingColor, setPaddingColor] = useState('#CAA5C9')
   const [bgColor, setBgColor] = useState(LIST[6].value)
+  const [loading, setLoading] = useState(true)
   const imgContainer = useRef(null)
 
   useEffect(() => {
@@ -116,15 +160,21 @@ function App() {
     }
   }
 
+  const onLoad = () => {
+    setLoading(false)
+  }
+
   return (
     <main className={styles.appContainer}>
       <div className={styles.imgContainer} ref={imgContainer} style={{ background: `${bgColor}` }}>
+        <span className={styles.loading} style={{ opacity: `${loading ? 1 : 0}` }}></span>
         <div
-          className={styles.margin}
+          className={styles.imgMargin}
           style={{
             margin: `${margin}px`,
             borderRadius: `${radius}px`,
             boxShadow: `${shadow}px ${shadow}px ${shadowBlur}px rgba(0,0,0,0.1)`,
+            opacity: `${loading ? 0 : 1}`,
           }}
         >
           <div
@@ -145,55 +195,13 @@ function App() {
             ) : (
               <>
                 <p>
-                  <svg
-                    className="icon"
-                    viewBox="0 0 1024 1024"
-                    version="1.1"
-                    xmlns="http://www.w3.org/2000/svg"
-                    p-id="2524"
-                    width="200"
-                    height="200"
-                  >
-                    <path
-                      d="M98.23 451.003l829.685-1.992 0.154 64-829.685 1.992z"
-                      fill={theme === 'windowsLight' ? '#2c2c2c' : '#e0e0e0'}
-                      p-id="2525"
-                    ></path>
-                  </svg>
+                  <WindowsIconZoomOut theme="dark" />
                 </p>
                 <p>
-                  <svg
-                    className="icon"
-                    viewBox="0 0 1024 1024"
-                    version="1.1"
-                    xmlns="http://www.w3.org/2000/svg"
-                    p-id="6209"
-                    width="200"
-                    height="200"
-                  >
-                    <path
-                      d="M800 928H224c-70.692 0-128-57.308-128-128V224c0-70.692 57.308-128 128-128h576c70.692 0 128 57.308 128 128v576c0 70.692-57.308 128-128 128z m64-704c0-35.346-28.654-64-64-64H224c-35.346 0-64 28.654-64 64v576c0 35.346 28.654 64 64 64h576c35.346 0 64-28.654 64-64V224z"
-                      p-id="6210"
-                      fill={theme === 'windowsLight' ? '#2c2c2c' : '#e0e0e0'}
-                    ></path>
-                  </svg>
+                  <WindowsIconZoomIn theme="dark" />
                 </p>
                 <p>
-                  <svg
-                    className="icon"
-                    viewBox="0 0 1024 1024"
-                    version="1.1"
-                    xmlns="http://www.w3.org/2000/svg"
-                    p-id="5280"
-                    width="200"
-                    height="200"
-                  >
-                    <path
-                      d="M851.416 217.84l-45.256-45.248L512 466.744l-294.152-294.16-45.256 45.256L466.744 512l-294.152 294.16 45.248 45.256L512 557.256l294.16 294.16 45.256-45.256L557.256 512z"
-                      fill={theme === 'windowsLight' ? '#2c2c2c' : '#e0e0e0'}
-                      p-id="5281"
-                    ></path>
-                  </svg>
+                  <WindowsIconClose theme="dark" />
                 </p>
               </>
             )}
@@ -205,7 +213,7 @@ function App() {
               backgroundColor: `${paddingColor}`,
             }}
           >
-            <img src={src} alt="" />
+            <img src={src} onLoad={onLoad} />
           </div>
         </div>
       </div>
@@ -223,7 +231,7 @@ function App() {
         </div>
         <div className={cls(styles.item, styles.colorInput)}>
           <p className={styles.title}>Padding Color</p>
-          <label htmlFor="select-color">
+          <label htmlFor="select-color" className={styles.paddingColorInput}>
             <div className={styles.colorInput}>
               <div
                 className={styles.currentPaddingColor}
@@ -285,6 +293,8 @@ function App() {
         </div>
         <div className={cls(styles.item, styles.center)}>
           <p className={styles.title}>Theme</p>
+          <Radio list={radioThemeList} />
+          <Radio list={radioThemeColorList} />
           <Dropdown
             list={dropdownList}
             onChange={(key) => {
