@@ -1,6 +1,6 @@
 # Colora
 
-> A Chrome extension for taking screenshots of selected areas, visible areas, and whole web pages.
+> Lightweight and user-friendly screenshot editing tool
 
 ## Installing
 
