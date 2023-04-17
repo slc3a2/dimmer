@@ -1,3 +1,5 @@
+@import '@/styles/variable.scss';
+
 @keyframes loading {
   0% {
     transform: rotate(0deg);
@@ -19,7 +21,7 @@
     font-weight: 400;
     text-align: center;
     user-select: none;
-    color: #31344b;
+    color: $main_color;
     box-sizing: border-box;
     display: inline-block;
     border: 0.25em solid currentColor;
@@ -140,16 +142,16 @@
           width: 100%;
           height: 100%;
           border-radius: 8px;
-          box-shadow: 2px 2px 5px #b8b9be, -3px -3px 7px #fff;
+          box-shadow: $button_shadow;
           cursor: pointer;
           position: relative;
           z-index: 2;
           box-sizing: border-box;
           padding: 5px;
           border: 1px solid transparent;
-          border-color: #d1d9e6;
+          border-color: $main_border_color;
           &:active {
-            box-shadow: inset 5px 5px 10px #b3b3b3, inset -5px -5px 10px #ffffff;
+            box-shadow: $button_shadow_active;
           }
           .currentPaddingColor {
             width: 100%;
@@ -164,7 +166,7 @@
         padding: 0;
         text-indent: 0em;
         line-height: 1.3;
-        color: #31344b;
+        color: $main_color;
         font-size: 16px;
         font-family: 'Nunito Sans', sans-serif;
         font-weight: 400;
@@ -174,7 +176,7 @@
         border: none;
         padding: 0;
         border-radius: 8px;
-        box-shadow: 2px 2px 5px #b8b9be, -3px -3px 7px #fff;
+        box-shadow: $button_shadow;
         border-radius: 8px;
         overflow: hidden;
         visibility: hidden;
@@ -184,7 +186,7 @@
         width: 2px;
         height: 2px;
         &:active {
-          box-shadow: inset 5px 5px 10px #b3b3b3, inset -5px -5px 10px #ffffff;
+          box-shadow: $button_shadow_active;
         }
       }
       input[type='color']::-webkit-color-swatch-wrapper {

@@ -1,9 +1,11 @@
+@import '@/styles/variable.scss';
+
 .radioWrap {
   display: flex;
   .item {
     margin-right: 20px;
     &.current {
-      box-shadow: inset 5px 5px 10px #b3b3b3, inset -5px -5px 10px #ffffff;
+      box-shadow: $button_shadow_active;
       label {
         &::after {
           opacity: 1;

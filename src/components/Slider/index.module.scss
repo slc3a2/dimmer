@@ -1,3 +1,5 @@
+@import '@/styles/variable.scss';
+
 .sliderContainer {
   position: relative;
   width: 300px;
@@ -18,7 +20,7 @@
     .process {
       height: 5px;
       position: absolute;
-      background-color: #44476a;
+      background-color: $main_color;
       border-radius: 4px;
     }
 
@@ -33,14 +35,14 @@
       box-shadow: 2px 2px 4px #b8b9be, 0px 0px 4px #fff;
       background: #e6e7ee;
       transition: transform 250ms;
-      border: 1px solid #d1d9e6;
+      border: 1px solid $main_border_color;
       &.press {
         transform: translate(-50%, -50%) scale(1.2);
       }
     }
     .value {
-      color: #44476a;
-      border: 1px solid #d1d9e6;
+      color: $main_color;
+      border: 1px solid $main_border_color;
       padding: 5px 10px;
       text-align: center;
       white-space: nowrap;
