@@ -1,6 +1,8 @@
 import react, { useEffect, useState } from 'react'
 import cls from 'classnames'
+
 import styles from './index.module.scss'
+import { getFileMimeType } from '@/utils'
 
 interface UploaderProps {
   onChange: (url: string) => void
@@ -15,13 +17,31 @@ const Uploader = (props: UploaderProps) => {
   }
 
   const fileHandler = (file: any) => {
-    setLoading(true)
     if (loading) return
-    const reader = new FileReader()
-    reader.readAsDataURL(file[0])
-    reader.onload = () => {
-      props.onChange(reader.result as string)
+    console.log(file)
+    if(!file[0]) return
+    const fileSize = file[0].size / (1024 * 1024);
+    console.log(fileSize)
+    if (fileSize > 3) {
+      alert('The file size cannot exceed 3M')
+      return;
     }
+    getFileMimeType(file[0]).then((res) => {
+      if (['png', 'jpg', 'webp'].includes(res as string)) {
+        setLoading(true)
+        const reader = new FileReader()
+        reader.readAsDataURL(file[0])
+        reader.onload = () => {
+          props.onChange(reader.result as string)
+        }
+      } else {
+        alert('Only supports png jpg webp format')
+      }
+      console.log(res)
+      
+    }).catch(e => {
+      alert('File type check error')
+    })
   }
 
   const onDrop = (e: DragEvent) => {
@@ -67,7 +87,7 @@ const Uploader = (props: UploaderProps) => {
       </label>
       <input
         type="file"
-        accept='image/png,image/jpeg,image/jpg,image/bmp,image/webp'
+        accept='image/png,image/jpeg,image/jpg,image/webp'
         id="upload"
         onChange={(e) => {
           onFileChange(e)

@@ -3,7 +3,6 @@ import styles from './popup.module.scss'
 import Button from '@/components/Button'
 
 function App() {
-  const [crx, setCrx] = useState('create-chrome-ext')
   const clickHandler = () => {
     chrome.runtime.sendMessage({ action: 'captureVisibleArea' }, (response) => {
       console.log(response)
