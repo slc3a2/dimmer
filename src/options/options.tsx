@@ -1,14 +1,16 @@
 import { useState, useEffect, useRef } from 'react'
 import domtoimage from 'dom-to-image'
 import cls from 'classnames'
+import { v4 as uuidv4 } from 'uuid'
 import queryString from 'query-string'
-
 
 import Button from '@/components/Button'
 import Slider from '@/components/Slider'
 import Dropdown, { listItem } from '@/components/Dropdown'
 import Radio, { RadioItem } from '@/components/Radio'
 import Picker, { PickerItem, LIST } from '@/components/Picker'
+
+import Upload from './components/upload'
 
 import styles from './options.module.scss'
 import { dropdownList, radioThemeList, radioThemeColorList } from './constant'
@@ -29,9 +31,20 @@ function App() {
   const [bgColor, setBgColor] = useState(LIST[6].value)
   const [loading, setLoading] = useState(true)
   const [downloadLading, setDownloadLading] = useState(false)
+  const [isEmptyData, setIsEmptyData] = useState(false)
+
   const imgContainer = useRef(null)
 
+  const saveSource = (base64: string) => {
+    setSrc(base64)
+    window.sessionStorage.setItem(`${id}`, base64)
+  }
+
   useEffect(() => {
+    if (!id) {
+      setIsEmptyData(true)
+      return
+    }
     const tempSrc = window.sessionStorage.getItem(`${id}`)
     if (tempSrc) {
       setSrc(tempSrc)
@@ -39,8 +52,7 @@ function App() {
       chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         if (request.method === 'pushImgSource') {
           sendResponse({ result: 'options method has been called' })
-          setSrc(request.data.url)
-          window.sessionStorage.setItem(`${id}`, request.data.url)
+          saveSource(request.data.url)
         }
       })
     }
@@ -70,7 +82,7 @@ function App() {
   }
 
   const setThemeColorHandler = (item: RadioItem) => {
-    if(item.name) {
+    if (item.name) {
       setThemeColor(item.name)
     }
   }
@@ -120,167 +132,205 @@ function App() {
     setLoading(false)
   }
 
+  const uploadOnChange = (url: string) => {
+    const id = uuidv4()
+    window.sessionStorage.setItem(`${id}`, url)
+    window.location.href = `${window.location.href}?id=${id}`
+  }
+
+  const openUploaderHandler = () => {
+    window.open(`${window.location.origin}/options.html`)
+  }
+
   return (
     <main className={styles.appContainer}>
-      <div className={styles.imgContainer} ref={imgContainer} style={{ background: `${bgColor}` }}>
-        <span className={styles.loading} style={{ opacity: `${loading ? 1 : 0}` }}></span>
-        <div
-          className={styles.imgMargin}
-          style={{
-            margin: `${margin}px`,
-            borderRadius: `${radius}px`,
-            boxShadow: `${shadow}px ${shadow}px ${shadowBlur}px rgba(0,0,0,0.1)`,
-            opacity: `${loading ? 0 : 1}`,
+      {isEmptyData ? (
+        <Upload
+          onChange={(url) => {
+            uploadOnChange(url)
           }}
-        >
+        />
+      ) : (
+        <>
           <div
-            className={cls(
-              styles.theme,
-              theme === 'Macos' && styles.macos,
-              theme === 'Windows' && styles.windows,
-              themeColor === 'light' ? styles.light : ''
-            )}
+            className={styles.imgContainer}
+            ref={imgContainer}
+            style={{ background: `${bgColor}` }}
           >
-            {theme === 'Macos' ? (
-              <>
-                <p></p>
-                <p></p>
-                <p></p>
-              </>
-            ) : (
-              <>
-                <p>
-                  <WindowsIconZoomOut theme={themeColor} />
-                </p>
-                <p>
-                  <WindowsIconZoomIn theme={themeColor} />
-                </p>
-                <p>
-                  <WindowsIconClose theme={themeColor} />
-                </p>
-              </>
-            )}
-          </div>
-          <div
-            className={styles.imgPadding}
-            style={{
-              padding: `${padding}px`,
-              backgroundColor: `${paddingColor}`,
-            }}
-          >
-            <img src={src} onLoad={onLoad} />
-          </div>
-        </div>
-      </div>
-      <div className={styles.sidebar}>
-        <div className={styles.item}>
-          <p className={styles.title}>Padding</p>
-          <Slider
-            onChange={(value) => {
-              setPaddingHandler(value)
-            }}
-            max={50}
-            min={0}
-            defaultValue={15}
-          />
-        </div>
-        <div className={cls(styles.item, styles.colorInput)}>
-          <p className={styles.title}>Padding Color</p>
-          <label htmlFor="select-color" className={styles.paddingColorInput}>
-            <div className={styles.colorInput}>
+            <span className={styles.loading} style={{ opacity: `${loading ? 1 : 0}` }}></span>
+            <div
+              className={styles.imgMargin}
+              style={{
+                margin: `${margin}px`,
+                borderRadius: `${radius}px`,
+                boxShadow: `${shadow}px ${shadow}px ${shadowBlur}px rgba(0,0,0,0.1)`,
+                opacity: `${loading ? 0 : 1}`,
+              }}
+            >
               <div
-                className={styles.currentPaddingColor}
-                style={{ background: `${paddingColor}` }}
-              ></div>
+                className={cls(
+                  styles.theme,
+                  theme === 'Macos' && styles.macos,
+                  theme === 'Windows' && styles.windows,
+                  themeColor === 'light' ? styles.light : '',
+                )}
+              >
+                {theme === 'Macos' ? (
+                  <>
+                    <p></p>
+                    <p></p>
+                    <p></p>
+                  </>
+                ) : (
+                  <>
+                    <p>
+                      <WindowsIconZoomOut theme={themeColor} />
+                    </p>
+                    <p>
+                      <WindowsIconZoomIn theme={themeColor} />
+                    </p>
+                    <p>
+                      <WindowsIconClose theme={themeColor} />
+                    </p>
+                  </>
+                )}
+              </div>
+              <div
+                className={styles.imgPadding}
+                style={{
+                  padding: `${padding}px`,
+                  backgroundColor: `${paddingColor}`,
+                }}
+              >
+                <img src={src} onLoad={onLoad} />
+              </div>
             </div>
-          </label>
-          <input
-            type="color"
-            id="select-color"
-            value={paddingColor}
-            onChange={(e) => {
-              setPaddingColorHandler(e)
-            }}
-          />
-        </div>
-        <div className={styles.item}>
-          <p className={styles.title}>Margin</p>
-          <Slider
-            onChange={(value) => {
-              setMarginHandler(value)
-            }}
-            max={201}
-            min={0}
-            defaultValue={50}
-          />
-        </div>
-        <div className={styles.item}>
-          <p className={styles.title}>Radius</p>
-          <Slider
-            onChange={(value) => {
-              setRadiusHandler(value)
-            }}
-            max={20}
-            min={0}
-            defaultValue={5}
-          />
-        </div>
-        <div className={styles.item}>
-          <p className={styles.title}>Shadow Size</p>
-          <Slider
-            onChange={(value) => {
-              setShadowHandler(value)
-            }}
-            max={30}
-            min={0}
-          />
-        </div>
-        <div className={styles.item}>
-          <p className={styles.title}>Shadow Blur</p>
-          <Slider
-            onChange={(value) => {
-              setShadowBlurHandler(value)
-            }}
-            defaultValue={10}
-            max={30}
-            min={0}
-          />
-        </div>
-        <div className={cls(styles.item, styles.center)}>
-          <p className={styles.title}>Theme</p>
-          <Radio list={radioThemeList} onChange={(item: RadioItem) => {
-            setThemeHandler(item)
-          }}/>
-        </div>
-        <div className={cls(styles.item)}>
-          <p className={styles.title}>Theme Color</p>
-          <Radio list={radioThemeColorList} onChange={(item: RadioItem) => {
-            setThemeColorHandler(item)
-          }}/>
-        </div>
+          </div>
+          <div className={styles.sidebar}>
+            <div className={styles.item}>
+              <p className={styles.title}>Padding</p>
+              <Slider
+                onChange={(value) => {
+                  setPaddingHandler(value)
+                }}
+                max={50}
+                min={0}
+                defaultValue={15}
+              />
+            </div>
+            <div className={cls(styles.item, styles.colorInput)}>
+              <p className={styles.title}>Padding Color</p>
+              <label htmlFor="select-color" className={styles.paddingColorInput}>
+                <div className={styles.colorInput}>
+                  <div
+                    className={styles.currentPaddingColor}
+                    style={{ background: `${paddingColor}` }}
+                  ></div>
+                </div>
+              </label>
+              <input
+                type="color"
+                id="select-color"
+                value={paddingColor}
+                onChange={(e) => {
+                  setPaddingColorHandler(e)
+                }}
+              />
+            </div>
+            <div className={styles.item}>
+              <p className={styles.title}>Margin</p>
+              <Slider
+                onChange={(value) => {
+                  setMarginHandler(value)
+                }}
+                max={201}
+                min={0}
+                defaultValue={50}
+              />
+            </div>
+            <div className={styles.item}>
+              <p className={styles.title}>Radius</p>
+              <Slider
+                onChange={(value) => {
+                  setRadiusHandler(value)
+                }}
+                max={20}
+                min={0}
+                defaultValue={5}
+              />
+            </div>
+            <div className={styles.item}>
+              <p className={styles.title}>Shadow Size</p>
+              <Slider
+                onChange={(value) => {
+                  setShadowHandler(value)
+                }}
+                max={30}
+                min={0}
+              />
+            </div>
+            <div className={styles.item}>
+              <p className={styles.title}>Shadow Blur</p>
+              <Slider
+                onChange={(value) => {
+                  setShadowBlurHandler(value)
+                }}
+                defaultValue={10}
+                max={30}
+                min={0}
+              />
+            </div>
+            <div className={cls(styles.item, styles.center)}>
+              <p className={styles.title}>Theme</p>
+              <Radio
+                list={radioThemeList}
+                onChange={(item: RadioItem) => {
+                  setThemeHandler(item)
+                }}
+              />
+            </div>
+            <div className={cls(styles.item)}>
+              <p className={styles.title}>Theme Color</p>
+              <Radio
+                list={radioThemeColorList}
+                onChange={(item: RadioItem) => {
+                  setThemeColorHandler(item)
+                }}
+              />
+            </div>
 
-        <div className={cls(styles.item, styles.background)}>
-          <p className={styles.title}>Background Color</p>
-          <Picker
-            onChange={(item) => {
-              setBgColorHandler(item)
-            }}
-          />
-        </div>
+            <div className={cls(styles.item, styles.background)}>
+              <p className={styles.title}>Background Color</p>
+              <Picker
+                onChange={(item) => {
+                  setBgColorHandler(item)
+                }}
+              />
+            </div>
 
-        <span className={styles.line}></span>
+            <span className={styles.line}></span>
 
-        <div className={styles.item}>
-          <Button
-            loading={downloadLading}
-            onClick={() => {
-              downloadHandler()
-            }}
-          >
-            Download
-          </Button>
-        </div>
-      </div>
+            <div className={cls(styles.item, styles.buttons)}>
+              <Button
+                className={styles.downloadButton}
+                loading={downloadLading}
+                onClick={() => {
+                  downloadHandler()
+                }}
+              >
+                Download
+              </Button>
+              <Button
+                onClick={() => {
+                  openUploaderHandler()
+                }}
+              >
+                Upload and Edit
+              </Button>
+            </div>
+          </div>
+        </>
+      )}
     </main>
   )
 }
