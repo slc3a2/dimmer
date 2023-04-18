@@ -67,6 +67,7 @@ const Uploader = (props: UploaderProps) => {
       </label>
       <input
         type="file"
+        accept='image/png,image/jpeg,image/jpg,image/bmp,image/webp'
         id="upload"
         onChange={(e) => {
           onFileChange(e)
