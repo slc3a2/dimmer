@@ -61,8 +61,6 @@ const Slider = ({
   }, [value, max])
 
   const handleMouseDown = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    // e.preventDefault()
-    // isDragging = true
     setIsDragging(true)
   }
 
@@ -107,13 +105,12 @@ const Slider = ({
   }
 
   return (
-    <div className={styles.sliderContainer}>
+    <div className={styles.sliderContainer} onClick={(e) => {
+      handleClick(e)
+    }}>
       <div
         className={styles.sliderTrack}
         ref={track}
-        onClick={(e) => {
-          handleClick(e)
-        }}
       >
         <div className={styles.process} style={{ width: `${process}%` }}></div>
         <div
