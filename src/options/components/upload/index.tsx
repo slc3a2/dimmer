@@ -10,38 +10,39 @@ interface UploaderProps {
 
 const Uploader = (props: UploaderProps) => {
   const [loading, setLoading] = useState(false)
-
+  const [placeholder] = useState('👋 Drop、Click、Paste「⌘ + V」 to Upload')
   const onDragOver = (e: DragEvent) => {
     e.stopPropagation()
     e.preventDefault()
   }
 
-  const fileHandler = (file: any) => {
+  const fileHandler = (file: FileList) => {
     if (loading) return
-    console.log(file)
-    if(!file[0]) return
-    const fileSize = file[0].size / (1024 * 1024);
-    console.log(fileSize)
+    const currentFile = file[0]
+    if (!currentFile) return
+    const fileSize = currentFile.size / (1024 * 1024)
     if (fileSize > 3) {
       alert('The file size cannot exceed 3M')
-      return;
+      return
     }
-    getFileMimeType(file[0]).then((res) => {
-      if (['png', 'jpg', 'webp'].includes(res as string)) {
-        setLoading(true)
-        const reader = new FileReader()
-        reader.readAsDataURL(file[0])
-        reader.onload = () => {
-          props.onChange(reader.result as string)
+    getFileMimeType(currentFile)
+      .then((res) => {
+        console.log(res)
+        if (['png', 'jpg', 'webp'].includes(res as string)) {
+          setLoading(true)
+          const reader = new FileReader()
+          reader.readAsDataURL(file[0])
+          reader.onload = () => {
+            props.onChange(reader.result as string)
+          }
+        } else {
+          alert('Only supports PNG JPG WEBP format')
         }
-      } else {
-        alert('Only supports png jpg webp format')
-      }
-      console.log(res)
-      
-    }).catch(e => {
-      alert('File type check error')
-    })
+      })
+      .catch((e) => {
+        console.log(e)
+        alert('File type check error')
+      })
   }
 
   const onDrop = (e: DragEvent) => {
@@ -55,12 +56,12 @@ const Uploader = (props: UploaderProps) => {
   }
 
   const onFileChange = (e: react.ChangeEvent<HTMLInputElement>) => {
-    if (loading) return
+    if (loading || !e.target.files) return
     fileHandler(e.target.files)
   }
 
-  const onPaste = (e: any) => {
-    if (loading) return
+  const onPaste = (e: ClipboardEvent) => {
+    if (loading || !e.clipboardData) return
     fileHandler(e.clipboardData.files)
   }
 
@@ -81,13 +82,18 @@ const Uploader = (props: UploaderProps) => {
           {loading ? (
             <span className={styles.loading} style={{ opacity: `${loading ? 1 : 0}` }}></span>
           ) : (
-            <p>👋 Drop、Click、Paste to Upload </p>
+            <>
+              <p className={styles.info}>
+                👋 Drop、Click、Paste「<span>⌘</span> + <span>V</span>」 to Upload
+              </p>
+              <p className={styles.tips}>Support PNG JPG WEBP</p>
+            </>
           )}
         </div>
       </label>
       <input
         type="file"
-        accept='image/png,image/jpeg,image/jpg,image/webp'
+        accept="image/png,image/jpeg,image/jpg,image/webp"
         id="upload"
         onChange={(e) => {
           onFileChange(e)

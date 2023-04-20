@@ -28,6 +28,7 @@
     border-radius: 8px;
     cursor: pointer;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     font-size: 20px;
@@ -53,6 +54,18 @@
       vertical-align: middle;
       position: absolute;
       transform: translate(-50%, -50%);
+    }
+    .info {
+      span {
+        padding: 5px 4px;
+        font-style: italic;
+      }
+    }
+    .tips {
+      font-size: 12px;
+      color: #31344b;
+      font-style: italic;
+      margin-top: 20px;
     }
   }
   input[type='file'] {

@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, ReactNode } from 'react'
 import cls from 'classnames'
 
 import styles from './index.module.scss'
 
 interface ButtonProps {
-  children: any
+  children: string | ReactNode
   className?: string
   loading?: boolean
   onClick?: () => void
@@ -22,16 +22,13 @@ const Button = (props: ButtonProps) => {
       onClick={() => {
         clickHandler()
       }}
-    > 
-      {
-        props.loading
-        ?
+    >
+      {props.loading ? (
         <span className={styles.loading} style={{ opacity: `${props.loading ? 1 : 0}` }}></span>
-        :
-        null
-      }
-      <span className={cls(styles.content, props.loading ? styles.hidden : '')}>{props.children}</span>
-      
+      ) : null}
+      <span className={cls(styles.content, props.loading ? styles.hidden : '')}>
+        {props.children}
+      </span>
     </button>
   )
 }

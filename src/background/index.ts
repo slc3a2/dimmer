@@ -1,8 +1,6 @@
 import { v4 as uuidv4 } from 'uuid'
 
 export {}
-console.log('This is the background page.')
-console.log('Put the background scripts here.')
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === 'captureVisibleArea') {

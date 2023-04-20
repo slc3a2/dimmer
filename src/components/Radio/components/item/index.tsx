@@ -1,15 +1,14 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, ReactNode } from 'react'
 import cls from 'classnames'
 
 import styles from './index.module.scss'
 
 interface RadioItemProps {
-  children: any
+  children: string | ReactNode
   id: string
   className?: string
   onClick?: () => void
 }
-
 
 const RadioItem = (props: RadioItemProps) => {
   const clickHandler = () => {
