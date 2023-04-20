@@ -7,6 +7,7 @@ const throttle = (fun: any, delay: number) => {
   return function (...args: any) {
     let now = Date.now()
     if (now - prev >= delay) {
+      // @ts-ignore
       fun.apply(this, args)
       prev = Date.now()
     }
@@ -105,13 +106,13 @@ const Slider = ({
   }
 
   return (
-    <div className={styles.sliderContainer} onClick={(e) => {
-      handleClick(e)
-    }}>
-      <div
-        className={styles.sliderTrack}
-        ref={track}
-      >
+    <div
+      className={styles.sliderContainer}
+      onClick={(e) => {
+        handleClick(e)
+      }}
+    >
+      <div className={styles.sliderTrack} ref={track}>
         <div className={styles.process} style={{ width: `${process}%` }}></div>
         <div
           className={cls(styles.sliderThumb, isDragging ? styles.press : '')}

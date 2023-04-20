@@ -4,7 +4,7 @@ import { crx } from '@crxjs/vite-plugin'
 import react from '@vitejs/plugin-react'
 
 import manifest from './src/manifest'
-//@ts-ignore
+// @ts-ignore
 import { config } from './src/read_pages_folder'
 
 // https://vitejs.dev/config/
