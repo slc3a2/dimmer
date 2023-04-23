@@ -9,6 +9,7 @@ import Slider from '@/components/Slider'
 import Dropdown, { listItem } from '@/components/Dropdown'
 import Radio, { RadioItem } from '@/components/Radio'
 import Picker, { PickerItem, LIST } from '@/components/Picker'
+import Loading from '@/components/Loading'
 
 import Upload from './components/upload'
 
@@ -157,7 +158,7 @@ function App() {
             ref={imgContainer}
             style={{ background: `${bgColor}` }}
           >
-            <span className={styles.loading} style={{ opacity: `${loading ? 1 : 0}` }}></span>
+            <Loading visible={loading} />
             <div
               className={styles.imgMargin}
               style={{

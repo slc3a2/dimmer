@@ -2,7 +2,9 @@ import react, { useEffect, useState } from 'react'
 import cls from 'classnames'
 
 import styles from './index.module.scss'
+
 import { getFileMimeType } from '@/utils'
+import Loading from '@/components/Loading'
 
 interface UploaderProps {
   onChange: (url: string) => void
@@ -10,7 +12,6 @@ interface UploaderProps {
 
 const Uploader = (props: UploaderProps) => {
   const [loading, setLoading] = useState(false)
-  const [placeholder] = useState('👋 Drop、Click、Paste「⌘ + V」 to Upload')
   const onDragOver = (e: DragEvent) => {
     e.stopPropagation()
     e.preventDefault()
@@ -34,6 +35,7 @@ const Uploader = (props: UploaderProps) => {
           reader.readAsDataURL(file[0])
           reader.onload = () => {
             props.onChange(reader.result as string)
+            setLoading(false)
           }
         } else {
           alert('Only supports PNG JPG WEBP format')
@@ -77,24 +79,23 @@ const Uploader = (props: UploaderProps) => {
 
   return (
     <section className={cls(styles.appContainer, loading ? styles.disabled : '')}>
-      <label htmlFor="upload">
+      <label htmlFor="uploader">
         <div className={styles.main}>
-          {loading ? (
-            <span className={styles.loading} style={{ opacity: `${loading ? 1 : 0}` }}></span>
-          ) : (
-            <>
-              <p className={styles.info}>
-                👋 Drop、Click、Paste「<span>⌘</span> + <span>V</span>」 to Upload
-              </p>
-              <p className={styles.tips}>Support PNG JPG WEBP</p>
-            </>
-          )}
+          <Loading visible={loading} />
+          <p className={cls(styles.infoBlock, loading ? '' : styles.visible)}>
+            <span className={styles.info}>
+              👋 Drop、Click、Paste「<span className={styles.key}>⌘</span> +{' '}
+              <span className={styles.key}>V</span>」 to Upload
+            </span>
+            <br />
+            <span className={styles.tips}>Support PNG JPG WEBP</span>
+          </p>
         </div>
       </label>
       <input
         type="file"
         accept="image/png,image/jpeg,image/jpg,image/webp"
-        id="upload"
+        id="uploader"
         onChange={(e) => {
           onFileChange(e)
         }}

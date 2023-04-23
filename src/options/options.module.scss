@@ -1,40 +1,9 @@
 @import '@/styles/variable.scss';
 
-@keyframes loading {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
 .appContainer {
   display: flex;
   background-color: #e6e7ee;
   position: relative;
-  .loading {
-    opacity: 1;
-    transition: opaticy 0.25s;
-    -webkit-text-size-adjust: 100%;
-    -webkit-tap-highlight-color: rgba(38, 40, 51, 0);
-    font-weight: 400;
-    text-align: center;
-    user-select: none;
-    color: $main_color;
-    box-sizing: border-box;
-    display: inline-block;
-    border: 0.25em solid currentColor;
-    border-right-color: transparent;
-    border-radius: 50%;
-    animation: loading 0.75s linear infinite;
-    width: 12px;
-    height: 12px;
-    border-width: 2px;
-    vertical-align: middle;
-    position: absolute;
-    transform: translate(-50%, -50%);
-  }
   .imgContainer {
     width: calc(100% - 380px);
     height: 100vh;
@@ -103,7 +72,7 @@
       .imgPadding {
         box-sizing: border-box;
         background-color: '#fff';
-        overflow: hidden;
+        overflow: scroll;
         img {
           width: 100%;
           height: auto;
