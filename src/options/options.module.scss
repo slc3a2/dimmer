@@ -18,7 +18,7 @@
       opacity: 0;
       .theme {
         width: 100%;
-        height: 17px;
+        height: 18px;
         align-items: center;
         box-sizing: border-box;
         padding-left: 10px;
@@ -28,11 +28,12 @@
           display: flex;
           background-color: rgb(61, 64, 67);
           p {
-            width: 5px;
-            height: 5px;
+            width: 7px;
+            height: 7px;
             border-radius: 50%;
-            margin-right: 5px;
+            margin-right: 7px;
             &:nth-child(1) {
+              margin-left: 5px;
               background: rgb(238, 105, 94);
             }
             &:nth-child(2) {
@@ -103,42 +104,49 @@
       &:last-child {
         margin-bottom: 0;
       }
-      &.colorInput {
-        margin-bottom: 0;
-      }
       &.buttons {
         display: flex;
         .downloadButton {
           margin-right: 20px;
         }
       }
-      label.paddingColorInput {
-        width: 40px;
-        height: 40px;
-        display: block;
-        .colorInput {
-          width: 100%;
-          height: 100%;
-          border-radius: 8px;
-          box-shadow: $button_shadow;
-          cursor: pointer;
+      &.paddingColor {
+        .sketchPickerWrap{
           position: relative;
-          z-index: 2;
-          box-sizing: border-box;
-          padding: 5px;
-          border: 1px solid transparent;
-          border-color: $main_border_color;
-          &:active {
-            box-shadow: $button_shadow_active;
-          }
-          .currentPaddingColor {
-            width: 100%;
-            height: 100%;
-            border-radius: 8px;
+          .sketchPicker {
+            position: absolute;
+            top: 10px;
+            width: 200px;
+            height: 250px;
+            z-index: 2;
+            border-radius: 8px !important;
+            user-select: none;
+            box-shadow: 2px 2px 5px #b8b9be, -3px -3px 7px #fff !important;
           }
         }
       }
-
+      .colorInput {
+        width: 40px;
+        height: 40px;
+        display: block;
+        border-radius: 8px;
+        box-shadow: $button_shadow;
+        cursor: pointer;
+        position: relative;
+        z-index: 2;
+        box-sizing: border-box;
+        padding: 5px;
+        border: 1px solid transparent;
+        border-color: $main_border_color;
+        &:active {
+          box-shadow: $button_shadow_active;
+        }
+        .currentPaddingColor {
+          width: 100%;
+          height: 100%;
+          border-radius: 8px;
+        }
+      }
       .title {
         margin: 0;
         padding: 0;

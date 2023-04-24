@@ -3,6 +3,7 @@ import domtoimage from 'dom-to-image'
 import cls from 'classnames'
 import { v4 as uuidv4 } from 'uuid'
 import queryString from 'query-string'
+import { SketchPicker, ColorResult } from 'react-color';
 
 import Button from '@/components/Button'
 import Slider from '@/components/Slider'
@@ -28,7 +29,8 @@ function App() {
   const [shadowBlur, setShadowBlur] = useState(10)
   const [theme, setTheme] = useState('None')
   const [themeColor, setThemeColor] = useState('dark')
-  const [paddingColor, setPaddingColor] = useState('#CAA5C9')
+  const [paddingColor, setPaddingColor] = useState('#fff')
+  const [openPaddingColor, setOpenPaddingColor] = useState(false)
   const [bgColor, setBgColor] = useState(LIST[6].value)
   const [loading, setLoading] = useState(true)
   const [downloadLading, setDownloadLading] = useState(false)
@@ -57,7 +59,22 @@ function App() {
         }
       })
     }
+    document.addEventListener('click', handleDocClick)
+    return () => {
+      document.removeEventListener('click', handleDocClick)
+    }
   }, [])
+
+  const handleDocClick = (e: any) => {
+    console.log(e.target)
+    const parent = document.querySelector('.sketch-picker')
+    console.log(parent)
+    const contain = parent?.contains(e.target)
+    console.log(contain)
+    if (!contain) {
+      setOpenPaddingColor(false)
+    }
+  }
 
   const setPaddingHandler = (value: number) => {
     setPadding(value)
@@ -88,10 +105,10 @@ function App() {
     }
   }
 
-  const setPaddingColorHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value) {
-      setPaddingColor(e.target.value)
-    }
+  const setPaddingColorHandler = (e: ColorResult) => {
+    console.log(e)
+    const {r, g, b, a} = e.rgb;
+    setPaddingColor(`rgba(${r}, ${g}, ${b}, ${a})`);
   }
 
   const setBgColorHandler = (item: PickerItem) => {
@@ -143,6 +160,11 @@ function App() {
     window.open(`${window.location.origin}/options.html`)
   }
 
+  const openPaddingColorHandler = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    e.stopPropagation()
+    setOpenPaddingColor(!openPaddingColor)
+  }
+
   return (
     <main className={styles.appContainer}>
       {isEmptyData ? (
@@ -164,7 +186,7 @@ function App() {
               style={{
                 margin: `${margin}px`,
                 borderRadius: `${radius}px`,
-                boxShadow: `${shadow}px ${shadow}px ${shadowBlur}px rgba(0,0,0,0.1)`,
+                boxShadow: `5px 5px ${10 + shadowBlur}px ${shadow}px rgba(0,0,0,0.1)`,
                 opacity: `${loading ? 0 : 1}`,
               }}
             >
@@ -216,27 +238,35 @@ function App() {
                 }}
                 max={50}
                 min={0}
-                defaultValue={15}
+                defaultValue={0}
               />
             </div>
-            <div className={cls(styles.item, styles.colorInput)}>
+            <div className={cls(styles.item, styles.paddingColor)}>
               <p className={styles.title}>Padding Color</p>
-              <label htmlFor="select-color" className={styles.paddingColorInput}>
                 <div className={styles.colorInput}>
                   <div
                     className={styles.currentPaddingColor}
+                    onClick={(e) => {openPaddingColorHandler(e)}}
                     style={{ background: `${paddingColor}` }}
                   ></div>
                 </div>
-              </label>
-              <input
-                type="color"
-                id="select-color"
-                value={paddingColor}
-                onChange={(e) => {
-                  setPaddingColorHandler(e)
-                }}
-              />
+              {
+                openPaddingColor 
+                ?
+                (
+                  <div className={styles.sketchPickerWrap}>
+                     <SketchPicker 
+                      className={styles.sketchPicker}
+                      color={paddingColor} 
+                      onChange={
+                        (e) => {setPaddingColorHandler(e)}
+                      }
+                      presetColors={[]}
+                    />
+                  </div>
+                )
+                : null
+              }
             </div>
             <div className={styles.item}>
               <p className={styles.title}>Margin</p>
@@ -246,11 +276,11 @@ function App() {
                 }}
                 max={201}
                 min={0}
-                defaultValue={50}
+                defaultValue={100}
               />
             </div>
             <div className={styles.item}>
-              <p className={styles.title}>Radius</p>
+              <p className={styles.title}>Border Radius</p>
               <Slider
                 onChange={(value) => {
                   setRadiusHandler(value)
@@ -277,7 +307,7 @@ function App() {
                   setShadowBlurHandler(value)
                 }}
                 defaultValue={10}
-                max={30}
+                max={20}
                 min={0}
               />
             </div>
