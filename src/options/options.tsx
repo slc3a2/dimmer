@@ -3,7 +3,7 @@ import domtoimage from 'dom-to-image'
 import cls from 'classnames'
 import { v4 as uuidv4 } from 'uuid'
 import queryString from 'query-string'
-import { SketchPicker, ColorResult } from 'react-color';
+import { SketchPicker, ColorResult } from 'react-color'
 
 import Button from '@/components/Button'
 import Slider from '@/components/Slider'
@@ -66,11 +66,8 @@ function App() {
   }, [])
 
   const handleDocClick = (e: any) => {
-    console.log(e.target)
     const parent = document.querySelector('.sketch-picker')
-    console.log(parent)
     const contain = parent?.contains(e.target)
-    console.log(contain)
     if (!contain) {
       setOpenPaddingColor(false)
     }
@@ -106,9 +103,8 @@ function App() {
   }
 
   const setPaddingColorHandler = (e: ColorResult) => {
-    console.log(e)
-    const {r, g, b, a} = e.rgb;
-    setPaddingColor(`rgba(${r}, ${g}, ${b}, ${a})`);
+    const { r, g, b, a } = e.rgb
+    setPaddingColor(`rgba(${r}, ${g}, ${b}, ${a})`)
   }
 
   const setBgColorHandler = (item: PickerItem) => {
@@ -243,30 +239,29 @@ function App() {
             </div>
             <div className={cls(styles.item, styles.paddingColor)}>
               <p className={styles.title}>Padding Color</p>
-                <div className={styles.colorInput}>
-                  <div
-                    className={styles.currentPaddingColor}
-                    onClick={(e) => {openPaddingColorHandler(e)}}
-                    style={{ background: `${paddingColor}` }}
-                  ></div>
+              <div
+                className={styles.colorInput}
+                onClick={(e) => {
+                  openPaddingColorHandler(e)
+                }}
+              >
+                <div
+                  className={styles.currentPaddingColor}
+                  style={{ background: `${paddingColor}` }}
+                ></div>
+              </div>
+              {openPaddingColor ? (
+                <div className={styles.sketchPickerWrap}>
+                  <SketchPicker
+                    className={styles.sketchPicker}
+                    color={paddingColor}
+                    onChange={(e) => {
+                      setPaddingColorHandler(e)
+                    }}
+                    presetColors={[]}
+                  />
                 </div>
-              {
-                openPaddingColor 
-                ?
-                (
-                  <div className={styles.sketchPickerWrap}>
-                     <SketchPicker 
-                      className={styles.sketchPicker}
-                      color={paddingColor} 
-                      onChange={
-                        (e) => {setPaddingColorHandler(e)}
-                      }
-                      presetColors={[]}
-                    />
-                  </div>
-                )
-                : null
-              }
+              ) : null}
             </div>
             <div className={styles.item}>
               <p className={styles.title}>Margin</p>

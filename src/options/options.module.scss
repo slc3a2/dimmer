@@ -4,6 +4,7 @@
   display: flex;
   background-color: #e6e7ee;
   position: relative;
+  min-width: 1100px;
   .imgContainer {
     width: calc(100% - 380px);
     height: 100vh;
@@ -111,7 +112,7 @@
         }
       }
       &.paddingColor {
-        .sketchPickerWrap{
+        .sketchPickerWrap {
           position: relative;
           .sketchPicker {
             position: absolute;
@@ -185,6 +186,15 @@
         margin: 0;
         border: none;
       }
+    }
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .sketchPickerWrap {
+    input {
+      color: #213547 !important;
+      background-color: #fff !important;
     }
   }
 }
