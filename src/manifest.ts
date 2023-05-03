@@ -3,7 +3,7 @@ import { defineManifest } from '@crxjs/vite-plugin'
 export default defineManifest({
   name: 'Colora - Screenshot and Edit',
   description: 'Lightweight and user-friendly screenshot editing tool.',
-  version: '1.0.1',
+  version: '1.0.2',
   manifest_version: 3,
   icons: {
     '16': 'img/logo.png',
