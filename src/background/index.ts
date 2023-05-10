@@ -6,7 +6,32 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === 'captureVisibleArea') {
     captureVisibleArea()
   }
+  if (request.action === 'captureSelectArea') {
+    captureSelectArea()
+  }
 })
+
+const captureSelectArea = () => {
+  chrome.tabs.captureVisibleTab((screenshotUrl) => {
+    chrome.tabs.query(
+      {
+        active: true,
+        currentWindow: true,
+      },
+      (tabs) => {
+        if (tabs[0].id) {
+          const tabId = tabs[0].id
+          let message = {
+            source: screenshotUrl,
+          }
+          chrome.tabs.sendMessage(tabId, message, (res) => {
+            console.log(res)
+          })
+        }
+      },
+    )
+  })
+}
 
 const captureVisibleArea = () => {
   chrome.tabs.captureVisibleTab((screenshotUrl) => {
