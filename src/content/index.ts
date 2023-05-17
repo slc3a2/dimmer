@@ -1,7 +1,10 @@
 export {}
 
+import 'cropperjs/dist/cropper.css';
+import Cropper from 'cropperjs';
+
+
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  console.log(request)
   if (request.source) {
     const source = request.source
     const dom = document.createElement('colora')
@@ -15,7 +18,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         cursor: crosshair;
         `
     dom.innerHTML += `
-        <img src=${source} style='width:100%; height:100%;'/>
+        <img class='colora-snap-img' src=${source} style='display: block;max-width: 100%;'/>
         <div class='colora-select'></div>
     `
     document.body.appendChild(dom)
@@ -35,63 +38,103 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         cursor: crosshair;
         display: none;
         backgorund-color: rgba(0,0,0,0.2);
-        border: 1px solid rgba(0,0,0,0.3);
+        border: 1px solid red;
         z-index: 1002;
         `
 
-    console.log(select)
-
     let startX = 0
     let startY = 0
+    let isStart = false
 
-    dom.onmousedown = (e) => {
-      console.log('down')
-      console.log(e)
-      e.stopPropagation()
-      e.preventDefault()
-    
-      select.style.display = 'block'
-      select.style.left = `${e.clientX}px`
-      select.style.top = `${e.clientY}px`
-    
-      startX = e.clientX - dom.offsetLeft
-      startY = e.clientY - dom.offsetTop
-    }
-    
-    dom.onmouseup = (e) => {
-      select.style.display = 'none'
-      var croppedCanvas = document.createElement('canvas')
-      var croppedContext = croppedCanvas.getContext('2d')
-      if (!croppedContext) {
-        return
-      }
-      const width = Math.abs(e.clientX - startX - dom.offsetLeft)
-      const height = Math.abs(e.clientY - startY - dom.offsetTop)
-      croppedCanvas.width = width
-      croppedCanvas.height = height
-    
-      const img = document.querySelector('colora img') as CanvasImageSource
+    const img = document.querySelector('.colora-snap-img') as HTMLImageElement
 
-      console.log(img, startX, startY, width, height, 0, 0, width, height)
-      croppedContext.drawImage(img, startX, startY, width, height, 0, 0, width, height)
-      const croppedDataURL = croppedCanvas.toDataURL()
-      console.log(croppedDataURL)
+    const cropper = new Cropper(img, {
+      viewMode: 1,
+      dragMode: 'none',
+      // crop(event) {
+      //   let cas = cropper.getCroppedCanvas();// 获取被裁剪后的canvas                  
+      //   let base64 = cas.toDataURL('image/jpeg');
+      //   console.log(base64)
+      //   console.log(event)
+      //   console.log(event.detail.x);
+      //   console.log(event.detail.y);
+      //   console.log(event.detail.width);
+      //   console.log(event.detail.height);
+      //   console.log(event.detail.rotate);
+      //   console.log(event.detail.scaleX);
+      //   console.log(event.detail.scaleY);
+      // },
+    });
 
-      debugBase64(croppedDataURL)
-    }
+    // dom.onmousedown = (e) => {
+    //   e.stopPropagation()
+    //   e.preventDefault()
+    //   isStart = true
     
-    dom.onmousemove = (e) => {
-      e.stopPropagation()
-      e.preventDefault()
-      let width = e.clientX - startX - dom.offsetLeft
-      let height = e.clientY - startY - dom.offsetTop
-      select.style.width = `${Math.abs(width)}px`
-      select.style.height = `${Math.abs(height)}px`
-    }
+    //   select.style.display = 'block'
+    //   select.style.left = `${e.clientX}px`
+    //   select.style.top = `${e.clientY}px`
+    
+    //   startX = e.clientX - dom.offsetLeft;
+    //   startY = e.clientY - dom.offsetTop;
+
+    //   // const domRect = dom.getBoundingClientRect();
+    //   // startX = e.pageX - domRect.left - window.scrollX;
+    //   // startY = e.pageY - domRect.top - window.scrollY;
+    // }
+
+    // dom.onmousemove = (e) => {
+    //   if(!isStart) return
+    //   e.stopPropagation()
+    //   e.preventDefault()
+    //   // let width = e.pageX - startX - dom.offsetLeft;
+    //   // let height = e.pageY - startY - dom.offsetTop;
+    //   // const domRect = dom.getBoundingClientRect();
+    //   let width = e.clientX - startX;
+    //   let height = e.clientY - startY;
+    //   select.style.width = `${Math.abs(width)}px`;
+    //   select.style.height = `${Math.abs(height)}px`;
+
+    //   console.log(`宽 ${Math.abs(width)} 高 ${Math.abs(height)}`)
+    //   console.log(`开始x ${startX} 开始y ${startY}`)
+    // }
+    
+    // dom.onmouseup = (e) => {
+    //   isStart = false
+    //   select.style.display = 'none'
+    //   const croppedCanvas = document.createElement('canvas')
+    //   const croppedContext = croppedCanvas.getContext('2d')
+    //   if (!croppedContext) {
+    //     return
+    //   }
+    //   const width = Math.abs(e.clientX - startX - dom.offsetLeft + window.scrollX)
+    //   const height = Math.abs(e.clientY - startY - dom.offsetTop + window.scrollY)
+    //   croppedCanvas.width = width
+    //   croppedCanvas.height = height
+    //   console.log(document, croppedCanvas)
+
+    //   // const img = document.querySelector('colora img') as CanvasImageSource
+    //   const img = document.querySelector('.colora-snap-img') as CanvasImageSource;
+
+
+    //   console.log(img, startX, startY, width, height, 0, 0, width, height)
+    //   croppedContext.drawImage(img, startX, startY, width, height, 0, 0, width, height)
+    //   const croppedDataURL = croppedCanvas.toDataURL()
+    //   // console.log(croppedDataURL)
+
+    //   hideColoraSelectArea()
+
+    //   debugBase64(croppedDataURL)
+    // }
 
     dom.oncontextmenu = (e) => {
       e.preventDefault()
-      select.style.display = 'none'
+      // hideColoraSelectArea()
+      cropper.clear()
+    }
+
+    const hideColoraSelectArea = () => {
+      document.querySelector('colora')?.remove()
     }
 
     function debugBase64(base64URL: string){

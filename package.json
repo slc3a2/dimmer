@@ -24,6 +24,7 @@
     "@types/chrome": "0.0.227",
     "@types/uuid": "^9.0.1",
     "classnames": "^2.3.2",
+    "cropperjs": "^1.5.13",
     "dom-to-image": "^2.6.0",
     "lodash.throttle": "^4.1.1",
     "path": "^0.12.7",
