@@ -9,18 +9,20 @@ interface ButtonProps {
   children: string | ReactNode
   className?: string
   loading?: boolean
+  disabled?: boolean
   onClick?: () => void
 }
 
 const Button = (props: ButtonProps) => {
   const clickHandler = () => {
+    if (props.loading || props.disabled) return;
     if (props.onClick) {
       props.onClick()
     }
   }
   return (
     <button
-      className={cls(styles.button, props.className, props.loading ? styles.disabled : '')}
+      className={cls(styles.button, props.className, props.loading || props.disabled ? styles.disabled : '')}
       onClick={() => {
         clickHandler()
       }}

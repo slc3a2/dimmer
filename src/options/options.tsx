@@ -53,7 +53,7 @@ function App() {
       setSrc(tempSrc)
     } else {
       chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-        if (request.method === 'pushImgSource') {
+        if (request.method === 'openOptionPage') {
           sendResponse({ result: 'options method has been called' })
           saveSource(request.data.url)
         }

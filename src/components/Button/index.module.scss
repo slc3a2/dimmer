@@ -20,7 +20,6 @@
   &.disabled {
     box-shadow: none !important;
     cursor: not-allowed;
-    pointer-events: none;
   }
   .content {
     transition: opacity 0.2s ease;

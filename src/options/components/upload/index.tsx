@@ -28,7 +28,6 @@ const Uploader = (props: UploaderProps) => {
     }
     getFileMimeType(currentFile)
       .then((res) => {
-        console.log(res)
         if (['png', 'jpg', 'webp'].includes(res as string)) {
           setLoading(true)
           const reader = new FileReader()
