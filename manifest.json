@@ -1,16 +1,16 @@
 {
-  "name": "关灯",
-  "manifest_version": 2,
+  "name": "Lights Off(关灯)",
+  "manifest_version": 3,
   "version": "1.0.5",
   "author": "slc3a2@gmail.com",
   "description": "Webpage Theme changer",
   "icons": { "16": "imgs/logo16.png", "128": "imgs/logo128.png" },
-  "browser_action": {
-    "default_title": "关灯",
+  "action": {
+    "default_title": "Lights Off(关灯)",
     "default_popup": "./popup/index.html"
   },
   "background": {
-    "page": "background/index.html"
+    "service_worker": "background/index.js"
   },
   "content_scripts": [
     {
@@ -21,9 +21,13 @@
     }
   ],
   "permissions": [],
-  "web_accessible_resources": [
-    "assets/logo.png",
-    "assets/logo-transparent.png"
-  ],
-  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
+  "web_accessible_resources": [{
+    "resources": ["assets/logo.png", "assets/logo-transparent.png"],
+    "matches": ["<all_urls>"]
+  }],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'",  
+    "sandbox": "sandbox allow-scripts; script-src 'self'; object-src 'self'"
+  }
 }
+

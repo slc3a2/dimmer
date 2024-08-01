@@ -34,7 +34,7 @@ window.onload = function () {
         info: "getMode",
       };
       chrome.tabs.sendMessage(tabs[0].id, message, (res) => {
-        if (res.has) {
+        if (res?.has) {
           document.querySelector(".normal").classList.add("cur");
         } else {
           document.querySelector(".normal").classList.remove("cur");
