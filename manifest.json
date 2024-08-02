@@ -1,7 +1,7 @@
 {
   "name": "Lights Off(关灯)",
   "manifest_version": 3,
-  "version": "1.0.5",
+  "version": "1.1.0",
   "author": "slc3a2@gmail.com",
   "description": "Webpage Theme changer",
   "icons": { "16": "imgs/logo16.png", "128": "imgs/logo128.png" },
