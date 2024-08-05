@@ -44,3 +44,9 @@
 - **v1.0.0**
 
   1.发布 mvp 版本
+
+- **v1.1.0**
+
+  1.manifest_version 支持第 3 版本，支持 google extension 商店要求
+
+  1.对 popup ui 进行优化，使用体验更专注
