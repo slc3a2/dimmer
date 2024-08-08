@@ -138,8 +138,10 @@
         padding: 5px;
         border: 1px solid transparent;
         border-color: $main_border_color;
+        transition: all 0.2s;
         &:active {
           box-shadow: $button_shadow_active;
+          transform: $clickable_scale;
         }
         .currentPaddingColor {
           width: 100%;

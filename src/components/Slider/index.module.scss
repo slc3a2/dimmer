@@ -37,8 +37,9 @@
       background: #e6e7ee;
       transition: transform 250ms;
       border: 1px solid $main_border_color;
+      transition: all 0.2s;
       &.press {
-        transform: translate(-50%, -50%) scale(1.2);
+        transform: translate(-50%, -50%) scale(0.9);
       }
     }
     .value {

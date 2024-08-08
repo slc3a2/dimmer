@@ -20,6 +20,7 @@
   height: 25px;
   &:active {
     box-shadow: $button_shadow_active;
+    transform: $clickable_scale;
   }
   label {
     position: relative;
