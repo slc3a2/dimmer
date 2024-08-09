@@ -23,6 +23,7 @@
       position: absolute;
       background-color: $main_color;
       border-radius: 4px;
+      transition: width 250ms;
     }
 
     .sliderThumb {
@@ -51,17 +52,16 @@
       box-shadow: inset 2px 2px 5px #b8b9be, inset -3px -3px 7px #fff;
       border-radius: 0.55rem;
       position: absolute;
-      transition: transform 250ms;
       top: 10px;
       transform: translateX(-50%);
       margin: 0;
       margin-top: 12px;
       opacity: 0;
-      transition: opacity 250ms;
+      transition: opacity 250ms, transform 250ms;
       background-color: #e6e7ee;
       &.press {
         opacity: 1;
-        transform: translateX(-50%) scale(1.2);
+        transform: translateX(-50%) scale(0.95);
       }
       &.visible {
         opacity: 1;
