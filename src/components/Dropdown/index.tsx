@@ -7,6 +7,8 @@ import styles from './index.module.scss'
 
 interface DropdownProps {
   list: listItem[]
+  label: string
+  className?: string
   onChange: (key: listItem) => void
 }
 
@@ -18,6 +20,7 @@ interface listItem {
 const Dropdown = (props: DropdownProps) => {
   const [visible, setVisible] = useState(false)
   const [list, setList] = useState(props.list)
+  const [label, setLabel] = useState(props.label)
   const [value, setValue] = useState('None')
   const dropdownRef = useRef(null)
 
@@ -40,20 +43,9 @@ const Dropdown = (props: DropdownProps) => {
   }
 
   return (
-    <div ref={dropdownRef} className={styles.wrap}>
-      <Button onClick={() => setVisible(!visible)}>{value}</Button>
+    <div ref={dropdownRef} className={cls(styles.wrap, props.className)}>
+      <Button onClick={() => setVisible(!visible)}>{label || value}</Button>
       <ul className={cls(styles.list, visible ? styles.visible : null)}>
-        <li
-          className={styles.item}
-          onClick={() => {
-            itemClickHandler({
-              name: 'None',
-              id: '',
-            })
-          }}
-        >
-          None
-        </li>
         {list.map((item) => {
           return (
             <li

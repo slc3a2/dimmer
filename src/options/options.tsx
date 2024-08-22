@@ -15,11 +15,20 @@ import Loading from '@/components/Loading'
 import Upload from './components/upload'
 
 import styles from './options.module.scss'
-import { dropdownList, radioThemeList, radioThemeColorList } from './constant'
+import { dropdownList, radioThemeList, radioThemeColorList, downloadList } from './constant'
 import { WindowsIconZoomOut, WindowsIconZoomIn, WindowsIconClose } from './components/svgIcon'
 
 const { id } = queryString.parse(window.location.search)
 
+const enum IMG_TYPE {
+  PNG,
+  JPEG,
+}
+
+interface dropdownItemType {
+  quality: number
+  type: IMG_TYPE.PNG | IMG_TYPE.JPEG
+}
 function App() {
   const [src, setSrc] = useState('')
   const [padding, setPadding] = useState(0)
@@ -111,7 +120,7 @@ function App() {
     setBgColor(item.value)
   }
 
-  const downloadHandler = () => {
+  const downloadHandler = ({ quality = 1, type = IMG_TYPE.PNG }: dropdownItemType) => {
     if (downloadLading) return
     if (imgContainer.current) {
       const node = imgContainer.current as HTMLElement
@@ -122,23 +131,40 @@ function App() {
         width: node.offsetWidth + 'px',
         height: node.offsetHeight + 'px',
       }
-      const options = {
-        height: node.offsetHeight * scale,
-        width: node.offsetWidth * scale,
-        quality: 1,
-        style,
-      }
+
       setDownloadLading(true)
       setTimeout(() => {
         setDownloadLading(false)
       }, 1300)
-      domtoimage.toPng(node, options).then((base64: string) => {
-        const a = document.createElement('a')
-        a.href = base64
-        const date = new Date().getTime()
-        a.download = `colora_image_${date}.png`
-        a.click()
-      })
+      if (type === IMG_TYPE.PNG) {
+        const options = {
+          height: node.offsetHeight * scale,
+          width: node.offsetWidth * scale,
+          quality: 1,
+          style,
+        }
+        domtoimage.toJpeg(node, options).then((base64: string) => {
+          const a = document.createElement('a')
+          a.href = base64
+          const date = new Date().getTime()
+          a.download = `colora_image_${date}.png`
+          a.click()
+        })
+      } else if (type === IMG_TYPE.JPEG) {
+        const options = {
+          height: node.offsetHeight * scale,
+          width: node.offsetWidth * scale,
+          quality,
+          style,
+        }
+        domtoimage.toJpeg(node, options).then((base64: string) => {
+          const a = document.createElement('a')
+          a.href = base64
+          const date = new Date().getTime()
+          a.download = `colora_image_${date}.jpg`
+          a.click()
+        })
+      }
     }
   }
 
@@ -159,6 +185,29 @@ function App() {
   const openPaddingColorHandler = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.stopPropagation()
     setOpenPaddingColor(!openPaddingColor)
+  }
+
+  const dropdownOnChange = ({ name, id }: { name: string; id: string }) => {
+    const MAP_KEY: Record<string, dropdownItemType> = {
+      png: {
+        quality: 1,
+        type: IMG_TYPE.PNG,
+      },
+      high: {
+        quality: 1,
+        type: IMG_TYPE.JPEG,
+      },
+      medium: {
+        quality: 0.8,
+        type: IMG_TYPE.JPEG,
+      },
+      low: {
+        quality: 0.3,
+        type: IMG_TYPE.JPEG,
+      },
+    }
+    const res = MAP_KEY?.[id]
+    downloadHandler(res)
   }
 
   return (
@@ -337,15 +386,12 @@ function App() {
             <span className={styles.line}></span>
 
             <div className={cls(styles.item, styles.buttons)}>
-              <Button
+              <Dropdown
                 className={styles.downloadButton}
-                loading={downloadLading}
-                onClick={() => {
-                  downloadHandler()
-                }}
-              >
-                Download
-              </Button>
+                list={downloadList}
+                label={'Export As ...'}
+                onChange={dropdownOnChange}
+              />
               <Button
                 onClick={() => {
                   openUploaderHandler()
