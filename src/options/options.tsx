@@ -143,7 +143,7 @@ function App() {
           quality: 1,
           style,
         }
-        domtoimage.toJpeg(node, options).then((base64: string) => {
+        domtoimage.toPng(node, options).then((base64: string) => {
           const a = document.createElement('a')
           a.href = base64
           const date = new Date().getTime()

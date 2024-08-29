@@ -17,6 +17,7 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
+  font-weight: 600;
   &.disabled {
     box-shadow: none !important;
     cursor: not-allowed;
