@@ -7,8 +7,9 @@ import { RadioList, RadioItem } from './types'
 import styles from './index.module.scss'
 
 interface RadioProps {
-  list: RadioList,
+  list: RadioList
   onChange: (item: RadioItem) => void
+  className?: string
 }
 
 const Radio = (props: RadioProps) => {
@@ -25,10 +26,7 @@ const Radio = (props: RadioProps) => {
       {list.map((item) => {
         return (
           <Item
-            className={cls(
-              styles.item,
-              current === item.id ? styles.current : ''
-            )}
+            className={cls(styles.item, current === item.id ? styles.current : '', props.className)}
             id={item.id}
             key={item.label}
             onClick={() => {

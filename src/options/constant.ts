@@ -66,4 +66,37 @@ const radioThemeColorList = [
   },
 ]
 
-export { dropdownList, radioThemeList, radioThemeColorList, downloadList }
+const resizeList = [
+  {
+    label: 'Auto',
+    id: uuidv4(),
+    name: 'Auto',
+  },
+  {
+    label: '16:9',
+    id: uuidv4(),
+    name: '16:9',
+  },
+  {
+    label: '4:3',
+    id: uuidv4(),
+    name: '4:3',
+  },
+  {
+    label: '1:1',
+    id: uuidv4(),
+    name: '1:1',
+  },
+  {
+    label: '16:10',
+    id: uuidv4(),
+    name: '16:10',
+  },
+  {
+    label: '2:1',
+    id: uuidv4(),
+    name: '2:1',
+  },
+]
+
+export { dropdownList, radioThemeList, radioThemeColorList, downloadList, resizeList }

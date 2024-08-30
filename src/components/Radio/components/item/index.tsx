@@ -20,7 +20,8 @@ const RadioItem = (props: RadioItemProps) => {
   return (
     <div
       className={cls(styles.radioItem, props.className)}
-      onClick={() => {
+      onClick={(e) => {
+        e.preventDefault()
         clickHandler()
       }}
     >
