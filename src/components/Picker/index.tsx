@@ -26,7 +26,10 @@ const Picker = (props: PickerProps) => {
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
       const isItem = (e.target as HTMLElement)?.classList.contains('picker-item')
-      if (pickerRef.current && visible && !isItem) {
+      const isWrap = (e.target as HTMLElement)?.classList.contains('picker-wrap')
+      console.log(isItem, (e.target as HTMLElement)?.classList)
+      const isOtherDom = !isItem && !isWrap
+      if (pickerRef.current && visible && isOtherDom) {
         setVisible(false)
       }
     }
@@ -38,13 +41,10 @@ const Picker = (props: PickerProps) => {
 
   return (
     <div className={styles.wrap} ref={pickerRef}>
-      {/* <Button onClick={() => toggleVisible()}>
-        <div className={styles.currentColor}></div>
-      </Button> */}
       <div className={styles.switch} onClick={() => toggleVisible()}>
-        <div className={styles.currentColor} style={{background: `${current}`}}></div>
+        <div className={styles.currentColor} style={{ background: `${current}` }}></div>
       </div>
-      <div className={cls(styles.list, visible ? styles.visible : null)}>
+      <div className={cls(styles.list, visible ? styles.visible : null, 'picker-wrap')}>
         {list.map((item) => {
           return (
             <div
@@ -52,7 +52,7 @@ const Picker = (props: PickerProps) => {
                 styles.item,
                 item.id === 0 ? styles.transparent : '',
                 current === item.value ? styles.current : '',
-                'picker-item'
+                'picker-item',
               )}
               style={{ background: `${item.id !== 0 && item.value}` }}
               key={item.id}

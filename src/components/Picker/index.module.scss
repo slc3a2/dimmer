@@ -14,13 +14,11 @@
       box-shadow: $button_shadow_active;
       transform: $clickable_scale;
     }
-    //   box-shadow: inset 2px 2px 5px #b8b9be, inset -3px -3px 7px #fff !important;
     .currentColor {
       cursor: pointer;
       width: 100%;
       height: 100%;
       border-radius: 8px;
-      // background-image: linear-gradient(to right, rgb(43, 192, 228), rgb(234, 236, 198));
     }
   }
   .list {

@@ -12,17 +12,18 @@ body {
   height: 100vh;
   .contentWrapper {
     width: calc(100% - 380px);
-    height: 100vh;
+    max-height: calc(100vh - 40px);
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: auto;
+    box-shadow: 2px 2px 5px #b8b9be, -3px -3px 7px #fff;
+    border-radius: 8px;
+    margin: 30px;
     &::-webkit-scrollbar {
       display: none;
     }
     .imgContainer {
-      // width: calc(100% - 380px);
-      // height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -105,8 +106,12 @@ body {
     }
   }
   .sidebarWrapper {
-    width: 380px;
+    width: 420px;
     overflow-y: auto;
+    box-shadow: inset 5px 5px 10px #b3b3b3, inset -5px -5px 10px #fff;
+    border-radius: 8px;
+    margin: 30px;
+    margin-left: 0;
     .sidebar {
       display: flex;
       flex-direction: column;
@@ -214,14 +219,12 @@ body {
         .resizeListWrap {
           max-width: 380px;
           overflow-x: auto;
-          padding: 10px 15px 10px 0;
+          padding: 10px 0px;
           box-sizing: border-box;
           cursor: ew-resize;
           position: relative;
-          .resizeItem {
-            &:last-child {
-              margin-right: 10px;
-            }
+          .resizeListInlineBlock {
+            display: inline-block;
           }
         }
       }

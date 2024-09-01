@@ -450,13 +450,15 @@ function App() {
               <div className={cls(styles.item)}>
                 <p className={cls(styles.title, styles.noMargin)}>Resize</p>
                 <div className={styles.resizeListWrap}>
-                  <Radio
-                    list={resizeList}
-                    className={styles.resizeItem}
-                    onChange={(item: RadioItem) => {
-                      setResizeHandler(item)
-                    }}
-                  />
+                  <div className={styles.resizeListInlineBlock}>
+                    <Radio
+                      list={resizeList}
+                      className={styles.resizeItem}
+                      onChange={(item: RadioItem) => {
+                        setResizeHandler(item)
+                      }}
+                    />
+                  </div>
                 </div>
               </div>
 
