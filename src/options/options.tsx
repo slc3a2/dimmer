@@ -473,19 +473,31 @@ function App() {
 
               <span className={styles.line}></span>
 
-              <div className={cls(styles.item, styles.buttons)}>
-                <Dropdown
-                  className={styles.downloadButton}
-                  list={downloadList}
-                  label={'Export As ...'}
-                  onChange={dropdownOnChange}
-                />
+              <div className={cls(styles.item, styles.buttonWrap)}>
+                <div className={cls(styles.mainButtonGroup)}>
+                  <Dropdown
+                    className={styles.downloadButton}
+                    list={downloadList}
+                    label={'Export As ...'}
+                    onChange={dropdownOnChange}
+                  />
+                  <Button
+                    className={styles.uploadButton}
+                    onClick={() => {
+                      openUploaderHandler()
+                    }}
+                  >
+                    Upload and Edit
+                  </Button>
+                </div>
+
                 <Button
+                  className={styles.feedbackButton}
                   onClick={() => {
                     openUploaderHandler()
                   }}
                 >
-                  Upload and Edit
+                  {' '}
                 </Button>
               </div>
             </div>
