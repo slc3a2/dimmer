@@ -23,7 +23,6 @@
       position: absolute;
       background-color: $main_color;
       border-radius: 4px;
-      transition: width 250ms;
     }
 
     .sliderThumb {
@@ -36,9 +35,7 @@
       cursor: grab;
       box-shadow: 2px 2px 4px #b8b9be, 0px 0px 4px #fff;
       background-color: #e6e7ee;
-      transition: transform 250ms;
       border: 1px solid $main_border_color;
-      transition: all 0.2s;
       &.press {
         transform: translate(-50%, -50%) scale(0.9);
       }
