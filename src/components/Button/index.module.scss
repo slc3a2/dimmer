@@ -21,6 +21,9 @@
   &.disabled {
     box-shadow: none !important;
     cursor: not-allowed;
+    .content {
+      color: #999;
+    }
   }
   .content {
     transition: opacity 0.2s ease;

@@ -22,8 +22,8 @@ const Uploader = (props: UploaderProps) => {
     const currentFile = file[0]
     if (!currentFile) return
     const fileSize = currentFile.size / (1024 * 1024)
-    if (fileSize > 3) {
-      alert('The file size cannot exceed 3M')
+    if (fileSize > 10) {
+      alert('The file size cannot exceed 10M')
       return
     }
     getFileMimeType(currentFile)

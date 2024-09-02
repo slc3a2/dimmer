@@ -442,15 +442,17 @@ function App() {
                   />
                 </div>
               </div>
-              <div className={cls(styles.item, styles.center)}>
-                <p className={styles.title}>Theme</p>
-                <div className={styles.content}>
-                  <Radio
-                    list={radioThemeList}
-                    onChange={(item: RadioItem) => {
-                      setThemeHandler(item)
-                    }}
-                  />
+              <div className={cls(styles.item, styles.center, styles.lowMarginBottom)}>
+                <p className={cls(styles.title, styles.noMargin)}>Theme</p>
+                <div className={cls(styles.resizeListWrap, styles.content)}>
+                  <div className={styles.resizeListInlineBlock}>
+                    <Radio
+                      list={radioThemeList}
+                      onChange={(item: RadioItem) => {
+                        setThemeHandler(item)
+                      }}
+                    />
+                  </div>
                 </div>
               </div>
               <div className={cls(styles.item)}>
@@ -464,7 +466,7 @@ function App() {
                   />
                 </div>
               </div>
-              <div className={cls(styles.item, styles.resizeItem)}>
+              <div className={cls(styles.item, styles.lowMarginBottom)}>
                 <p className={cls(styles.title, styles.noMargin)}>Resize</p>
                 <div className={cls(styles.resizeListWrap, styles.content)}>
                   <div className={styles.resizeListInlineBlock}>
@@ -510,14 +512,14 @@ function App() {
                   </Button>
                 </div>
 
-                <Button
+                {/* <Button
                   className={styles.feedbackButton}
                   onClick={() => {
                     openUploaderHandler()
                   }}
                 >
                   {' '}
-                </Button>
+                </Button> */}
               </div>
             </div>
           </section>

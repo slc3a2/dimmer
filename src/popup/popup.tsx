@@ -21,20 +21,25 @@ function App() {
         const url = tabs[0]?.url
         if (url) {
           const isInternalPage = ['chrome://', 'https://chrome.google.com/webstore']
-          for(let i = 0, length = isInternalPage.length; i < length; i++) {
+          for (let i = 0, length = isInternalPage.length; i < length; i++) {
             const item = isInternalPage[i]
             if (url.startsWith(item)) {
               setSelectedAreaDisable(true)
-              break;
+              break
             }
           }
         }
       },
     )
   }
+
+  const openUploaderHandler = () => {
+    window.open(`${window.location.origin}/options.html`)
+  }
   useEffect(() => {
     checkCurrentPageCanInject()
   }, [])
+
   return (
     <main className={styles.main}>
       <Button
@@ -52,6 +57,14 @@ function App() {
         }}
       >
         Selected Area
+      </Button>
+
+      <Button
+        onClick={() => {
+          openUploaderHandler()
+        }}
+      >
+        Upload and Edit
       </Button>
     </main>
   )

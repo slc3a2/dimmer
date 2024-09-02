@@ -15,20 +15,30 @@ interface ButtonProps {
 
 const Button = (props: ButtonProps) => {
   const clickHandler = () => {
-    if (props.loading || props.disabled) return;
+    if (props.loading || props.disabled) return
     if (props.onClick) {
       props.onClick()
     }
   }
   return (
     <button
-      className={cls(styles.button, props.className, props.loading || props.disabled ? styles.disabled : '')}
+      className={cls(
+        styles.button,
+        props.className,
+        props.loading || props.disabled ? styles.disabled : '',
+      )}
       onClick={() => {
         clickHandler()
       }}
     >
       <Loading visible={props.loading} />
-      <span className={cls(styles.content, props.loading ? styles.hidden : '')}>
+      <span
+        className={cls(
+          styles.content,
+          props.loading ? styles.hidden : '',
+          props.disabled ? styles.disabled : '',
+        )}
+      >
         {props.children}
       </span>
     </button>
