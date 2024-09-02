@@ -4,9 +4,6 @@
   display: flex;
   .item {
     margin-right: 20px;
-    &:first-child {
-      margin-left: 10px; // 解决外阴影被父级覆盖问题
-    }
     &.current {
       box-shadow: $button_shadow_active;
       label {
