@@ -2,9 +2,17 @@ document.querySelector(".normal").onclick = function (e) {
   if (this.classList.contains("cur")) {
     this.classList.remove("cur");
     changeModeHandle();
+    // const { checked } = document.querySelector(".switch");
+    // if (checked) {
+    //   localStorage.setItem("ohmydimmerGlobal", "0");
+    // }
   } else {
     this.classList.add("cur");
     changeModeHandle();
+    // const { checked } = document.querySelector(".switch");
+    // if (checked) {
+    //   localStorage.setItem("ohmydimmerGlobal", "1");
+    // }
   }
 };
 
@@ -23,7 +31,7 @@ function changeModeHandle() {
   );
 }
 window.onload = function () {
-  const version = chrome.runtime.getManifest().version;
+  const { version } = chrome.runtime.getManifest();
   chrome.tabs.query(
     {
       active: true,
@@ -42,6 +50,14 @@ window.onload = function () {
       });
     }
   );
+  // const t = localStorage.getItem("ohmydimmerGlobal");
+  // if (t === "1") {
+  //   document.querySelector(".normal").classList.add("cur");
+  //   changeModeHandle();
+  // } else {
+  //   document.querySelector(".normal").classList.remove("cur");
+  //   changeModeHandle();
+  // }
 
   document.querySelector(".gh").onclick = function (e) {
     window.open("https://github.com/slc3a2/dimmer");
@@ -52,4 +68,9 @@ window.onload = function () {
       "https://chrome.google.com/webstore/detail/%E5%85%B3%E7%81%AF/dnidbhhpcjgffjophhebfelbcnonoclh?hl=zh-CN"
     );
   };
+
+  // document.querySelector(".switch").onclick = function (e) {
+  //   const { checked } = document.querySelector(".switch");
+  //   console.log(checked);
+  // };
 };
