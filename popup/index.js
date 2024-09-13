@@ -1,6 +1,7 @@
 document.querySelector(".normal").onclick = function (e) {
   if (this.classList.contains("cur")) {
     this.classList.remove("cur");
+    document.querySelector("body").classList.remove("dark");
     changeModeHandle();
     // const { checked } = document.querySelector(".switch");
     // if (checked) {
@@ -8,6 +9,8 @@ document.querySelector(".normal").onclick = function (e) {
     // }
   } else {
     this.classList.add("cur");
+    console.log(document.querySelector("body"));
+    document.querySelector("body").classList.add("dark");
     changeModeHandle();
     // const { checked } = document.querySelector(".switch");
     // if (checked) {
