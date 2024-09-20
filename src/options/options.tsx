@@ -37,11 +37,11 @@ interface dropdownItemType {
 }
 
 let autoStyle: {
-  width: number
-  height: number
+  width: string
+  height: string
 } = {
-  width: 0,
-  height: 0,
+  width: '',
+  height: '',
 }
 
 function App() {
@@ -51,8 +51,8 @@ function App() {
   const [radius, setRadius] = useState(0)
   const [shadow, setShadow] = useState(0)
   const [shadowBlur, setShadowBlur] = useState(10)
-  const [width, setWidth] = useState<string | number>('auto')
-  const [height, setHeight] = useState<string | number>('auto')
+  const [width, setWidth] = useState<string>('100%')
+  const [height, setHeight] = useState<string>('100%')
   const [theme, setTheme] = useState('None')
   const [themeColor, setThemeColor] = useState('dark')
   const [paddingColor, setPaddingColor] = useState('#fff')
@@ -190,11 +190,13 @@ function App() {
     if (imgContainer.current) {
       const node = imgContainer.current as HTMLElement
       const { offsetWidth, offsetHeight } = node
-      setWidth(offsetWidth)
-      setHeight(offsetHeight)
+      const sw = `${offsetWidth}px`
+      const sh = `${offsetHeight}px`
+      setWidth(sw)
+      setHeight(sh)
       autoStyle = {
-        width: offsetWidth,
-        height: offsetHeight,
+        width: sw,
+        height: sh,
       }
     }
   }
@@ -236,46 +238,83 @@ function App() {
     const res = MAP_KEY?.[id]
     downloadHandler(res)
   }
+  const toPureNumber = (v: string) => {
+    return Number(v.replace('px', '').replace('%', ''))
+  }
 
   const setResizeHandler = (item: RadioItem) => {
     const { name } = item
     const HANDLER_MAP: Record<string, () => void> = {
       Auto: () => {
-        const v = 'auto'
         const { width, height } = autoStyle
         setWidth(width)
         setHeight(height)
       },
       '1:1': () => {
-        if (width >= height) {
-          setWidth(height)
+        const { width, height } = autoStyle
+        const pureW = toPureNumber(width)
+        const pureH = toPureNumber(height)
+        if (pureW >= pureH) {
+          setWidth(`${pureH}px`)
+          setHeight(`${pureH}px`)
         } else {
-          setHeight(width)
+          setWidth(`${pureW}px`)
+          setHeight(`${pureW}px`)
         }
       },
       '2:1': () => {
-        setWidth(autoStyle.width)
-        const pre = autoStyle.width / 2
-        setHeight(pre * 1)
+        const { width, height } = autoStyle
+        const pureW = toPureNumber(width)
+        const pureH = toPureNumber(height)
+        if (pureW * (1 / 2) < pureH) {
+          const rh = pureW * (1 / 2)
+          setHeight(`${rh}px`)
+        } else {
+          const rw = pureH * (2 / 1)
+          setWidth(`${rw}px`)
+        }
       },
       '4:3': () => {
-        setWidth(autoStyle.width)
-        const pre = autoStyle.width / 4
-        setHeight(pre * 3)
+        const { width, height } = autoStyle
+        const pureW = toPureNumber(width)
+        const pureH = toPureNumber(height)
+        if (pureW * (3 / 4) < pureH) {
+          const rh = pureW * (3 / 4)
+          setHeight(`${rh}px`)
+          setWidth(`${pureW}px`)
+        } else {
+          const rw = pureH * (4 / 3)
+          setWidth(`${rw}px`)
+          setHeight(`${pureH}px`)
+        }
       },
       '16:9': () => {
-        setWidth(autoStyle.width)
-        const pre = autoStyle.width / 16
-        setHeight(pre * 9)
+        const { width, height } = autoStyle
+        const pureW = toPureNumber(width)
+        const pureH = toPureNumber(height)
+        if (pureW * (9 / 16) < pureH) {
+          const rh = pureW * (9 / 16)
+          setHeight(`${rh}px`)
+          setWidth(`${pureW}px`)
+        } else {
+          const rw = pureH * (16 / 9)
+          setWidth(`${rw}px`)
+          setHeight(`${pureH}px`)
+        }
       },
       '16:10': () => {
-        setWidth(autoStyle.width)
-        const pre = autoStyle.width / 16
-        setHeight(pre * 10)
-      },
-      '800x600': () => {
-        setWidth(800)
-        setHeight(600)
+        const { width, height } = autoStyle
+        const pureW = toPureNumber(width)
+        const pureH = toPureNumber(height)
+        if (pureW * (10 / 16) < pureH) {
+          const rh = pureW * (10 / 16)
+          setHeight(`${rh}px`)
+          setWidth(`${pureW}px`)
+        } else {
+          const rw = pureH * (16 / 10)
+          setWidth(`${rw}px`)
+          setHeight(`${pureH}px`)
+        }
       },
     }
     name && HANDLER_MAP?.[name]()
@@ -295,7 +334,7 @@ function App() {
             <div
               className={styles.imgContainer}
               ref={imgContainer}
-              style={{ background: `${bgColor}`, width: `${width}px`, height: `${height}px` }}
+              style={{ background: `${bgColor}`, width, height }}
             >
               <Loading visible={loading} />
               <div
@@ -491,9 +530,8 @@ function App() {
                   />
                 </div>
               </div>
-
+              {/* <div> */}
               <span className={styles.line}></span>
-
               <div className={cls(styles.item, styles.buttonWrap)}>
                 <div className={cls(styles.mainButtonGroup)}>
                   <Dropdown
@@ -521,6 +559,7 @@ function App() {
                   {' '}
                 </Button> */}
               </div>
+              {/* </div> */}
             </div>
           </section>
         </>
