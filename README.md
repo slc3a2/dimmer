@@ -1,6 +1,10 @@
 # Colora
 
-> Lightweight and user-friendly screenshot editing tool
+> Colora is an incredibly lightweight, pure, and entirely free screenshot enhancement tool that refrains from abusing permissions. It employs the most basic yet effective technologies, all without any ads. Its core logic is impressively compact, weighing in at less than 5 KB. [Colora in Chrome EXT Store](https://chromewebstore.google.com/detail/colora-screenshot-and-edi/lajfgofeklkfhemnhomepdojkkljljkp?hl=zh-CN)
+
+<div style="display: flex;"><img src="./colora-google-source/04.jpg" alt="example image" style="zoom:40%;margin-right:10px;" /><img src="./colora-google-source/03.jpg" alt="example image" style="zoom:40%;" /></div>
+
+
 
 ## Installing
 
