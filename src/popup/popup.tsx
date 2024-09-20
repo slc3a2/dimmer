@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react'
 import styles from './popup.module.scss'
 import Button from '@/components/Button'
+import { PiSelectionAllFill } from 'react-icons/pi'
+import { BiScreenshot } from 'react-icons/bi'
+import { RiUploadCloudFill } from 'react-icons/ri'
 
 function App() {
   const [selectedAreaDisable, setSelectedAreaDisable] = useState(false)
@@ -47,7 +50,10 @@ function App() {
           clickHandler('captureVisibleArea')
         }}
       >
-        Visible Area
+        <div className={styles.content}>
+          <PiSelectionAllFill size={20} />
+          <span>Visible Area</span>
+        </div>
       </Button>
 
       <Button
@@ -56,7 +62,10 @@ function App() {
           clickHandler('captureSelectArea')
         }}
       >
-        Selected Area
+        <div className={styles.content}>
+          <BiScreenshot size={20} />
+          <span>Selected Area</span>
+        </div>
       </Button>
 
       <Button
@@ -64,7 +73,10 @@ function App() {
           openUploaderHandler()
         }}
       >
-        Upload and Edit
+        <div className={styles.content}>
+          <RiUploadCloudFill size={20} />
+          <span>Upload & Edit</span>
+        </div>
       </Button>
     </main>
   )
