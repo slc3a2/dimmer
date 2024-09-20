@@ -53,7 +53,7 @@
     .item {
       width: 30px;
       height: 30px;
-      transition: box-shadow 0.2s;
+      transition: box-shadow 0.2s, transform 0.2s;
       font-weight: 300;
       font-size: 0.875rem;
       cursor: pointer;
@@ -83,6 +83,9 @@
       &:hover,
       &.current {
         box-shadow: $button_shadow_active;
+      }
+      &:active {
+        transform: scale(0.9);
       }
     }
   }
