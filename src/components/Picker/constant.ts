@@ -1,6 +1,6 @@
 const LIST: PickerList = [
   {
-    id: 'i6p5m',
+    id: 'transparent',
     value: 'rgba(0,0,0,0)',
   },
   {

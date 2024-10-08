@@ -50,11 +50,11 @@ const Picker = (props: PickerProps) => {
             <div
               className={cls(
                 styles.item,
-                item.id === 0 ? styles.transparent : '',
+                item.id === 'transparent' ? styles.transparent : '',
                 current === item.value ? styles.current : '',
                 'picker-item',
               )}
-              style={{ background: `${item.id !== 0 && item.value}` }}
+              style={{ background: `${item.id !== 'transparent' && item.value}` }}
               key={item.id}
               onClick={(e) => {
                 itemClickHandler(item, e)
