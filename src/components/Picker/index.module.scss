@@ -23,6 +23,8 @@
   }
   .list {
     width: 180px;
+    height: 180px;
+    overflow-y: auto;
     position: absolute;
     left: 0;
     top: -180px;
