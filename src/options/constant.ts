@@ -25,15 +25,16 @@ const downloadList = [
     id: 'png',
   },
   {
-    name: 'High quality JPG',
-    id: 'high',
-  },
-  {
-    name: 'Medium quality JPG',
+    name: 'JPG(Medium quality)',
     id: 'medium',
   },
   {
-    name: 'Low quality JPG',
+    name: 'JPG(High quality)',
+    id: 'high',
+  },
+
+  {
+    name: 'JPG(Low quality)',
     id: 'low',
   },
 ]

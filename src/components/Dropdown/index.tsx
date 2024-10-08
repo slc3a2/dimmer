@@ -7,7 +7,7 @@ import styles from './index.module.scss'
 
 interface DropdownProps {
   list: listItem[]
-  label: string
+  label: string | React.ReactElement
   className?: string
   onChange: (key: listItem) => void
 }

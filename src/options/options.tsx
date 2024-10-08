@@ -4,6 +4,8 @@ import cls from 'classnames'
 import { v4 as uuidv4 } from 'uuid'
 import queryString from 'query-string'
 import { SketchPicker, ColorResult } from 'react-color'
+import { RiUploadCloudFill } from 'react-icons/ri'
+import { BiSolidFileExport } from 'react-icons/bi'
 
 import Button from '@/components/Button'
 import Slider from '@/components/Slider'
@@ -450,9 +452,9 @@ function App() {
                     onChange={(value) => {
                       setRadiusHandler(value)
                     }}
-                    max={20}
+                    max={25}
                     min={0}
-                    defaultValue={5}
+                    defaultValue={8}
                   />
                 </div>
               </div>
@@ -463,7 +465,7 @@ function App() {
                     onChange={(value) => {
                       setShadowHandler(value)
                     }}
-                    max={30}
+                    max={40}
                     min={0}
                   />
                 </div>
@@ -476,7 +478,7 @@ function App() {
                       setShadowBlurHandler(value)
                     }}
                     defaultValue={10}
-                    max={20}
+                    max={30}
                     min={0}
                   />
                 </div>
@@ -537,7 +539,12 @@ function App() {
                   <Dropdown
                     className={styles.downloadButton}
                     list={downloadList}
-                    label={'Export As ...'}
+                    label={
+                      <div className={styles.buttonContent}>
+                        <BiSolidFileExport size={20} />
+                        <span>Export As ...</span>
+                      </div>
+                    }
                     onChange={dropdownOnChange}
                   />
                   <Button
@@ -546,7 +553,10 @@ function App() {
                       openUploaderHandler()
                     }}
                   >
-                    Upload and Edit
+                    <div className={styles.buttonContent}>
+                      <RiUploadCloudFill size={20} />
+                      <span>Upload & Edit</span>
+                    </div>
                   </Button>
                 </div>
 
