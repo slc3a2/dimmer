@@ -1,9 +1,8 @@
 ## dimmer
 
-> 👋 chrome 扩展程序，暗黑模式一键切换。chrome 扩展商店搜「关灯」
-> 「关灯」提供便捷的暗黑模式体验。一键开启后，您的浏览器界面将瞬间切换为深色主题，有效减轻眼部疲劳，同时为您的浏览增添一份神秘与优雅。该扩展兼容性强，适用于绝大多数网站，确保您在享受暗黑模式的同时，不会错过任何重要信息。立即安装，开启您的暗黑模式之旅吧！
+> 👋 Chrome 扩展程序，暗黑模式一键切换。「关灯」提供便捷的暗黑模式体验。一键开启后，您的浏览器界面将瞬间切换为深色主题，有效减轻眼部疲劳，同时为您的浏览增添一份神秘与优雅。该扩展兼容性强，适用于绝大多数网站，确保您在享受暗黑模式的同时，不会错过任何重要信息。chrome 扩展商店搜「[关灯](https://chromewebstore.google.com/detail/lights-off%E5%85%B3%E7%81%AF/dnidbhhpcjgffjophhebfelbcnonoclh)」，立即安装，开启您的暗黑模式之旅吧！
 
-<div style='display: flex;align-items: center;justify-content: center;'><img width='600px' src='https://i.loli.net/2020/12/07/XRlEvnZ6pBchHtT.png' style='border: 1px solid #666;' alt='example'/></div>
+<div style='display: flex;align-items: center;justify-content: center;'><img width='600px' src='./static//imgs/1280x800.jpg' style='border: 1px solid transparent;' alt='example'/></div>
 
 ## 介绍
 
@@ -15,39 +14,51 @@
 
 ## 资源
 
-- [谷歌商店安装](https://chrome.google.com/webstore/detail/%E5%85%B3%E7%81%AF/dnidbhhpcjgffjophhebfelbcnonoclh?hl=zh-CN)
-- [国内镜像安装](https://www.chromefor.com/%e5%85%b3%e7%81%af_v1-0-4/)
+- [谷歌商店安装](https://chromewebstore.google.com/detail/lights-off%E5%85%B3%E7%81%AF/dnidbhhpcjgffjophhebfelbcnonoclh)
+- [国内镜像安装](https://www.ilovechrome.com/extension/dnidbhhpcjgffjophhebfelbcnonoclh)
 
 ## 版本
 
 - **v1.0.5**
 
-  1.按照谷歌新扩展规定，调整权限申请和描述
+  1. 按照谷歌新扩展规定，调整权限申请和描述
 
-  2.优化源码书写风格
+  2. 优化源码书写风格
 
 - **v1.0.4**
 
-  1.支持刷新后保持原来皮肤功能
+  1. 支持刷新后保持原来皮肤功能
 
-  2.填充部页面无背景色部分情况
+  2. 填充部页面无背景色部分情况
 
 - **v1.0.3**
 
-  1.优化 video 和 img 标签上的颜色变换
+  1. 优化 video 和 img 标签上的颜色变换
 
 - **v1.0.1**
 
-  1.调整并优化操作界面，更改为拟物化按钮设计，体验更顺滑
+  1. 调整并优化操作界面，更改为拟物化按钮设计，体验更顺滑
 
-  2.去除调试代码
+  2. 去除调试代码
 
 - **v1.0.0**
 
-  1.发布 mvp 版本
+  1. 发布 mvp 版本
 
 - **v1.1.0**
 
-  1.manifest_version 支持第 3 版本，支持 google extension 商店要求
+  1. manifest_version 支持第 3 版本，支持 google extension 商店要求
 
-  1.对 popup ui 进行优化，使用体验更专注
+  2. 对 popup ui 进行优化，使用体验更专注
+
+- **v1.1.1**
+
+  1. ui 优化，主要是拟物化边框的处理，更符合理想中的样子
+
+  2. 修复全屏视频的异常显示效果
+
+- **v1.1.2**
+
+  1. 目录结构优化，对静态资源和业务逻辑进行区分
+
+  1. 精简计划，去除或者归档一些不再使用的静态资源
