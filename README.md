@@ -4,6 +4,8 @@
 
 <div style='display: flex;align-items: center;justify-content: center;'><img width='600px' src='./static//imgs/1280x800.jpg' style='border: 1px solid transparent;' alt='example'/></div>
 
+## 特点
+
 - ❇️ 他足够小，核心代码实现只有不到 3KB
 - ❇️ 轻量化，他没有任何依赖，仅使用原生 CSS 实现
 - ❇️ 安全并且谨慎，仅获取读取 TAB 页面信息权限，用于注入样式。不会获取任何其他的权限和信息
