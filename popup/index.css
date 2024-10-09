@@ -5,7 +5,6 @@
 ._vars {
   --color-shadow: 12, 13, 18;
   --color-light: 255, 255, 255;
-  --color-glow: 0, 150, 255;
 }
 html {
   body {
@@ -76,58 +75,6 @@ html {
           inset 6px 6px 12px rgba(var(--color-shadow), 0.08),
           inset 8px 8px 16px rgba(var(--color-shadow), 0.08);
       }
-    }
-  }
-}
-
-.switch {
-  width: 52px;
-  height: 31px;
-  position: relative;
-  border: 1px solid #dfdfdf;
-  background-color: rgb(230, 231, 238);
-  box-shadow: #dfdfdf 0 0 0 0 inset;
-  border-radius: 20px;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
-  background-clip: content-box;
-  display: inline-block;
-  -webkit-appearance: none;
-  user-select: none;
-  outline: none;
-  cursor: pointer;
-  box-shadow: 2px 2px 5px #b8b9be, -3px -3px 7px #fff;
-  transition: border cubic-bezier(0, 0, 0, 1) 0.4s,
-    box-shadow cubic-bezier(0, 0, 0, 1) 0.4s;
-  &:before {
-    content: "";
-    width: 29px;
-    height: 29px;
-    position: absolute;
-    top: 0px;
-    left: 0;
-    border-radius: 20px;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-    background-color: #fff;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
-    transition: left 0.3s;
-  }
-  &:checked {
-    border-color: #64bd63;
-    box-shadow: #64bd63 0 0 0 16px inset;
-    background-color: #64bd63;
-    box-shadow: inset 5px 5px 10px #64bd63, inset -5px -5px 10px #fff;
-    background-color: #64bd63;
-    transition: border ease 0.4s, box-shadow ease 0.4s,
-      background-color ease 0.4s;
-    &:before {
-      left: 21px;
-      transition: left 0.3s;
     }
   }
 }

@@ -1,16 +1,13 @@
 {
-  "name": "Lights Off(关灯)",
+  "name": "Light Off(关灯)",
   "manifest_version": 3,
-  "version": "1.1.1",
+  "version": "1.1.2",
   "author": "slc3a2@gmail.com",
-  "description": "Webpage Theme changer",
+  "description": "「关灯」提供便捷的暗黑模式体验。一键开启后，您的浏览器界面将瞬间切换为深色主题，有效减轻眼部疲劳，同时为您的浏览增添一份神秘与优雅。该扩展兼容性强，适用于绝大多数网站，确保您在享受暗黑模式的同时，不会错过任何重要信息。此外，本扩展都是您的理想选择。立即安装，开启您的暗黑模式之旅吧！",
   "icons": { "16": "imgs/logo16.png", "128": "imgs/logo128.png" },
   "action": {
-    "default_title": "Lights Off(关灯)",
+    "default_title": "Light Off(关灯)",
     "default_popup": "./popup/index.html"
-  },
-  "background": {
-    "service_worker": "background/index.js"
   },
   "content_scripts": [
     {
