@@ -4,6 +4,12 @@
 
 <div style='display: flex;align-items: center;justify-content: center;'><img width='600px' src='./static//imgs/1280x800.jpg' style='border: 1px solid transparent;' alt='example'/></div>
 
+❇️ 他足够小，核心代码实现只有不到 3KB
+❇️ 轻量化，他没有任何依赖，仅使用原生 CSS 实现
+❇️ 安全并且谨慎，仅获取读取 TAB 页面信息权限，用于注入样式。不会获取任何其他的权限和信息
+❇️ 永久免费，这是一个开源项目，随时可以查看最新的源代码
+❇️ 制作他的初衷是我有干眼症并且经常晚上浏览页面，自己需要这样的一个工具，后来发布到 Chrome 商店。希望可以方便到有需要的朋友
+
 ## 介绍
 
 迫于晚上看网页太亮，本人还有干眼症！就想做一个网页扩展使用。
