@@ -27,7 +27,6 @@ const Picker = (props: PickerProps) => {
     function handleClickOutside(e: MouseEvent) {
       const isItem = (e.target as HTMLElement)?.classList.contains('picker-item')
       const isWrap = (e.target as HTMLElement)?.classList.contains('picker-wrap')
-      console.log(isItem, (e.target as HTMLElement)?.classList)
       const isOtherDom = !isItem && !isWrap
       if (pickerRef.current && visible && isOtherDom) {
         setVisible(false)

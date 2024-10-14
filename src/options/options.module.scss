@@ -29,6 +29,7 @@ body {
       height: 100%;
       max-width: 100%;
       max-height: 100%;
+      overflow: hidden;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -38,6 +39,7 @@ body {
         overflow: hidden;
         transition: opaticy 0.25s;
         opacity: 0;
+        position: relative;
         .theme {
           width: 100%;
           height: 18px;
@@ -168,6 +170,22 @@ body {
               border-radius: 8px !important;
               user-select: none;
               box-shadow: 2px 2px 5px #b8b9be, -3px -3px 7px #fff !important;
+            }
+          }
+        }
+        &.relative {
+          .content {
+            display: flex;
+            flex-direction: column;
+            .item {
+              display: flex;
+              align-items: center;
+              &:first-child {
+                margin-bottom: 15px;
+              }
+              .icon {
+                margin-right: 15px;
+              }
             }
           }
         }

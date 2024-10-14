@@ -6,12 +6,14 @@ import queryString from 'query-string'
 import { SketchPicker, ColorResult } from 'react-color'
 import { RiUploadCloudFill } from 'react-icons/ri'
 import { BiSolidFileExport } from 'react-icons/bi'
+import { PiArrowsHorizontalBold, PiArrowsVerticalBold } from 'react-icons/pi'
 
 import Button from '@/components/Button'
 import Slider from '@/components/Slider'
 import Dropdown, { listItem } from '@/components/Dropdown'
 import Radio, { RadioItem } from '@/components/Radio'
 import Picker, { PickerItem, LIST } from '@/components/Picker'
+import InputNumber from '@/components/InputNumber'
 import Loading from '@/components/Loading'
 
 import Upload from './components/upload'
@@ -60,6 +62,10 @@ function App() {
   const [paddingColor, setPaddingColor] = useState('#fff')
   const [openPaddingColor, setOpenPaddingColor] = useState(false)
   const [bgColor, setBgColor] = useState(LIST[6].value)
+  const [relative, setRelative] = useState({
+    x: 0,
+    y: 0,
+  })
   const [loading, setLoading] = useState(true)
   const [downloadLading, setDownloadLading] = useState(false)
   const [isEmptyData, setIsEmptyData] = useState(false)
@@ -240,6 +246,21 @@ function App() {
     const res = MAP_KEY?.[id]
     downloadHandler(res)
   }
+
+  const inputNumberXOnChange = (v: number) => {
+    setRelative({
+      ...relative,
+      x: v,
+    })
+  }
+
+  const inputNumberYOnChange = (v: number) => {
+    setRelative({
+      ...relative,
+      y: v,
+    })
+  }
+
   const toPureNumber = (v: string) => {
     return Number(v.replace('px', '').replace('%', ''))
   }
@@ -346,6 +367,8 @@ function App() {
                   borderRadius: `${radius}px`,
                   boxShadow: `5px 5px ${10 + shadowBlur}px ${shadow}px rgba(0,0,0,0.1)`,
                   opacity: `${loading ? 0 : 1}`,
+                  left: `${relative.x}px`,
+                  top: `${relative.y}px`,
                 }}
               >
                 <div
@@ -532,7 +555,25 @@ function App() {
                   />
                 </div>
               </div>
-              {/* <div> */}
+
+              <div className={cls(styles.item, styles.relative)}>
+                <p className={styles.title}>Relative Position</p>
+                <div className={styles.content}>
+                  <div className={styles.item}>
+                    <PiArrowsHorizontalBold size={14} className={styles.icon} />
+                    <InputNumber
+                      className={styles.relativeHorizontal}
+                      placeholder="set relative"
+                      onChange={inputNumberXOnChange}
+                    />
+                  </div>
+                  <div className={styles.item}>
+                    <PiArrowsVerticalBold size={14} className={styles.icon} />
+                    <InputNumber placeholder="set relative" onChange={inputNumberYOnChange} />
+                  </div>
+                </div>
+              </div>
+
               <span className={styles.line}></span>
               <div className={cls(styles.item, styles.buttonWrap)}>
                 <div className={cls(styles.mainButtonGroup)}>
@@ -559,17 +600,7 @@ function App() {
                     </div>
                   </Button>
                 </div>
-
-                {/* <Button
-                  className={styles.feedbackButton}
-                  onClick={() => {
-                    openUploaderHandler()
-                  }}
-                >
-                  {' '}
-                </Button> */}
               </div>
-              {/* </div> */}
             </div>
           </section>
         </>

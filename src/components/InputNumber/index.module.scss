@@ -1,0 +1,47 @@
+@import '@/styles/variable.scss';
+
+.inputNumberContainer {
+  .wrapper {
+    display: flex;
+    align-items: center;
+    border: 1px solid $main_border_color;
+    border-radius: $border_radius;
+    .btn {
+      width: 35px;
+      height: 37px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: $button_shadow;
+      user-select: none;
+      &:active {
+        box-shadow: $button_shadow_active;
+        transform: $clickable_scale;
+      }
+      &.minusButton {
+        border-radius: $border_radius 0px 0px $border_radius;
+      }
+      &.plusButton {
+        border-radius: 0px $border_radius $border_radius 0px;
+      }
+    }
+    input[type='text'] {
+      padding: 0.6rem 0.75rem;
+      font-weight: 300;
+      width: 80px;
+      height: 37px;
+      box-sizing: border-box;
+      line-height: 1.5;
+      box-shadow: $button_shadow_active;
+      border: none;
+      outline: none;
+      background-color: transparent;
+      margin: 0;
+      text-align: center;
+      color: $main_color;
+      font-size: 16px;
+      letter-spacing: 1px;
+    }
+  }
+}
