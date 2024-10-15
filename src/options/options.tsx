@@ -563,13 +563,12 @@ function App() {
                     <PiArrowsHorizontalBold size={14} className={styles.icon} />
                     <InputNumber
                       className={styles.relativeHorizontal}
-                      placeholder="set relative"
                       onChange={inputNumberXOnChange}
                     />
                   </div>
                   <div className={styles.item}>
                     <PiArrowsVerticalBold size={14} className={styles.icon} />
-                    <InputNumber placeholder="set relative" onChange={inputNumberYOnChange} />
+                    <InputNumber onChange={inputNumberYOnChange} />
                   </div>
                 </div>
               </div>

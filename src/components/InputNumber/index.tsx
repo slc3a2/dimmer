@@ -11,8 +11,16 @@ interface InputNumberProps {
   className?: string
 }
 
+let timer: any = undefined
+
+const enum MOUSE_TYPE {
+  MINUS,
+  PLUS,
+}
+
 const InputNumber = ({ placeholder = '', onChange, defaultValue, className }: InputNumberProps) => {
   const [value, setValue] = useState<number | string>(defaultValue || 0)
+  const [isPressing, setIsPressing] = useState(false)
 
   const extractNumberFromString = (str: string) => {
     let negativeSignCount = 0
@@ -67,10 +75,35 @@ const InputNumber = ({ placeholder = '', onChange, defaultValue, className }: In
     }
   }
 
+  const handleMouseDown = (type: MOUSE_TYPE.MINUS | MOUSE_TYPE.PLUS) => {
+    setIsPressing(true)
+    timer = setInterval(() => {
+      if (type === MOUSE_TYPE.MINUS) {
+        minusBtnOnClick()
+      } else if (type === MOUSE_TYPE.PLUS) {
+        plusBtnOnClick()
+      }
+    }, 100)
+  }
+
+  const handleMouseUp = () => {
+    setIsPressing(false)
+    if (timer !== undefined) {
+      clearInterval(timer)
+      timer = undefined
+    }
+  }
+
   return (
     <div className={cls(className, styles.inputNumberContainer)}>
       <div className={styles.wrapper}>
-        <span className={cls(styles.minusButton, styles.btn)} onClick={minusBtnOnClick}>
+        <span
+          className={cls(styles.minusButton, styles.btn)}
+          onClick={minusBtnOnClick}
+          // onMouseDown={() => handleMouseDown(MOUSE_TYPE.MINUS)}
+          // onMouseUp={handleMouseUp}
+          // onMouseLeave={handleMouseUp}
+        >
           <FiMinus size={14} />
         </span>
         <input
@@ -82,7 +115,13 @@ const InputNumber = ({ placeholder = '', onChange, defaultValue, className }: In
           }}
           onBlur={handlBlur}
         />
-        <span className={cls(styles.plusButton, styles.btn)} onClick={plusBtnOnClick}>
+        <span
+          className={cls(styles.plusButton, styles.btn)}
+          onClick={plusBtnOnClick}
+          // onMouseDown={() => handleMouseDown(MOUSE_TYPE.PLUS)}
+          // onMouseUp={handleMouseUp}
+          // onMouseLeave={handleMouseUp}
+        >
           <FiPlus size={14} />
         </span>
       </div>

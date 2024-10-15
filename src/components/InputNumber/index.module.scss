@@ -9,21 +9,27 @@
     .btn {
       width: 35px;
       height: 37px;
+      font-weight: 600;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       box-shadow: $button_shadow;
+      border: 1px solid $main_border_color;
       user-select: none;
+      transition: transform 0.2s ease;
+      transform: scale(1);
       &:active {
         box-shadow: $button_shadow_active;
         transform: $clickable_scale;
       }
       &.minusButton {
         border-radius: $border_radius 0px 0px $border_radius;
+        border-right: 0;
       }
       &.plusButton {
         border-radius: 0px $border_radius $border_radius 0px;
+        border-left: 0;
       }
     }
     input[type='text'] {
@@ -42,6 +48,7 @@
       color: $main_color;
       font-size: 16px;
       letter-spacing: 1px;
+      font-weight: 600;
     }
   }
 }
