@@ -1,0 +1,18 @@
+html.dimmer-dark {
+  /* filter: invert(100) hue-rotate(180deg); */
+  transition: filter 0.8s;
+}
+html.dimmer-dark img,
+html.dimmer-dark video {
+  filter: invert(100) hue-rotate(180deg);
+  transition: filter 0.8s;
+}
+html {
+  background-color: transparent;
+  /* filter: invert(0) hue-rotate(0); */
+  transition: filter 0.5s;
+}
+html img {
+  filter: invert(0) hue-rotate(0);
+  transition: filter 0.5s;
+}

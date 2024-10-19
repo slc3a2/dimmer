@@ -1,0 +1,50 @@
+@import '@/styles/variable.scss';
+
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.toggle-input {
+  display: none;
+}
+
+.toggle-label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 60px;
+  height: 34px;
+  border-radius: 17px;
+  background-color: #ccc;
+  cursor: pointer;
+  transition: background-color 0.4s ease;
+  box-shadow: inset 2px 2px 5px #b8b9be, inset -3px -3px 7px #fff;
+  border: 1px solid $main_border_color;
+}
+
+.toggle-label:before {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: #fff;
+  box-shadow: 2px 2px 4px #b8b9be, 0px 0px 4px #fff;
+  transition: transform 0.4s ease;
+  border: 1px solid $main_border_color;
+}
+
+.toggle-input:checked + .toggle-label {
+  background-color: $main_color;
+  box-shadow: inset 2px 2px 5px #1e2022, inset -3px -3px 7px #303437;
+}
+
+.toggle-input:checked + .toggle-label:before {
+  transform: translateX(26px);
+  box-shadow: 2px 2px 4px #1e2022, 0px 0px 4px #303437;
+}

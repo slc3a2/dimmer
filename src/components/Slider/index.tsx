@@ -25,6 +25,8 @@ interface SliderProps {
   step?: number
   defaultValue?: number
   visibleBar?: boolean
+  className?: string
+  value?: number
 }
 
 const Slider = ({
@@ -34,16 +36,31 @@ const Slider = ({
   step = 1,
   defaultValue,
   visibleBar = false,
+  className = '',
+  value: _value,
 }: SliderProps) => {
   const [value, setValue] = useState(defaultValue || 0)
   const [isDragging, setIsDragging] = useState(false)
+  const [isFirstRender, setIsFirstRender] = useState(true)
+
   const track = useRef(null)
 
   useEffect(() => {
-    if (onChange) {
+    console.log(onChange, isFirstRender)
+    if (onChange && !isFirstRender) {
       onChange(value)
     }
   }, [value])
+
+  useEffect(() => {
+    setIsFirstRender(false)
+  }, [])
+
+  useEffect(() => {
+    if (_value !== undefined) {
+      setValue(_value)
+    }
+  }, [_value])
 
   useEffect(() => {
     document.removeEventListener('mousemove', handleMouseMove)
@@ -107,7 +124,7 @@ const Slider = ({
 
   return (
     <div
-      className={styles.sliderContainer}
+      className={cls(styles.sliderContainer, className)}
       onClick={(e) => {
         handleClick(e)
       }}

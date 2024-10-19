@@ -6,13 +6,13 @@
   color: $main_color;
   letter-spacing: 0.025em;
   border-radius: 4px;
-  background-color: #e6e7ee;
+  background-color: $background_color;
   border: 1px solid transparent;
   border-color: $main_border_color;
   transition: all 0.2s ease;
   padding: 5px 10px;
   box-shadow: $button_shadow;
-  border-radius: 8px;
+  border-radius: $border_radius;
   user-select: none;
   display: flex;
   justify-content: space-around;

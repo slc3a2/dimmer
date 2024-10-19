@@ -1,28 +1,91 @@
+@import '@/styles/variable.scss';
+
 .main {
-  background-color: #e6e7ee;
+  background-color: $background_color;
   margin: 0;
   padding: 0;
-  width: 200px;
-  height: 180px;
+  width: 280px;
   display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  button {
-    width: 150px;
-    height: 35px;
-    margin-bottom: 20px;
-    &:last-child {
-      margin-bottom: 0;
+  transition: transform 0.5s;
+  transform: translateX(0px);
+  font-weight: 600;
+  &.inSetting {
+    transform: translateX(-280px);
+  }
+  .wrapper {
+    min-width: 100%;
+    padding: 20px 20px;
+    box-sizing: border-box;
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .settingButton,
+      .resetButton {
+        width: 40px;
+        height: 40px;
+        padding-top: 10px;
+      }
     }
-    .content {
-      width: 130px;
-      height: 35px;
+    .config {
+      display: flex;
+      flex-direction: column;
+      .item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+        span {
+          font-size: 14px;
+          margin-right: 15px;
+          color: $main_color;
+          font-weight: 600;
+          display: inline-block;
+          width: 75px;
+        }
+        .icon {
+          margin-right: 10px;
+        }
+      }
+      .slider {
+        width: 130px;
+      }
+    }
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      .resetButton {
+        width: 80px;
+        height: 30px;
+        margin-bottom: 20px;
+        font-size: 12px;
+        &:last-child {
+          margin-bottom: 0;
+        }
+        .content {
+          display: flex;
+          align-items: center;
+          span {
+            margin-left: 5px;
+          }
+        }
+      }
+    }
+
+    button.settingButton {
+      border-radius: 50%;
+      padding: 5px;
+      span {
+        display: inline-block;
+      }
+    }
+    .switchWrap {
+      width: 100%;
       display: flex;
       align-items: center;
-      span {
-        margin-left: 15px;
-      }
+      justify-content: center;
+      margin-top: 30px;
+      margin-bottom: 40px;
     }
   }
 }

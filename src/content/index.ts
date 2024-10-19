@@ -1,83 +1,117 @@
-import Cropper from 'cropperjs'
-import 'cropperjs/dist/cropper.css'
+import './index.css'
+
+let isDark = sessionStorage.getItem('ohmydimmer-isDark') === 'true'
+
+type Filter = Record<string, string>
+
+let htmlFilter: Filter = {}
+
+const theme = {
+  '1': {
+    invert: '100',
+    ['hue-rotate']: '180deg',
+  },
+  '0': {
+    invert: '0',
+    ['hue-rotate']: '0deg',
+  },
+}
+const convertFilterToObject = (filterValue: string) => {
+  const filters = filterValue.split(' ')
+  const result: Filter = {}
+  for (let i = 0; i < filters.length; i++) {
+    const filter = filters[i]
+    const openParenIndex = filter.indexOf('(')
+    const name = filter.substring(0, openParenIndex)
+    const value = filter.substring(openParenIndex + 1, filter.length - 1)
+    result[name] = value
+  }
+  return result
+}
+
+const objectToFilterString = (obj: Filter) => {
+  return Object.entries(obj)
+    .map(([name, value]) => `${name}(${value})`)
+    .join(' ')
+}
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  if (request.source) {
-    const source = request.source
-    const dom = document.createElement('colora')
-    dom.style.cssText += `
-        position: fixed;
-        left: 0;
-        top: 0;
-        width: 100vw;
-        height: 100vh;
-        z-index: 11002;
-        transition: all 0.1s;
-        padding-color: red;
-        `
-    dom.innerHTML += `
-        <img class='colora-snap-img' src=${source} style='display: block;max-width: 100%;'/>
-        <div class='colora-select'></div>
-    `
-    document.body.appendChild(dom)
-    setTimeout(() => {
-      dom.style.cssText += `transform: scale(0.94);`
-    }, 1)
-
-    setTimeout(() => {
-      dom.style.cssText += `transform: scale(1);`
-    }, 300)
-
-    const select = document.querySelector('colora .colora-select') as HTMLElement
-    if (!select) {
-      return
+  const { info, data = {} } = request
+  if (info === 'changeMode') {
+    const [root] = document.getElementsByTagName('html')
+    if (!root.classList.contains('dimmer-dark')) {
+      root.classList.add('dimmer-dark')
+      sessionStorage.setItem('ohmydimmer-isDark', 'true')
+      htmlFilter = {
+        ...htmlFilter,
+        ...theme['1'],
+      }
+    } else {
+      root.classList.remove('dimmer-dark')
+      sessionStorage.setItem('ohmydimmer-isDark', 'false')
+      isDark = false
+      htmlFilter = {
+        ...htmlFilter,
+        ...theme['0'],
+      }
     }
-    select.style.cssText += `
-        position: fixed;
-        left: 0;
-        top: 0;
-        width: 50px;
-        height: 50px;
-        cursor: crosshair;
-        display: none;
-        backgorund-color: rgba(0,0,0,0.2);
-        border: 1px solid red;
-        z-index: 11002;
-        `
-    const img = document.querySelector('colora img') as HTMLImageElement
-    let cropper: Cropper
-    img.onload = function () {
-      cropper = new Cropper(img, {
-        viewMode: 1,
-        dragMode: 'crop',
-        autoCrop: false,
-        cropend() {
-          ;(document.querySelector('.cropper-crop-box') as HTMLElement).ondblclick = function () {
-            const croppedCanvasBase64 = cropper.getCroppedCanvas().toDataURL()
-            sendMsgToBackground(croppedCanvasBase64)
-            hideColoraSelectArea()
-          }
-        },
-      })
-    }
-    dom.oncontextmenu = (e) => {
-      e.preventDefault()
-      hideColoraSelectArea()
-      cropper.clear()
-    }
-    const hideColoraSelectArea = () => {
-      document.querySelector('colora')?.remove()
-      cropper.clear()
-    }
-    const sendMsgToBackground = (base64: string) => {
-      chrome.runtime.sendMessage({
-        action: 'captureSelectAreaCb',
-        data: {
-          base64,
-        },
-      })
+    root.style.filter = objectToFilterString(htmlFilter)
+  }
+  if (info === 'getMode') {
+    const t = sessionStorage.getItem('ohmydimmer-isDark') === 'true'
+    sendResponse({
+      has: t,
+    })
+  }
+  if (info === 'changeConfig') {
+    const { brightness, contrast, grayscale, sepia } = data
+    const [root] = document.getElementsByTagName('html')
+    if (root) {
+      htmlFilter = {
+        ...htmlFilter,
+        brightness: `${brightness * 10}%`,
+        contrast: `${contrast / 10}`,
+        grayscale: `${grayscale * 10}%`,
+        sepia: `${sepia * 10}%`,
+      }
+      root.style.filter = objectToFilterString(htmlFilter)
     }
   }
 })
 
-export {}
+const checkIsFullScreen = () => {
+  document.addEventListener('fullscreenchange', () => {
+    const hasVideo = window.document.fullscreenElement?.querySelector('video')
+    if (hasVideo) {
+      const root = document.querySelector('html')
+      root?.classList.remove('dimmer-dark')
+      sessionStorage.setItem('ohmydimmer-isDark', 'false')
+    }
+  })
+}
+
+function main() {
+  if (sessionStorage.getItem('ohmydimmer-flag')) {
+    const t = sessionStorage.getItem('ohmydimmer-isDark')
+    const root = document.getElementsByTagName('html')[0]
+    if (t === 'true') {
+      root.classList.add('dimmer-dark')
+      htmlFilter = {
+        ...htmlFilter,
+        ...theme['1'],
+      }
+    } else {
+      root.classList.remove('dimmer-dark')
+      htmlFilter = {
+        ...htmlFilter,
+        ...theme['0'],
+      }
+    }
+    root.style.filter = objectToFilterString(htmlFilter)
+  } else {
+    sessionStorage.setItem('ohmydimmer-flag', 'true')
+  }
+  checkIsFullScreen()
+}
+
+main()
