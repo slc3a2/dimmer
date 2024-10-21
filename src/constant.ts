@@ -1,20 +1,4 @@
-const langList = [
-  {
-    name: 'PNG 👍',
-    id: 'png',
-  },
-  {
-    name: 'JPG (Medium quality)',
-    id: 'medium',
-  },
-  {
-    name: 'JPG (High quality)',
-    id: 'high',
-  },
+const SESSION_KEY = 'lightOffIsDark'
+const CLASS_KEY = 'lightOffIsDark'
 
-  {
-    name: 'JPG (Low quality)',
-    id: 'low',
-  },
-]
-export { langList }
+export { SESSION_KEY, CLASS_KEY }

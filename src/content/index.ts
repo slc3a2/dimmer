@@ -1,6 +1,6 @@
 import './index.css'
 
-let isDark = sessionStorage.getItem('ohmydimmer-isDark') === 'true'
+import { SESSION_KEY, CLASS_KEY } from '@/constant'
 
 type Filter = Record<string, string>
 
@@ -38,27 +38,47 @@ const objectToFilterString = (obj: Filter) => {
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   const { info, data = {} } = request
   if (info === 'changeMode') {
-    const [root] = document.getElementsByTagName('html')
-    if (!root.classList.contains('dimmer-dark')) {
-      root.classList.add('dimmer-dark')
-      sessionStorage.setItem('ohmydimmer-isDark', 'true')
-      htmlFilter = {
-        ...htmlFilter,
-        ...theme['1'],
+    chrome.runtime.sendMessage({ action: 'getGlobal' }, (response) => {
+      const { isDark, isGlobal } = response?.state || {}
+      const [root] = document.getElementsByTagName('html')
+      if (isGlobal) {
+        if (isDark) {
+          root.classList.add(CLASS_KEY)
+          sessionStorage.setItem(SESSION_KEY, 'true')
+          htmlFilter = {
+            ...htmlFilter,
+            ...theme['1'],
+          }
+        } else {
+          root.classList.remove(CLASS_KEY)
+          sessionStorage.setItem(SESSION_KEY, 'false')
+          htmlFilter = {
+            ...htmlFilter,
+            ...theme['0'],
+          }
+        }
+      } else {
+        if (!root.classList.contains(CLASS_KEY)) {
+          root.classList.add(CLASS_KEY)
+          sessionStorage.setItem(SESSION_KEY, 'true')
+          htmlFilter = {
+            ...htmlFilter,
+            ...theme['1'],
+          }
+        } else {
+          root.classList.remove(CLASS_KEY)
+          sessionStorage.setItem(SESSION_KEY, 'false')
+          htmlFilter = {
+            ...htmlFilter,
+            ...theme['0'],
+          }
+        }
       }
-    } else {
-      root.classList.remove('dimmer-dark')
-      sessionStorage.setItem('ohmydimmer-isDark', 'false')
-      isDark = false
-      htmlFilter = {
-        ...htmlFilter,
-        ...theme['0'],
-      }
-    }
-    root.style.filter = objectToFilterString(htmlFilter)
+      root.style.filter = `${objectToFilterString(htmlFilter)}`
+    })
   }
   if (info === 'getMode') {
-    const t = sessionStorage.getItem('ohmydimmer-isDark') === 'true'
+    const t = sessionStorage.getItem(SESSION_KEY) === 'true'
     sendResponse({
       has: t,
     })
@@ -74,7 +94,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         grayscale: `${grayscale * 10}%`,
         sepia: `${sepia * 10}%`,
       }
-      root.style.filter = objectToFilterString(htmlFilter)
+      root.style.filter = `${objectToFilterString(htmlFilter)}`
     }
   }
 })
@@ -84,33 +104,51 @@ const checkIsFullScreen = () => {
     const hasVideo = window.document.fullscreenElement?.querySelector('video')
     if (hasVideo) {
       const root = document.querySelector('html')
-      root?.classList.remove('dimmer-dark')
-      sessionStorage.setItem('ohmydimmer-isDark', 'false')
+      root?.classList.remove(CLASS_KEY)
+      sessionStorage.setItem(SESSION_KEY, 'false')
     }
   })
 }
 
 function main() {
-  if (sessionStorage.getItem('ohmydimmer-flag')) {
-    const t = sessionStorage.getItem('ohmydimmer-isDark')
-    const root = document.getElementsByTagName('html')[0]
-    if (t === 'true') {
-      root.classList.add('dimmer-dark')
-      htmlFilter = {
-        ...htmlFilter,
-        ...theme['1'],
+  chrome.runtime.sendMessage({ action: 'getGlobal' }, (response) => {
+    if (response) {
+      const state = response.state
+      const { isDark, isGlobal } = state
+      const root = document.getElementsByTagName('html')[0]
+      if (isGlobal) {
+        if (isDark) {
+          root.classList.add(CLASS_KEY)
+          htmlFilter = {
+            ...htmlFilter,
+            ...theme['1'],
+          }
+        } else {
+          root.classList.remove(CLASS_KEY)
+          htmlFilter = {
+            ...htmlFilter,
+            ...theme['0'],
+          }
+        }
+      } else {
+        const t = sessionStorage.getItem(SESSION_KEY)
+        if (t === 'true') {
+          root.classList.add(CLASS_KEY)
+          htmlFilter = {
+            ...htmlFilter,
+            ...theme['1'],
+          }
+        } else {
+          root.classList.remove(CLASS_KEY)
+          htmlFilter = {
+            ...htmlFilter,
+            ...theme['0'],
+          }
+        }
       }
-    } else {
-      root.classList.remove('dimmer-dark')
-      htmlFilter = {
-        ...htmlFilter,
-        ...theme['0'],
-      }
+      root.style.filter = `${objectToFilterString(htmlFilter)}`
     }
-    root.style.filter = objectToFilterString(htmlFilter)
-  } else {
-    sessionStorage.setItem('ohmydimmer-flag', 'true')
-  }
+  })
   checkIsFullScreen()
 }
 

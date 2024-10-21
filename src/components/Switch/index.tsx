@@ -31,7 +31,7 @@ const Switch = ({ onChange, className, value }: SwitchProps) => {
           id="toggle"
           type="checkbox"
           checked={checked}
-          onClick={onClick}
+          onChange={onClick}
         />
         <label className={styles['toggle-label']} htmlFor="toggle"></label>
       </div>

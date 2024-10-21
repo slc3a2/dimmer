@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import cls from 'classnames'
 import { IoMdSettings } from 'react-icons/io'
-import { IoMdArrowRoundBack } from 'react-icons/io'
 import { PiPaintBrushHouseholdFill } from 'react-icons/pi'
 import { BsBrightnessHighFill } from 'react-icons/bs'
 import { TbContrast2Filled } from 'react-icons/tb'
@@ -9,7 +8,6 @@ import { FaCameraRetro } from 'react-icons/fa'
 import { PiCheckerboardFill } from 'react-icons/pi'
 
 import styles from './popup.module.scss'
-import { downloadList } from './constant'
 
 import Button from '@/components/Button'
 import Slider from '@/components/Slider'
@@ -30,21 +28,47 @@ const DEFAULT_CONFIG = {
   sepia: 0,
 }
 
+let globalState = {
+  isDark: false,
+  isGlobal: false,
+}
+
 const Popup = () => {
-  const [open, setOpen] = useState<boolean>(false)
   const [config, setConfig] = useState<Config>(DEFAULT_CONFIG)
   const [isDark, setIsDark] = useState<boolean>(false)
   const [inSettingPage, setInSettingPage] = useState<boolean>(false)
 
   useEffect(() => {
-    init()
-    // checkCurrentPageCanInject()
-  }, [])
-
-  // useEffect(() => {
-  // onNotice(config)
-  // checkCurrentPageCanInject()
-  // }, [config])
+    chrome.runtime.sendMessage({ action: 'getGlobal' }, (response) => {
+      if (response) {
+        globalState = response.state
+        const { isGlobal, isDark } = globalState
+        if (isGlobal) {
+          setIsDark(isDark)
+          changeModeHandle(isDark)
+        } else {
+          // 非全局，仅更新状态
+          chrome.tabs.query(
+            {
+              active: true,
+              currentWindow: true,
+            },
+            (tabs) => {
+              let message = {
+                info: 'getMode',
+              }
+              const [{ id }] = tabs
+              if (id) {
+                chrome.tabs.sendMessage(id, message, (res) => {
+                  setIsDark(!!res?.has)
+                })
+              }
+            },
+          )
+        }
+      }
+    })
+  }, [inSettingPage])
 
   const onNotice = (config: Config) => {
     chrome.tabs.query(
@@ -65,78 +89,87 @@ const Popup = () => {
     )
   }
 
-  const init = () => {
-    chrome.tabs.query(
-      {
-        active: true,
-        currentWindow: true,
-      },
-      (tabs) => {
-        let message = {
-          info: 'getMode',
-        }
-        const [{ id }] = tabs
-        if (id) {
-          chrome.tabs.sendMessage(id, message, (res) => {
-            setIsDark(res?.has)
-            toggleStyle()
-          })
-        }
-      },
-    )
-  }
+  // const init = () => {
+  //   chrome.tabs.query(
+  //     {
+  //       active: true,
+  //       currentWindow: true,
+  //     },
+  //     (tabs) => {
+  //       let message = {
+  //         info: 'getMode',
+  //       }
+  //       const [{ id }] = tabs
+  //       if (id) {
+  //         chrome.tabs.sendMessage(id, message, (res) => {
+  //           setIsDark(res?.has)
+  //           // toggleStyle()
+  //         })
+  //       }
+  //     },
+  //   )
+  // }
 
-  const toggleStyle = () => {
-    if (isDark) {
-      import('@/styles/variable_dark.scss').then((module) => {
-        console.log(module)
-        document.documentElement.style.cssText = module.default
-        // setStyle('style2')
-      })
-    } else {
-      import('@/styles/variable.scss').then((module) => {
-        console.log(module)
-        document.documentElement.style.cssText = module.default
-        // setStyle('style1')
-      })
-    }
-  }
+  // const toggleStyle = () => {
+  //   if (isDark) {
+  //     import('@/styles/variable_dark.scss').then((module) => {
+  //       console.log(module)
+  //       document.documentElement.style.cssText = module.default
+  //       // setStyle('style2')
+  //     })
+  //   } else {
+  //     import('@/styles/variable.scss').then((module) => {
+  //       console.log(module)
+  //       document.documentElement.style.cssText = module.default
+  //       // setStyle('style1')
+  //     })
+  //   }
+  // }
 
   const gotoSetting = () => {
     setInSettingPage(true)
   }
 
   const switchOnChange = (v: boolean) => {
-    if (v) {
-      // this.classList.remove('cur')
-      // document.querySelector('body').classList.remove('dark')
-      // changeModeHandle()
-    } else {
-      // this.classList.add('cur')
-      // console.log(document.querySelector('body'))
-      // document.querySelector('body').classList.add('dark')
-      // changeModeHandle()
-    }
     changeModeHandle(v)
   }
 
   const changeModeHandle = (v: boolean) => {
     setIsDark(v)
-    chrome.tabs.query(
-      {
-        active: true,
-        currentWindow: true,
-      },
-      (tabs) => {
-        const [{ id }] = tabs
-        if (id) {
-          let message = {
-            info: 'changeMode',
+    if (globalState.isGlobal) {
+      chrome.tabs.query({}, (tabs) => {
+        tabs.forEach((tab) => {
+          if (tab.id) {
+            let message = {
+              info: 'changeMode',
+            }
+            chrome.tabs.sendMessage(tab.id, message, (res) => {})
+            chrome.runtime.sendMessage({
+              action: 'setGlobal',
+              state: {
+                isDark: v,
+              },
+            })
           }
-          chrome.tabs.sendMessage(id, message, (res) => {})
-        }
-      },
-    )
+        })
+      })
+    } else {
+      chrome.tabs.query(
+        {
+          active: true,
+          currentWindow: true,
+        },
+        (tabs) => {
+          const [{ id }] = tabs
+          if (id) {
+            let message = {
+              info: 'changeMode',
+            }
+            chrome.tabs.sendMessage(id, message, (res) => {})
+          }
+        },
+      )
+    }
   }
 
   const brightnessOnChange = (value: number) => {
@@ -172,7 +205,6 @@ const Popup = () => {
   }
 
   const resetAll = () => {
-    console.log(DEFAULT_CONFIG)
     setConfig(DEFAULT_CONFIG)
   }
 
@@ -188,13 +220,9 @@ const Popup = () => {
     <main className={cls(styles.main, inSettingPage ? styles.inSetting : '')}>
       <div className={styles.wrapper}>
         <div className={styles.header}>
-          {/* <Button className={styles.settingButton} onClick={resetAll}>
-            <IoMdArrowRoundBack size={20} />
-          </Button> */}
           <Button className={styles.resetButton} onClick={resetAll}>
             <div className={styles.content}>
               <PiPaintBrushHouseholdFill size={20} />
-              {/* <span>Reset</span> */}
             </div>
           </Button>
           <Button className={styles.settingButton} onClick={gotoSetting}>
@@ -205,17 +233,10 @@ const Popup = () => {
           <Switch value={isDark} onChange={switchOnChange} />
         </div>
         <div className={styles.config}>
-          {/* <div className={styles.item}>
-            <Dropdown
-              className={styles.downloadButton}
-              list={downloadList}
-              label={<div className={styles.buttonContent}></div>}
-              onChange={dropdownOnChange}
-            />
-          </div> */}
-
           <div className={styles.item}>
-            <BsBrightnessHighFill size={20} className={styles.icon} />
+            <div className={styles.iconWrap}>
+              <BsBrightnessHighFill size={20} className={styles.icon} />
+            </div>
             <span>Brightness</span>
             <Slider
               className={styles.slider}
@@ -228,7 +249,9 @@ const Popup = () => {
             />
           </div>
           <div className={styles.item}>
-            <TbContrast2Filled size={22} className={styles.icon} />
+            <div className={styles.iconWrap}>
+              <TbContrast2Filled size={22} className={styles.icon} />
+            </div>
             <span>Contrast</span>
             <Slider
               className={styles.slider}
@@ -241,7 +264,9 @@ const Popup = () => {
             />
           </div>
           <div className={styles.item}>
-            <PiCheckerboardFill size={24} className={styles.icon} />
+            <div className={styles.iconWrap}>
+              <PiCheckerboardFill size={24} className={styles.icon} />
+            </div>
             <span>Grayscale</span>
             <Slider
               className={styles.slider}
@@ -254,7 +279,9 @@ const Popup = () => {
             />
           </div>
           <div className={styles.item}>
-            <FaCameraRetro size={20} className={styles.icon} />
+            <div className={styles.iconWrap}>
+              <FaCameraRetro size={20} className={styles.icon} />
+            </div>
             <span>Sepia</span>
             <Slider
               className={styles.slider}
@@ -267,15 +294,6 @@ const Popup = () => {
             />
           </div>
         </div>
-        {/* <div className={styles.footer}>
-          <span></span>
-          <Button className={styles.resetButton} onClick={resetAll}>
-            <div className={styles.content}>
-              <PiPaintBrushHouseholdFill size={18} />
-              <span>Reset</span>
-            </div>
-          </Button>
-        </div> */}
       </div>
       <Setting onBack={onBack} />
     </main>

@@ -46,7 +46,6 @@ const Slider = ({
   const track = useRef(null)
 
   useEffect(() => {
-    console.log(onChange, isFirstRender)
     if (onChange && !isFirstRender) {
       onChange(value)
     }

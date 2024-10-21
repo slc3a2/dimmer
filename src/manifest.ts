@@ -3,7 +3,7 @@ import { defineManifest } from '@crxjs/vite-plugin'
 export default defineManifest({
   name: 'light off(关灯)',
   description: 'One-click Toggle for Web Page Dark Mode',
-  version: '1.1.1',
+  version: '2.0.0',
   manifest_version: 3,
   icons: { '16': 'imgs/logo16.png', '128': 'imgs/logo128.png' },
   action: {

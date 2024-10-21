@@ -1,18 +1,16 @@
-html.dimmer-dark {
-  /* filter: invert(100) hue-rotate(180deg); */
-  transition: filter 0.8s;
+html.lightOffIsDark {
+  transition: filter 0.8s !important;
 }
-html.dimmer-dark img,
-html.dimmer-dark video {
-  filter: invert(100) hue-rotate(180deg);
-  transition: filter 0.8s;
+html.lightOffIsDark img,
+html.lightOffIsDark video {
+  filter: invert(100) hue-rotate(180deg) !important;
+  transition: filter 0.8s !important;
 }
 html {
-  background-color: transparent;
-  /* filter: invert(0) hue-rotate(0); */
-  transition: filter 0.5s;
+  background-color: transparent !important;
+  transition: filter 0.5s !important;
 }
 html img {
-  filter: invert(0) hue-rotate(0);
-  transition: filter 0.5s;
+  filter: invert(0) hue-rotate(0) !important;
+  transition: filter 0.5s !important;
 }

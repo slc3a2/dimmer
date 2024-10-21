@@ -1,6 +1,4 @@
 import { useState, useEffect } from 'react'
-import cls from 'classnames'
-import { IoMdSettings } from 'react-icons/io'
 import { IoMdArrowRoundBack } from 'react-icons/io'
 import { BsBugFill } from 'react-icons/bs'
 import { FaHeart } from 'react-icons/fa'
@@ -11,9 +9,7 @@ import { FaAngellist } from 'react-icons/fa'
 import styles from './index.module.scss'
 
 import Button from '@/components/Button'
-import Dropdown, { listItem } from '@/components/Dropdown'
 import Switch from '@/components/Switch'
-import { langList } from '@/constant'
 
 interface Setting {
   onBack: () => void
@@ -21,29 +17,57 @@ interface Setting {
 
 const Setting = ({ onBack }: Setting) => {
   const [global, setGlobal] = useState<boolean>(false)
+
   useEffect(() => {
-    const v = localStorage.getItem('lightoffGlobal')
-    console.log('init', v)
-    setGlobal(v === '1')
-    // init()
-    // checkCurrentPageCanInject()
+    chrome.runtime.sendMessage({ action: 'getGlobal' }, (response) => {
+      if (response) {
+        const { isGlobal } = response.state
+        setGlobal(isGlobal)
+      }
+    })
   }, [])
 
   const backHandler = () => {
-    console.log(123)
     onBack()
-  }
-
-  const dropdownOnChange = () => {
-    console.log(1)
   }
 
   const switchOnChange = () => {
     const t = !global
-    const v = t ? '1' : '0'
-    console.log(v)
     setGlobal(t)
-    localStorage.setItem('lightoffGlobal', v)
+    chrome.runtime.sendMessage({
+      action: 'setGlobal',
+      state: {
+        isGlobal: t,
+      },
+    })
+    if (t) {
+      chrome.tabs.query({}, (tabs) => {
+        tabs.forEach((tab) => {
+          if (tab.id) {
+            let message = {
+              info: 'changeMode',
+            }
+            chrome.tabs.sendMessage(tab.id, message, (res) => {})
+          }
+        })
+      })
+    } else {
+      chrome.tabs.query(
+        {
+          active: true,
+          currentWindow: true,
+        },
+        (tabs) => {
+          const [{ id }] = tabs
+          if (id) {
+            let message = {
+              info: 'changeMode',
+            }
+            chrome.tabs.sendMessage(id, message, (res) => {})
+          }
+        },
+      )
+    }
   }
 
   return (
@@ -52,10 +76,6 @@ const Setting = ({ onBack }: Setting) => {
         <Button className={styles.settingButton} onClick={backHandler}>
           <IoMdArrowRoundBack size={20} />
         </Button>
-
-        {/* <Button className={styles.settingButton} onClick={backHandler}>
-          <IoMdArrowRoundBack size={20} />
-        </Button> */}
       </div>
       <div className={styles.content}>
         <div className={styles.item}>
