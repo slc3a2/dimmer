@@ -1,3 +1,11 @@
+// .dark-theme {
+//   $button_shadow: 2px 2px 5px #1e2022, -3px -3px 7px #303437;
+//   $button_shadow_active: inset 5px 5px 10px #1a1c1e, inset -5px -5px 10px #33373a;
+//   $main_color: #bcc5d4;
+//   $main_border_color: #34393c;
+//   $background_color: #272b2e;
+// }
+
 $button_shadow: 2px 2px 5px #b8b9be, -3px -3px 7px #fff;
 $button_shadow_active: inset 5px 5px 10px #b3b3b3, inset -5px -5px 10px #fff;
 $main_color: #31344b;
@@ -6,3 +14,14 @@ $background_color: #e6e7ee;
 
 $clickable_scale: scale(0.98);
 $border_radius: 20px;
+
+// // 定义一个变量来表示是否是暗黑主题
+// $is-dark-theme: false;
+
+// // 默认引入浅色主题变量文件
+// @import '@/styles/variableLight.scss';
+
+// // 如果是暗黑主题，则引入暗黑主题变量文件
+// @if $is-dark-theme {
+//   @import '@/styles/variableDark.scss';
+// }

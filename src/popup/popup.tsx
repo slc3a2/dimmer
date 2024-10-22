@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import cls from 'classnames'
 import { IoMdSettings } from 'react-icons/io'
 import { PiPaintBrushHouseholdFill } from 'react-icons/pi'
@@ -6,6 +6,8 @@ import { BsBrightnessHighFill } from 'react-icons/bs'
 import { TbContrast2Filled } from 'react-icons/tb'
 import { FaCameraRetro } from 'react-icons/fa'
 import { PiCheckerboardFill } from 'react-icons/pi'
+import { RiAlarmWarningFill } from 'react-icons/ri'
+import { useTranslation } from 'react-i18next'
 
 import styles from './popup.module.scss'
 
@@ -36,7 +38,31 @@ let globalState = {
 const Popup = () => {
   const [config, setConfig] = useState<Config>(DEFAULT_CONFIG)
   const [isDark, setIsDark] = useState<boolean>(false)
+  const [isProtected, setIsProtected] = useState<boolean>(false)
   const [inSettingPage, setInSettingPage] = useState<boolean>(false)
+
+  const { i18n, t } = useTranslation()
+
+  useEffect(() => {
+    initCheck()
+  }, [])
+
+  const initCheck = () => {
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+      const url = tabs[0].url
+      if (url) {
+        if (isGoogleKeyManagementPage(url)) {
+          setIsProtected(true)
+        } else {
+          setIsProtected(false)
+        }
+      }
+    })
+
+    function isGoogleKeyManagementPage(url: string) {
+      return url.includes('chrome://') || url.includes('chromewebstore.google.com')
+    }
+  }
 
   useEffect(() => {
     chrome.runtime.sendMessage({ action: 'getGlobal' }, (response) => {
@@ -69,6 +95,23 @@ const Popup = () => {
       }
     })
   }, [inSettingPage])
+
+  useEffect(() => {
+    console.log('isDark', isDark)
+    // if (isDark) {
+    //   document.documentElement.setAttribute('data-theme', 'dark')
+    // } else {
+    //   document.documentElement.setAttribute('data-theme', '')
+    // }
+    // const body = document.body
+    // if (isDark) {
+    //   body.classList.add('dark-theme')
+    // } else {
+    //   body.classList.remove('dark-theme')
+    // }
+    // const root = document.documentElement
+    // root.style.setProperty('--is-dark-theme', isDark ? 'true' : 'false')
+  }, [isDark])
 
   const onNotice = (config: Config) => {
     chrome.tabs.query(
@@ -216,6 +259,10 @@ const Popup = () => {
     setInSettingPage(false)
   }
 
+  const isCn = useMemo(() => {
+    return i18n.language === 'zh'
+  }, [i18n.language])
+
   return (
     <main className={cls(styles.main, inSettingPage ? styles.inSetting : '')}>
       <div className={styles.wrapper}>
@@ -234,10 +281,12 @@ const Popup = () => {
         </div>
         <div className={styles.config}>
           <div className={styles.item}>
-            <div className={styles.iconWrap}>
-              <BsBrightnessHighFill size={20} className={styles.icon} />
+            <div className={styles.titleWrap}>
+              <div className={styles.iconWrap}>
+                <BsBrightnessHighFill size={20} className={styles.icon} />
+              </div>
+              <span className={isCn ? styles.zhLabel : ''}>{t('brightness')}</span>
             </div>
-            <span>Brightness</span>
             <Slider
               className={styles.slider}
               onChange={(value) => {
@@ -249,10 +298,12 @@ const Popup = () => {
             />
           </div>
           <div className={styles.item}>
-            <div className={styles.iconWrap}>
-              <TbContrast2Filled size={22} className={styles.icon} />
+            <div className={styles.titleWrap}>
+              <div className={styles.iconWrap}>
+                <TbContrast2Filled size={22} className={styles.icon} />
+              </div>
+              <span className={isCn ? styles.zhLabel : ''}>{t('contrast')}</span>
             </div>
-            <span>Contrast</span>
             <Slider
               className={styles.slider}
               onChange={(value) => {
@@ -264,10 +315,12 @@ const Popup = () => {
             />
           </div>
           <div className={styles.item}>
-            <div className={styles.iconWrap}>
-              <PiCheckerboardFill size={24} className={styles.icon} />
+            <div className={styles.titleWrap}>
+              <div className={styles.iconWrap}>
+                <PiCheckerboardFill size={24} className={styles.icon} />
+              </div>
+              <span className={isCn ? styles.zhLabel : ''}>{t('grayscale')}</span>
             </div>
-            <span>Grayscale</span>
             <Slider
               className={styles.slider}
               onChange={(value) => {
@@ -279,10 +332,12 @@ const Popup = () => {
             />
           </div>
           <div className={styles.item}>
-            <div className={styles.iconWrap}>
-              <FaCameraRetro size={20} className={styles.icon} />
+            <div className={styles.titleWrap}>
+              <div className={styles.iconWrap}>
+                <FaCameraRetro size={20} className={styles.icon} />
+              </div>
+              <span className={isCn ? styles.zhLabel : ''}>{t('sepia')}</span>
             </div>
-            <span>Sepia</span>
             <Slider
               className={styles.slider}
               onChange={(value) => {
@@ -293,6 +348,10 @@ const Popup = () => {
               min={0}
             />
           </div>
+          <p className={cls(styles.tips, isProtected ? styles.visible : '')}>
+            <RiAlarmWarningFill size={12} className={styles.tipsIcon} />
+            <span>{t('protectedTips')}</span>
+          </p>
         </div>
       </div>
       <Setting onBack={onBack} />
