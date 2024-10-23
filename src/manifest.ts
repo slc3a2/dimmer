@@ -28,6 +28,6 @@ export default defineManifest({
       matches: [],
     },
   ],
-  permissions: [],
+  permissions: ['activeTab'],
   host_permissions: ['<all_urls>'],
 })
