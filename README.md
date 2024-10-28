@@ -82,3 +82,7 @@
   2.新增全局模式功能、亮度、对比度、灰度、复刻色调自定义调节
 
   3.技术栈重构，使用 react + vite + ts
+
+- **v2.0.1**
+
+  1.修复 [脚手架工具](https://github.com/guocaoyi/create-chrome-ext) 在 Chrome 130 版本上无法进行 content script 注入问题，查看更多信息 [github issue](https://github.com/crxjs/chrome-extension-tools/issues/918) 和 [chromium issue](https://issues.chromium.org/issues/363027634?pli=1)
