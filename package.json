@@ -34,7 +34,7 @@
     "uuid": "^9.0.0"
   },
   "devDependencies": {
-    "@crxjs/vite-plugin": "^1.0.12",
+    "@crxjs/vite-plugin": "^2.0.0-beta.28",
     "@types/node": "^18.15.11",
     "@types/react": "^18.0.14",
     "@types/react-dom": "^18.0.5",
@@ -43,6 +43,6 @@
     "prettier": "^2.7.1",
     "sass": "^1.60.0",
     "typescript": "^4.6.4",
-    "vite": "^2.9.13"
+    "vite": "^3.2.11"
   }
 }
