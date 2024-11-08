@@ -2,7 +2,7 @@
 
 > 👋 Chrome 扩展程序，暗黑模式一键切换。「关灯」提供便捷的暗黑模式体验。一键开启后，您的浏览器界面将瞬间切换为深色主题，有效减轻眼部疲劳，同时为您的浏览增添一份神秘与优雅。该扩展兼容性强，适用于绝大多数网站，确保您在享受暗黑模式的同时，不会错过任何重要信息。chrome 扩展商店搜「[关灯](https://chromewebstore.google.com/detail/lights-off%E5%85%B3%E7%81%AF/dnidbhhpcjgffjophhebfelbcnonoclh)」，立即安装，开启您的暗黑模式之旅吧！
 
-<div style='display: flex;align-items: center;justify-content: center;'><img width='600px' src='./readme/imgs/intro.jpg' style='border: 1px solid transparent;' alt='example'/></div>
+<div style='display: flex;align-items: center;justify-content: center;'><img width='800px' src='./readme/imgs/intro-2.jpg' style='border: 1px solid transparent;' alt='example'/></div>
 
 ## 特点
 
