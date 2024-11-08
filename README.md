@@ -23,13 +23,13 @@
 - [谷歌商店安装](https://chromewebstore.google.com/detail/lights-off%E5%85%B3%E7%81%AF/dnidbhhpcjgffjophhebfelbcnonoclh)
 - [国内镜像安装](https://www.ilovechrome.com/extension/dnidbhhpcjgffjophhebfelbcnonoclh)(版本更新不及时，不能体验到最新版，不推荐)
 
-## 细节
+## 最开始的细节
 
 迫于晚上看网页太亮，本人还有干眼症！就想做一个网页扩展使用。
 
-了解下实现方案，发现有个非常简单的属性可以操作，主要使用`css3`的`filter`滤镜属性`invert(1) hue-rotate(180deg)`来实现，`invert`控制页面元素颜色反转，默认值是`0`，完全反转是`1`，`hue-rotate`用于给图片设置颜色反转，`0`是无变化，`180deg`是完全反转，超过`360deg`的值相当于又绕一圈。也算是复习一下 chrome 扩展相关知识并学习一下 sketch 软件，耗时一天实现了一个简单版本。并发布到 chrome 扩展商店。
+最早期的实现方案：发现有个非常简单的属性可以操作，主要使用`css3`的`filter`滤镜属性`invert(1) hue-rotate(180deg)`来实现，`invert`控制页面元素颜色反转，默认值是`0`，完全反转是`1`，`hue-rotate`用于给图片设置颜色反转，`0`是无变化，`180deg`是完全反转，超过`360deg`的值相当于又绕一圈。也算是复习一下 chrome 扩展相关知识并学习一下 sketch 软件，并发布到 chrome 扩展商店。
 
-😄 关灯这个名字来自`v2ex`的`@chocovon`的创意，非常感谢。
+😄 关灯这个名字来自 `v2ex` 的 `@chocovon` 的创意，非常感谢。
 
 ## 版本
 
