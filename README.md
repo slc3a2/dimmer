@@ -88,3 +88,8 @@
 - **v2.0.1**
 
   1.修复 [脚手架工具](https://github.com/guocaoyi/create-chrome-ext) 在 Chrome 130 版本上无法进行 content script 注入问题，查看更多信息 [github issue](https://github.com/crxjs/chrome-extension-tools/issues/918) 和 [chromium issue](https://issues.chromium.org/issues/363027634?pli=1)
+  
+- **v2.0.2**
+
+  1. 修改描述以符合 chrome 扩展商店要求
+  2. 修复多语言切换时，元素跳动问题
