@@ -1,6 +1,6 @@
 ## dimmer
 
-> 👋 Chrome 扩展程序，暗黑模式一键切换。「关灯」提供便捷的暗黑模式体验。一键开启后，您的浏览器界面将瞬间切换为深色主题，有效减轻眼部疲劳，同时为您的浏览增添一份神秘与优雅。该扩展兼容性强，适用于绝大多数网站，确保您在享受暗黑模式的同时，不会错过任何重要信息。chrome 扩展商店搜「[关灯](https://chromewebstore.google.com/detail/lights-off%E5%85%B3%E7%81%AF/dnidbhhpcjgffjophhebfelbcnonoclh)」，立即安装，开启您的暗黑模式之旅吧！
+> 👋 Chrome 扩展程序，暗黑模式一键切换。「关灯」提供便捷的暗黑模式体验。一键开启后，您的浏览器界面将瞬间切换为深色主题，有效减轻眼部疲劳，同时为您的浏览增添一份神秘与优雅。该扩展兼容性强，适用于绝大多数网站，确保您在享受暗黑模式的同时，不会错过任何重要信息。chrome 扩展商店搜「[关灯](https://chromewebstore.google.com/detail/lights-off%E5%85%B3%E7%81%AF/dnidbhhpcjgffjophhebfelbcnonoclh)」，立即安装，带你沉浸深邃之域！
 
 <div style='display: flex;align-items: center;justify-content: center;'><img width='800px' src='./readme/imgs/intro-2.jpg' style='border: 1px solid transparent;' alt='example'/></div>
 
@@ -8,28 +8,26 @@
 
 ❇️ 极致小巧，核心代码实现只有不到 3KB <br/>
 
-❇️ 他很纯粹，仅实现必要功能，使用非常少的依赖，使用恰到好处的技术 <br/>
+❇️ 新拟物化 UI 设计，尽显优雅格调<br/>
 
-❇️ 安全并且谨慎，仅获取读取 TAB 页面信息权限，用于注入样式。绝不触及任何其他权限与信息，不会获取任何其他的权限和信息 <br/>
+❇️ 纯粹至极，仅专注于实现必要功能，依赖精简，技术运用恰到好处 <br/>
+
+❇️ 安全并且谨慎，仅获取读取 TAB 页面信息权限，用于注入样式。绝不触及任何其他权限与信息 <br/>
 
 ❇️ 永久免费，这是一个开源项目，随时可以查看最新的源代码 <br/>
 
 ## 初衷
 
-制作他的初衷是我有干眼症并且经常晚上浏览页面，自己需要这样的一个工具，后来发布到 Chrome 商店。希望可以方便到有需要的朋友 <br/>
+制作关灯这个工具的初衷，是源于我自身的情况。我有 [干眼症](https://zh.wikipedia.org/wiki/%E4%B9%BE%E7%9C%BC%E7%97%87) （一种常见的眼科疾病，长时间看电子屏幕导致，主要表现是眼睛干涩、畏光），又经常在晚上浏览页面，所以需要一个这样的工具。基于此，我开发了它，并发布到了 Chrome 商店。希望这个工具可以为有同样需求的朋友们提供便利。<br/>
 
 ## 资源
 
 - [谷歌商店安装](https://chromewebstore.google.com/detail/lights-off%E5%85%B3%E7%81%AF/dnidbhhpcjgffjophhebfelbcnonoclh)
 - [国内镜像安装](https://www.ilovechrome.com/extension/dnidbhhpcjgffjophhebfelbcnonoclh)(版本更新不及时，不能体验到最新版，不推荐)
 
-## 最开始的细节
+## 感谢
 
-迫于晚上看网页太亮，本人还有干眼症！就想做一个网页扩展使用。
-
-最早期的实现方案：发现有个非常简单的属性可以操作，主要使用`css3`的`filter`滤镜属性`invert(1) hue-rotate(180deg)`来实现，`invert`控制页面元素颜色反转，默认值是`0`，完全反转是`1`，`hue-rotate`用于给图片设置颜色反转，`0`是无变化，`180deg`是完全反转，超过`360deg`的值相当于又绕一圈。也算是复习一下 chrome 扩展相关知识并学习一下 sketch 软件，并发布到 chrome 扩展商店。
-
-😄 关灯这个名字来自 `v2ex` 的 `@chocovon` 的创意，非常感谢。
+😄 关灯这个名字来自 [@chocovon](https://github.com/chocovon) 的创意，非常感谢。
 
 ## 版本
 
@@ -39,9 +37,9 @@
 
 - **v1.0.1**
 
-  1.调整并优化操作界面，更改为拟物化按钮设计，体验更顺滑
+  1.调整并优化操作界面，更改为新拟物化设计
 
-  2.去除调试代码
+  2.去除一些调试代码、调整文本样式
 
 - **v1.0.3**
 
@@ -57,7 +55,7 @@
 
   1.按照谷歌新扩展规定，调整权限申请和描述
 
-  2.优化源码书写风格
+  2.优化代码书写风格
 
 - **v1.1.0**
 
@@ -67,7 +65,7 @@
 
 - **v1.1.1**
 
-  1.ui 优化，主要是拟物化边框的处理，更符合理想中的样子
+  1.ui 优化
 
   2.修复全屏视频的异常显示效果
 
@@ -87,7 +85,7 @@
 
 - **v2.0.1**
 
-  1.修复 [脚手架工具](https://github.com/guocaoyi/create-chrome-ext) 在 Chrome 130 版本上无法进行 content script 注入问题，查看更多信息 [github issue](https://github.com/crxjs/chrome-extension-tools/issues/918) 和 [chromium issue](https://issues.chromium.org/issues/363027634?pli=1)
+  1.修复 [脚手架工具](https://github.com/guocaoyi/create-chrome-ext) 在 Chrome 130 版本上无法进行 content script 注入问题，参考 [github issue](https://github.com/crxjs/chrome-extension-tools/issues/918) 和 [chromium issue](https://issues.chromium.org/issues/363027634?pli=1)
   
 - **v2.0.2**
 
