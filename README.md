@@ -20,16 +20,16 @@
 
 制作关灯这个工具的初衷，是源于我自身的情况。我有 [干眼症](https://zh.wikipedia.org/wiki/%E4%B9%BE%E7%9C%BC%E7%97%87) （一种常见的眼科疾病，长时间看电子屏幕导致，主要表现是眼睛干涩、畏光），又经常在晚上浏览页面，所以需要一个这样的工具。基于此，我开发了它，并发布到了 Chrome 商店。希望这个工具可以为有同样需求的朋友们提供便利。<br/>
 
-## 推荐
-
-- 被 Chrome官方 标记为 **精选** 扩展：精选扩展程序遵循了我们的技术 [最佳做法](https://developer.chrome.com/docs/webstore/best-practices?hl=zh-cn)，并在用户体验和设计方面达到了较高的标准
-- 阮一峰周刊工具类推荐：[24-11-15期](https://www.ruanyifeng.com/blog/2024/11/weekly-issue-325.html)
-
 ## 资源
 
 - 中文版扩展商店：[关灯](https://chromewebstore.google.com/detail/%E5%85%B3%E7%81%AF/dnidbhhpcjgffjophhebfelbcnonoclh?hl=zh)
 - 英文版扩展商店：[dimmer](https://chromewebstore.google.com/detail/%E5%85%B3%E7%81%AF/dnidbhhpcjgffjophhebfelbcnonoclh?hl=en)
 - [国内镜像安装](https://www.ilovechrome.com/extension/dnidbhhpcjgffjophhebfelbcnonoclh)(版本更新不及时，不能体验到最新版，不推荐)
+
+## 推荐
+
+- 被 Chrome 官方标记为 **精选** 扩展：精选扩展程序遵循了我们的技术 [最佳做法](https://developer.chrome.com/docs/webstore/best-practices?hl=zh-cn)，并在用户体验和设计方面达到了较高的标准
+- 阮一峰周刊工具类推荐：[24-11-15期](https://www.ruanyifeng.com/blog/2024/11/weekly-issue-325.html)
 
 ## 感谢
 
