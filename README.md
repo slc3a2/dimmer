@@ -27,7 +27,8 @@
 
 ## 资源
 
-- [谷歌商店安装](https://chromewebstore.google.com/detail/lights-off%E5%85%B3%E7%81%AF/dnidbhhpcjgffjophhebfelbcnonoclh)
+- 中文版扩展商店：[关灯](https://chromewebstore.google.com/detail/%E5%85%B3%E7%81%AF/dnidbhhpcjgffjophhebfelbcnonoclh?hl=zh)
+- 英文版扩展商店：[dimmer](https://chromewebstore.google.com/detail/%E5%85%B3%E7%81%AF/dnidbhhpcjgffjophhebfelbcnonoclh?hl=en)
 - [国内镜像安装](https://www.ilovechrome.com/extension/dnidbhhpcjgffjophhebfelbcnonoclh)(版本更新不及时，不能体验到最新版，不推荐)
 
 ## 感谢
