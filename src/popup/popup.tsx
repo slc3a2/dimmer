@@ -55,7 +55,11 @@ const Popup = () => {
     })
 
     function isGoogleKeyManagementPage(url: string) {
-      return url.includes('chrome://') || url.includes('chromewebstore.google.com')
+      return (
+        url.includes('chrome://') ||
+        url.includes('chromewebstore.google.com') ||
+        url.includes('chrome.google.com/webstore/devconsole')
+      )
     }
   }
 
