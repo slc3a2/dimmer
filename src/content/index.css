@@ -1,8 +1,8 @@
-html.lightOffIsDark {
+html.dimmerIsDark {
   transition: filter 0.8s !important;
 }
-html.lightOffIsDark img,
-html.lightOffIsDark video {
+html.dimmerIsDark img,
+html.dimmerIsDark video {
   filter: invert(100) hue-rotate(180deg) !important;
   transition: filter 0.8s !important;
 }

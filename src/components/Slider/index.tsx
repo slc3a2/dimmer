@@ -30,23 +30,23 @@ interface SliderProps {
 }
 
 const Slider = ({
-  onChange,
+  onChange = () => {},
   max = 100,
   min = 0,
   step = 1,
   defaultValue,
   visibleBar = false,
   className = '',
-  value: _value,
+  value: _value, // 是否为受控组件
 }: SliderProps) => {
-  const [value, setValue] = useState(defaultValue || 0)
+  const [value, setValue] = useState(_value ? _value : defaultValue || 0)
   const [isDragging, setIsDragging] = useState(false)
   const [isFirstRender, setIsFirstRender] = useState(true)
 
   const track = useRef(null)
 
   useEffect(() => {
-    if (onChange && !isFirstRender) {
+    if (!isFirstRender) {
       onChange(value)
     }
   }, [value])
@@ -100,7 +100,11 @@ const Slider = ({
         if (rect.left + rect.width <= e.clientX) {
           return
         }
-        setValue(x)
+        if (_value) {
+          onChange(x)
+        } else {
+          setValue(x)
+        }
       }
     }
   }, 0)
@@ -117,7 +121,11 @@ const Slider = ({
       if (rect.left + rect.width <= e.clientX) {
         return
       }
-      setValue(x)
+      if (_value) {
+        onChange(x)
+      } else {
+        setValue(x)
+      }
     }
   }
 

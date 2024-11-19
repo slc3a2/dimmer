@@ -78,7 +78,6 @@ const Setting = ({ onBack }: Setting) => {
   }
 
   const languageOnClick = () => {
-    console.log(i18n.language)
     if (i18n.language === 'zh') {
       i18n.changeLanguage('en')
       localStorage.setItem('lang', 'en')
@@ -93,7 +92,7 @@ const Setting = ({ onBack }: Setting) => {
   }
 
   const feedOnClick = () => {
-    window.open('https://chromewebstore.google.com/detail/dnidbhhpcjgffjophhebfelbcnonoclh')
+    window.open('https://github.com/slc3a2/dimmer/issues')
   }
 
   const coloraOnClick = () => {

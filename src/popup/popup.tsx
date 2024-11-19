@@ -15,6 +15,7 @@ import Button from '@/components/Button'
 import Slider from '@/components/Slider'
 import Switch from '@/components/SwitchMain'
 import Setting from './Setting'
+import { DEFAULT_CONFIG } from '@/constant'
 
 interface Config {
   brightness: number
@@ -23,16 +24,10 @@ interface Config {
   sepia: number
 }
 
-const DEFAULT_CONFIG = {
-  brightness: 10,
-  contrast: 10,
-  grayscale: 0,
-  sepia: 0,
-}
-
 let globalState = {
   isDark: false,
   isGlobal: false,
+  config: {},
 }
 
 const Popup = () => {
@@ -68,10 +63,14 @@ const Popup = () => {
     chrome.runtime.sendMessage({ action: 'getGlobal' }, (response) => {
       if (response) {
         globalState = response.state
-        const { isGlobal, isDark } = globalState
+        const { isGlobal, isDark, config: _config } = globalState
         if (isGlobal) {
           setIsDark(isDark)
           changeModeHandle(isDark)
+          setConfig({
+            ...config,
+            ..._config,
+          })
         } else {
           // 非全局，仅更新状态
           chrome.tabs.query(
@@ -87,6 +86,10 @@ const Popup = () => {
               if (id) {
                 chrome.tabs.sendMessage(id, message, (res) => {
                   setIsDark(!!res?.has)
+                  setConfig({
+                    ...config,
+                    ...res?.data,
+                  })
                 })
               }
             },
@@ -96,78 +99,38 @@ const Popup = () => {
     })
   }, [inSettingPage])
 
-  useEffect(() => {
-    console.log('isDark', isDark)
-    // if (isDark) {
-    //   document.documentElement.setAttribute('data-theme', 'dark')
-    // } else {
-    //   document.documentElement.setAttribute('data-theme', '')
-    // }
-    // const body = document.body
-    // if (isDark) {
-    //   body.classList.add('dark-theme')
-    // } else {
-    //   body.classList.remove('dark-theme')
-    // }
-    // const root = document.documentElement
-    // root.style.setProperty('--is-dark-theme', isDark ? 'true' : 'false')
-  }, [isDark])
-
   const onNotice = (config: Config) => {
-    chrome.tabs.query(
-      {
-        active: true,
-        currentWindow: true,
-      },
-      (tabs) => {
-        const [{ id }] = tabs
-        if (id) {
-          let message = {
-            info: 'changeConfig',
-            data: config,
+    if (globalState.isGlobal) {
+      chrome.tabs.query({}, (tabs) => {
+        tabs.forEach((tab) => {
+          if (tab.id) {
+            let message = {
+              info: 'changeConfig',
+              data: config,
+            }
+            chrome.tabs.sendMessage(tab.id, message, () => {})
           }
-          chrome.tabs.sendMessage(id, message, (res) => {})
-        }
-      },
-    )
+        })
+      })
+    } else {
+      chrome.tabs.query(
+        {
+          active: true,
+          currentWindow: true,
+        },
+        (tabs) => {
+          const [{ id }] = tabs
+          if (id) {
+            let message = {
+              info: 'changeConfig',
+              data: config,
+            }
+            chrome.tabs.sendMessage(id, message, () => {})
+          }
+        },
+      )
+    }
   }
-
-  // const init = () => {
-  //   chrome.tabs.query(
-  //     {
-  //       active: true,
-  //       currentWindow: true,
-  //     },
-  //     (tabs) => {
-  //       let message = {
-  //         info: 'getMode',
-  //       }
-  //       const [{ id }] = tabs
-  //       if (id) {
-  //         chrome.tabs.sendMessage(id, message, (res) => {
-  //           setIsDark(res?.has)
-  //           // toggleStyle()
-  //         })
-  //       }
-  //     },
-  //   )
-  // }
-
-  // const toggleStyle = () => {
-  //   if (isDark) {
-  //     import('@/styles/variable_dark.scss').then((module) => {
-  //       console.log(module)
-  //       document.documentElement.style.cssText = module.default
-  //       // setStyle('style2')
-  //     })
-  //   } else {
-  //     import('@/styles/variable.scss').then((module) => {
-  //       console.log(module)
-  //       document.documentElement.style.cssText = module.default
-  //       // setStyle('style1')
-  //     })
-  //   }
-  // }
 
   const gotoSetting = () => {
     setInSettingPage(true)
@@ -216,43 +179,45 @@ const Popup = () => {
   }
 
   const brightnessOnChange = (value: number) => {
-    setConfig({
+    const t = {
       ...config,
       brightness: value,
-    })
-    onNotice(config)
+    }
+    setConfig(t)
+    onNotice(t)
   }
 
   const contrastOnChange = (value: number) => {
-    setConfig({
+    const t = {
       ...config,
       contrast: value,
-    })
-    onNotice(config)
+    }
+    setConfig(t)
+    onNotice(t)
   }
 
   const grayscaleOnChange = (value: number) => {
-    setConfig({
+    const t = {
       ...config,
       grayscale: value,
-    })
-    onNotice(config)
+    }
+
+    setConfig(t)
+    onNotice(t)
   }
 
   const sepiaOnChange = (value: number) => {
-    setConfig({
+    let t = {
       ...config,
       sepia: value,
-    })
-    onNotice(config)
+    }
+    setConfig(t)
+    onNotice(t)
   }
 
   const resetAll = () => {
     setConfig(DEFAULT_CONFIG)
-  }
-
-  const dropdownOnChange = ({ name, id }: { name: string; id: string }) => {
-    console.log(name, id)
+    onNotice(DEFAULT_CONFIG)
   }
 
   const onBack = () => {
