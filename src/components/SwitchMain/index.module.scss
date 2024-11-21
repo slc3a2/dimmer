@@ -2,13 +2,9 @@
   width: 85px;
   .theme-switch {
     --toggle-size: 15px;
-    /* the size is adjusted using font-size,
-			 this is not transform scale,
-			 so you can choose any size */
     --container-width: 5.625em;
     --container-height: 2.5em;
     --container-radius: 6.25em;
-    /* radius 0 - minecraft mode :) */
     --container-light-bg: #3d7eae;
     --container-night-bg: #1d1f2c;
     --circle-container-diameter: 3.375em;
@@ -200,8 +196,6 @@
     -o-transition: var(--transition);
     transition: var(--transition);
   }
-
-  /* actions */
 
   .theme-switch__checkbox:checked + .theme-switch__container {
     background-color: var(--container-night-bg);

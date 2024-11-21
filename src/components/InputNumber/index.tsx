@@ -97,13 +97,7 @@ const InputNumber = ({ placeholder = '', onChange, defaultValue, className }: In
   return (
     <div className={cls(className, styles.inputNumberContainer)}>
       <div className={styles.wrapper}>
-        <span
-          className={cls(styles.minusButton, styles.btn)}
-          onClick={minusBtnOnClick}
-          // onMouseDown={() => handleMouseDown(MOUSE_TYPE.MINUS)}
-          // onMouseUp={handleMouseUp}
-          // onMouseLeave={handleMouseUp}
-        >
+        <span className={cls(styles.minusButton, styles.btn)} onClick={minusBtnOnClick}>
           <FiMinus size={14} />
         </span>
         <input
@@ -115,13 +109,7 @@ const InputNumber = ({ placeholder = '', onChange, defaultValue, className }: In
           }}
           onBlur={handlBlur}
         />
-        <span
-          className={cls(styles.plusButton, styles.btn)}
-          onClick={plusBtnOnClick}
-          // onMouseDown={() => handleMouseDown(MOUSE_TYPE.PLUS)}
-          // onMouseUp={handleMouseUp}
-          // onMouseLeave={handleMouseUp}
-        >
+        <span className={cls(styles.plusButton, styles.btn)} onClick={plusBtnOnClick}>
           <FiPlus size={14} />
         </span>
       </div>
