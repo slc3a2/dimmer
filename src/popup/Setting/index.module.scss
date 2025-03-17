@@ -1,5 +1,44 @@
 @import '@/styles/variable.scss';
 
+.overlayClass {
+  width: 100%;
+  left: 290px !important;
+  .modalClass {
+    background-color: $background_color;
+    .modalContentWrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      .input {
+        width: 100%;
+        min-height: 200px;
+        resize: none;
+        background-color: $background_color;
+        background-image: none;
+        border-radius: 8px;
+        border: 1px solid #dcdfe6;
+        box-sizing: border-box;
+        padding: 10px;
+        font-weight: 600;
+        box-shadow: $button_shadow_active;
+        &:focus {
+          // border-color: $main_color;
+          outline: 0;
+        }
+      }
+      .modalBtn {
+        margin-top: 20px;
+        width: 80px;
+        height: 40px;
+        font-weight: 600px;
+        font-size: 16px;
+      }
+    }
+  }
+}
+
 .settingPage {
   padding: 20px 20px;
   box-sizing: border-box;
@@ -47,6 +86,30 @@
         .icon {
           margin-right: 10px;
         }
+      }
+      .exludePathRightWrap {
+        display: flex;
+        align-items: center;
+        .length {
+          font-size: 14px;
+          max-width: 30px;
+          padding: 0 10px;
+          height: 25px;
+          text-align: center;
+          line-height: 25px;
+          background-color: #ccc;
+          box-shadow: inset 2px 2px 5px #b8b9be, inset -3px -3px 7px #fff;
+          border-radius: $border_radius;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          flex-wrap: nowrap;
+          font-family: $number_font_family;
+        }
+      }
+      .versionRightWrap {
+        font-size: 14px;
+        font-family: $number_font_family;
       }
     }
   }

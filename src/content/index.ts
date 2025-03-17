@@ -1,6 +1,7 @@
 import './index.css'
 
 import { SESSION_KEY, CLASS_KEY, ADVANCE_KEY } from '@/constant'
+import { matchWildcardUrls } from '@/utils'
 
 type Filter = Record<string, string>
 
@@ -90,7 +91,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       const { isDark, isGlobal } = response?.state || {}
       const [root] = document.getElementsByTagName('html')
       if (isGlobal) {
-        if (isDark) {
+        if (isDark && data.exclude !== true) {
           root.classList.add(CLASS_KEY)
           sessionStorage.setItem(SESSION_KEY, 'true')
           htmlFilter = {
@@ -153,10 +154,10 @@ function main() {
   chrome.runtime.sendMessage({ action: 'getGlobal' }, (response) => {
     if (response) {
       const state = response.state
-      const { isDark, isGlobal, config } = state
+      const { isDark, isGlobal, config, excludeUrls } = state
       const root = document.getElementsByTagName('html')[0]
       if (isGlobal) {
-        if (isDark) {
+        if (isDark && matchWildcardUrls(window.location.href, excludeUrls) === false) {
           root.classList.add(CLASS_KEY)
           htmlFilter = {
             ...htmlFilter,

@@ -7,5 +7,9 @@
   "language": "语言",
   "rate": "评分",
   "feedback": "反馈",
-  "protectedTips": "此页面受浏览器保护"
+  "protectedTips": "此页面受浏览器保护",
+  "excludePath": "排除域名",
+  "excludeTips": "当前 URL 已被设置为全局忽略域名",
+  "excludePlaceholder": "google.com/* 并使用换行/Enter键分隔",
+  "version": "版本"
 }

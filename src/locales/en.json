@@ -7,5 +7,9 @@
   "language": "Language",
   "rate": "Rate",
   "feedback": "Feedback",
-  "protectedTips": "This page is protected by the browser"
+  "protectedTips": "This page is protected by the browser",
+  "excludePath": "Exdomains",
+  "excludeTips": "Current URL has been ignored",
+  "excludePlaceholder": "google.com/* Separate by pressing the Enter key",
+  "version": "Version"
 }

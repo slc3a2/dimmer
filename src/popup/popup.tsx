@@ -17,6 +17,8 @@ import Switch from '@/components/SwitchMain'
 import Setting from './Setting'
 import { DEFAULT_CONFIG } from '@/constant'
 
+import { matchWildcardUrls } from '@/utils'
+
 interface Config {
   brightness: number
   contrast: number
@@ -34,6 +36,7 @@ const Popup = () => {
   const [config, setConfig] = useState<Config>(DEFAULT_CONFIG)
   const [isDark, setIsDark] = useState<boolean>(false)
   const [isProtected, setIsProtected] = useState<boolean>(false)
+  const [isExclude, setIsExclude] = useState<boolean>(false)
   const [inSettingPage, setInSettingPage] = useState<boolean>(false)
 
   const { i18n, t } = useTranslation()
@@ -46,11 +49,7 @@ const Popup = () => {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
       const url = tabs[0].url
       if (url) {
-        if (isGoogleKeyManagementPage(url)) {
-          setIsProtected(true)
-        } else {
-          setIsProtected(false)
-        }
+        setIsProtected(isGoogleKeyManagementPage(url))
       }
     })
 
@@ -68,6 +67,17 @@ const Popup = () => {
       if (response) {
         globalState = response.state
         const { isGlobal, isDark, config: _config } = globalState
+        chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+          const [{ url }] = tabs
+          if (url) {
+            // Maybe you will get an error
+            if (matchWildcardUrls(url) && isGlobal) {
+              setIsExclude(true)
+            } else {
+              setIsExclude(false)
+            }
+          }
+        })
         if (isGlobal) {
           setIsDark(isDark)
           changeModeHandle(isDark)
@@ -148,7 +158,14 @@ const Popup = () => {
     setIsDark(v)
     if (globalState.isGlobal) {
       chrome.tabs.query({}, (tabs) => {
-        tabs.forEach((tab) => {
+        for (let i = 0, len = tabs.length; i < len; i++) {
+          const tab = tabs[i]
+          const { url } = tab
+          if (url) {
+            if (matchWildcardUrls(url)) {
+              continue
+            }
+          }
           if (tab.id) {
             let message = {
               info: 'changeMode',
@@ -161,7 +178,7 @@ const Popup = () => {
               },
             })
           }
-        })
+        }
       })
     } else {
       chrome.tabs.query(
@@ -317,10 +334,17 @@ const Popup = () => {
               min={0}
             />
           </div>
-          <p className={cls(styles.tips, isProtected ? styles.visible : '')}>
-            <RiAlarmWarningFill size={12} className={styles.tipsIcon} />
-            <span>{t('protectedTips')}</span>
-          </p>
+          {isProtected ? (
+            <p className={cls(styles.tips, isProtected ? styles.visible : '')}>
+              <RiAlarmWarningFill size={12} className={styles.tipsIcon} />
+              <span>{t('protectedTips')}</span>
+            </p>
+          ) : (
+            <p className={cls(styles.tips, isExclude ? styles.visible : '')}>
+              <RiAlarmWarningFill size={12} className={styles.tipsIcon} />
+              <span>{t('excludeTips')}</span>
+            </p>
+          )}
         </div>
       </div>
       <Setting onBack={onBack} />

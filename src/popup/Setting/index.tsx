@@ -8,6 +8,8 @@ import { FaAngellist } from 'react-icons/fa'
 import { RiEnglishInput } from 'react-icons/ri'
 import { RiEmphasisCn } from 'react-icons/ri'
 import { LiaLanguageSolid } from 'react-icons/lia'
+import { RiFolderForbidLine } from 'react-icons/ri'
+import { FaCircleInfo } from 'react-icons/fa6'
 
 import { useTranslation } from 'react-i18next'
 
@@ -15,6 +17,10 @@ import styles from './index.module.scss'
 
 import Button from '@/components/Button'
 import Switch from '@/components/Switch'
+import Modal from '@/components/Modal'
+
+import { matchWildcardUrls } from '@/utils'
+import { EXCLUDE_URLS_KEY } from '@/constant'
 
 interface Setting {
   onBack: () => void
@@ -22,6 +28,10 @@ interface Setting {
 
 const Setting = ({ onBack }: Setting) => {
   const [global, setGlobal] = useState<boolean>(false)
+  const [excludeDomainVisible, setExcludeDomainVisible] = useState<boolean>(false)
+  const [excludesDomains, setExcludesDomains] = useState<string>(
+    localStorage.getItem(EXCLUDE_URLS_KEY) || '',
+  )
 
   const { i18n, t } = useTranslation()
 
@@ -50,11 +60,13 @@ const Setting = ({ onBack }: Setting) => {
     if (t) {
       chrome.tabs.query({}, (tabs) => {
         tabs.forEach((tab) => {
-          if (tab.id) {
+          const { url, id } = tab
+          if (url && id) {
             let message = {
               info: 'changeMode',
+              data: { exclude: matchWildcardUrls(url) },
             }
-            chrome.tabs.sendMessage(tab.id, message, (res) => {})
+            chrome.tabs.sendMessage(id, message, (res) => {})
           }
         })
       })
@@ -99,6 +111,63 @@ const Setting = ({ onBack }: Setting) => {
     window.open('https://chromewebstore.google.com/detail/lajfgofeklkfhemnhomepdojkkljljkp')
   }
 
+  const excludeOnClick = () => {
+    setExcludeDomainVisible(true)
+  }
+
+  const exludeOnClose = () => {
+    setExcludeDomainVisible(false)
+  }
+
+  const excludesSubmit = () => {
+    const value = excludesDomains
+    localStorage.setItem(EXCLUDE_URLS_KEY, value)
+    setExcludeDomainVisible(false)
+    chrome.runtime.sendMessage({
+      action: 'setGlobal',
+      state: {
+        excludeUrls: value,
+      },
+    })
+    if (global) {
+      chrome.tabs.query({}, (tabs) => {
+        for (let i = 0, len = tabs.length; i < len; i++) {
+          const tab = tabs[i]
+          const { url, id } = tab
+          if (url && id) {
+            let message = {
+              info: 'getMode',
+            }
+            chrome.tabs.sendMessage(id, message, (res = {}) => {
+              const { has } = res
+              // 若排除域名中包含当前域名，并且当前域名页面处于暗黑模式，那么恢复为正常模式
+              let message = {
+                info: 'changeMode',
+                data: { exclude: matchWildcardUrls(url) },
+              }
+              chrome.tabs.sendMessage(id, message, (res) => {})
+            })
+          }
+        }
+      })
+    }
+  }
+
+  const excludesInputOnChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setExcludesDomains(e.target.value)
+  }
+
+  const getExcludeDomainsLength = (v = excludesDomains) => {
+    const exactUrls = v
+    const notExist = exactUrls === '' || exactUrls === null || exactUrls === undefined
+    const patterns = notExist ? [] : exactUrls.split('\n')
+    return patterns.filter((i) => i).length
+  }
+
+  const versionOnClick = () => {
+    window.open('https://github.com/slc3a2/dimmer/releases')
+  }
+
   return (
     <div className={styles.settingPage}>
       <div className={styles.header}>
@@ -114,6 +183,21 @@ const Setting = ({ onBack }: Setting) => {
           </div>
           <Switch value={global} onChange={switchOnChange} className={styles.switch} />
         </div>
+        {global ? (
+          <div className={styles.item} onClick={excludeOnClick}>
+            <div className={styles.label}>
+              <RiFolderForbidLine size={20} className={styles.icon} />
+              <span>{t('excludePath')}</span>
+            </div>
+            <span className={styles.exludePathRightWrap}>
+              {getExcludeDomainsLength(excludesDomains) === 0 ? (
+                <FaAngleRight size={20} className={styles.rightIcon} />
+              ) : (
+                <div className={styles.length}>{getExcludeDomainsLength(excludesDomains)}</div>
+              )}
+            </span>
+          </div>
+        ) : null}
         <div className={styles.item} onClick={languageOnClick}>
           <div className={styles.label}>
             <LiaLanguageSolid size={20} className={styles.icon} />
@@ -154,7 +238,35 @@ const Setting = ({ onBack }: Setting) => {
             <FaAngleRight size={20} className={styles.rightIcon} />
           </span>
         </div>
+        <div className={styles.item} onClick={versionOnClick}>
+          <div className={styles.label}>
+            <FaCircleInfo size={20} className={styles.icon} />
+            <span>{t('version')}</span>
+          </div>
+          <span className={styles.versionRightWrap}>
+            {chrome.runtime.getManifest()?.version || ''}
+          </span>
+        </div>
       </div>
+      <Modal
+        isOpen={excludeDomainVisible}
+        onClose={exludeOnClose}
+        overlayClass={styles.overlayClass}
+        modalClass={styles.modalClass}
+        closeOnClickModal={false}
+      >
+        <div className={styles.modalContentWrap}>
+          <textarea
+            value={excludesDomains}
+            onChange={excludesInputOnChange}
+            className={styles.input}
+            placeholder={t('excludePlaceholder')}
+          />
+          <Button className={styles.modalBtn} onClick={excludesSubmit}>
+            确定
+          </Button>
+        </div>
+      </Modal>
     </div>
   )
 }

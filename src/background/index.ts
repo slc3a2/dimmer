@@ -3,6 +3,7 @@ import { DEFAULT_CONFIG } from '@/constant'
 let state = {
   isGlobal: false,
   isDark: false,
+  excludeUrls: '',
   config: DEFAULT_CONFIG,
 }
 
