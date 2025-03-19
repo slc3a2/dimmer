@@ -81,7 +81,7 @@
 
   2.精简计划，去除或者归档一些不再使用的静态资源
 
-- **v2.0.0**
+- **v2.0.0**  *(2014-10-23)*
 
   1.全新的 UI 和 交互逻辑
 
@@ -89,17 +89,17 @@
 
   3.技术栈重构，使用 react + vite + ts
 
-- **v2.0.1**
+- **v2.0.1 ** *(2014-10-27)*
 
   1.修复 [脚手架工具](https://github.com/guocaoyi/create-chrome-ext) 在 Chrome 130 版本上无法进行 content script 注入问题，参考 [github issue](https://github.com/crxjs/chrome-extension-tools/issues/918) 和 [chromium issue](https://issues.chromium.org/issues/363027634?pli=1)
 
-- **v2.0.2**
+- **v2.0.2 ** *(2014-11-12)*
 
   1.修改描述以符合 chrome 扩展商店要求
 
   2.修复多语言切换时，元素跳动问题
 
-- **v2.0.3**
+- **v2.0.3**  *(2014-11-09)*
 
   1.自定义滤镜设置支持局部存储和全局存储
 
