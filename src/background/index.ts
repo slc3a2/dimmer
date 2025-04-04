@@ -20,4 +20,29 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   }
 })
 
+chrome.commands.onCommand.addListener((command) => {
+  if (command === 'toggle_dark_mode') {
+    state.isDark = !state.isDark
+
+    chrome.runtime.sendMessage({
+      action: 'updatePopupConfig'
+    })
+
+    chrome.tabs.query({}, (tabs) => {
+      tabs.forEach((tab) => {
+        if (tab.id) {
+          chrome.tabs.sendMessage(tab.id, {
+            info: 'changeMode',
+            data: { exclude: false }
+          }, _ => {
+            if (chrome.runtime.lastError) {
+              return
+            }
+          })
+        }
+      })
+    })
+  }
+})
+
 export {}

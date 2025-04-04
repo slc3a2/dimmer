@@ -4,5 +4,8 @@
   },
   "extDescription": {
     "message": "暗黑模式一键切换"
+  },
+  "extToggleDarkMode": {
+    "message": "切换暗黑模式"
   }
 }

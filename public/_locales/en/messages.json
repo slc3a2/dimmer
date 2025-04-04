@@ -4,5 +4,8 @@
   },
   "extDescription": {
     "message": "One-click Toggle for Web Page Dark Mode"
+  },
+  "extToggleDarkMode": {
+    "message": "Toggle Dark Mode"
   }
 }
