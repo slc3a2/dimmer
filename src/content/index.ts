@@ -1,6 +1,6 @@
 import './index.css'
 
-import { SESSION_KEY, CLASS_KEY, ADVANCE_KEY } from '@/constant'
+import { SESSION_KEY, CLASS_KEY, ADVANCE_KEY, DOMAIN_DARK_KEY } from '@/constant'
 import { matchWildcardUrls } from '@/utils'
 
 type Filter = Record<string, string>
@@ -16,6 +16,11 @@ const theme = {
     invert: '0',
     ['hue-rotate']: '0deg',
   },
+}
+
+const domainDarkMode = {
+  get: () => localStorage.getItem(DOMAIN_DARK_KEY),
+  set: (isDark: boolean) => localStorage.setItem(DOMAIN_DARK_KEY, isDark ? 'true' : 'false')
 }
 
 const convertFilterToObject = (filterValue: string) => {
@@ -107,7 +112,8 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
           }
         }
       } else {
-        if (!root.classList.contains(CLASS_KEY)) {
+        const willBeDark = !root.classList.contains(CLASS_KEY)
+        if (willBeDark) {
           root.classList.add(CLASS_KEY)
           sessionStorage.setItem(SESSION_KEY, 'true')
           htmlFilter = {
@@ -122,6 +128,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
             ...theme['0'],
           }
         }
+        domainDarkMode.set(willBeDark)
       }
       root.style.filter = `${objectToFilterString(htmlFilter)}`
     })
@@ -177,20 +184,37 @@ function main() {
         }
       } else {
         const config = JSON.parse(sessionStorage.getItem(ADVANCE_KEY) || '{}')
-        const t = sessionStorage.getItem(SESSION_KEY)
-        if (t === 'true') {
-          root.classList.add(CLASS_KEY)
-          htmlFilter = {
-            ...htmlFilter,
-            ...readableConfig(config),
-            ...theme['1'],
+        const domainIsDark = domainDarkMode.get()
+        if (domainIsDark !== null) {
+          const domainDarkValue = domainIsDark === 'true'
+          if (domainDarkValue) {
+            root.classList.add(CLASS_KEY)
+          } else {
+            root.classList.remove(CLASS_KEY)
           }
-        } else {
-          root.classList.remove(CLASS_KEY)
+          sessionStorage.setItem(SESSION_KEY, domainIsDark)
           htmlFilter = {
             ...htmlFilter,
             ...readableConfig(config),
-            ...theme['0'],
+            ...theme[domainDarkValue ? '1' : '0'],
+          }
+          chrome.runtime.sendMessage({ action: 'updatePopupConfig' })
+        } else {
+          const t = sessionStorage.getItem(SESSION_KEY)
+          if (t === 'true') {
+            root.classList.add(CLASS_KEY)
+            htmlFilter = {
+              ...htmlFilter,
+              ...readableConfig(config),
+              ...theme['1'],
+            }
+          } else {
+            root.classList.remove(CLASS_KEY)
+            htmlFilter = {
+              ...htmlFilter,
+              ...readableConfig(config),
+              ...theme['0'],
+            }
           }
         }
       }
