@@ -10,6 +10,7 @@ import { RiEmphasisCn } from 'react-icons/ri'
 import { LiaLanguageSolid } from 'react-icons/lia'
 import { RiFolderForbidLine } from 'react-icons/ri'
 import { FaCircleInfo } from 'react-icons/fa6'
+import { RiKeyboardLine } from 'react-icons/ri'
 
 import { useTranslation } from 'react-i18next'
 
@@ -32,6 +33,7 @@ const Setting = ({ onBack }: Setting) => {
   const [excludesDomains, setExcludesDomains] = useState<string>(
     localStorage.getItem(EXCLUDE_URLS_KEY) || '',
   )
+  const [currentShortcut, setCurrentShortcut] = useState<string>()
 
   const { i18n, t } = useTranslation()
 
@@ -41,6 +43,11 @@ const Setting = ({ onBack }: Setting) => {
         const { isGlobal } = response.state
         setGlobal(isGlobal)
       }
+    })
+
+    chrome.commands.getAll((commands) => {
+      const darkModeCommand = commands.find(cmd => cmd.name === 'toggle_dark_mode')
+      setCurrentShortcut(darkModeCommand?.shortcut)
     })
   }, [])
 
@@ -97,6 +104,10 @@ const Setting = ({ onBack }: Setting) => {
       i18n.changeLanguage('zh')
       localStorage.setItem('lang', 'zh')
     }
+  }
+
+  const shortcutSettingOnClick = () => {
+    chrome.tabs.create({ url: 'chrome://extensions/shortcuts' })
   }
 
   const rateOnClick = () => {
@@ -209,6 +220,16 @@ const Setting = ({ onBack }: Setting) => {
             ) : (
               <RiEmphasisCn size={22} className={styles.rightIcon} />
             )}
+          </span>
+        </div>
+        <div className={styles.item} onClick={shortcutSettingOnClick}>
+          <div className={styles.label}>
+            <RiKeyboardLine size={20} className={styles.icon} />
+            <span>{t('shortcut')}</span>
+          </div>
+          <span className={styles.shortcutWrap}>
+            <span className={styles.shortcutText}>{currentShortcut || t('notSet')}</span>
+            <FaAngleRight size={20} className={styles.rightIcon} />
           </span>
         </div>
         <div className={styles.item} onClick={rateOnClick}>
