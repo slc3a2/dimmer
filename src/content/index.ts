@@ -86,7 +86,7 @@ const readableConfig = (data: Record<string, number>): Record<string, string> =>
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   const { info, data = {} } = request
-  if (info === 'changeMode') {
+  if (info === 'changeMode' || info === 'toggleMode') {
     chrome.runtime.sendMessage({ action: 'getGlobal' }, (response) => {
       const { isDark, isGlobal } = response?.state || {}
       const [root] = document.getElementsByTagName('html')
@@ -125,6 +125,9 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       }
       root.style.filter = `${objectToFilterString(htmlFilter)}`
     })
+    if (info === 'toggleMode') {
+      chrome.runtime.sendMessage({ action: 'updatePopupConfig' });
+    }
   }
   if (info === 'getMode') {
     const has = sessionStorage.getItem(SESSION_KEY) === 'true'

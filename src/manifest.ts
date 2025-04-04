@@ -10,6 +10,14 @@ export default defineManifest({
     default_popup: 'popup.html',
     default_icon: 'imgs/logo16.png',
   },
+  commands: {
+    toggle_dark_mode: {
+      suggested_key: {
+        default: 'Alt+D'
+      },
+      description: '__MSG_extToggleDarkMode__'
+    }
+  },
   default_locale: 'en',
   background: {
     service_worker: 'src/background/index.ts',
