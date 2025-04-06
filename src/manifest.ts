@@ -13,7 +13,8 @@ export default defineManifest({
   commands: {
     toggle_dark_mode: {
       suggested_key: {
-        default: 'Alt+D'
+        default: 'Alt+Shift+D',
+        mac: 'Alt+D'
       },
       description: '__MSG_extToggleDarkMode__'
     }
