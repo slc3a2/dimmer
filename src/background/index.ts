@@ -20,4 +20,24 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   }
 })
 
+chrome.commands.onCommand.addListener((command) => {
+  if (command === 'toggle_dark_mode') {
+    chrome.tabs.query(
+      {
+        active: true,
+        currentWindow: true,
+      },
+      (tabs) => {
+        const [{ id }] = tabs
+        if (id) {
+          let message = {
+            info: 'toggleMode',
+          }
+          chrome.tabs.sendMessage(id, message, (res) => {})
+        }
+      },
+    )
+  }
+})
+
 export {}
