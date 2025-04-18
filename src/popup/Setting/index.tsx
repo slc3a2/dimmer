@@ -46,7 +46,7 @@ const Setting = ({ onBack }: Setting) => {
     })
 
     chrome.commands.getAll((commands) => {
-      const darkModeCommand = commands.find(cmd => cmd.name === 'toggle_dark_mode')
+      const darkModeCommand = commands.find((cmd) => cmd.name === 'toggle_dark_mode')
       setCurrentShortcut(darkModeCommand?.shortcut)
     })
   }, [])
@@ -222,16 +222,18 @@ const Setting = ({ onBack }: Setting) => {
             )}
           </span>
         </div>
-        <div className={styles.item} onClick={shortcutSettingOnClick}>
-          <div className={styles.label}>
-            <RiKeyboardLine size={20} className={styles.icon} />
-            <span>{t('shortcut')}</span>
+        {!global ? (
+          <div className={styles.item} onClick={shortcutSettingOnClick}>
+            <div className={styles.label}>
+              <RiKeyboardLine size={20} className={styles.icon} />
+              <span>{t('shortcut')}</span>
+            </div>
+            <span className={styles.shortcutWrap}>
+              <span className={styles.shortcutText}>{currentShortcut || t('notSet')}</span>
+              <FaAngleRight size={20} className={styles.rightIcon} />
+            </span>
           </div>
-          <span className={styles.shortcutWrap}>
-            <span className={styles.shortcutText}>{currentShortcut || t('notSet')}</span>
-            <FaAngleRight size={20} className={styles.rightIcon} />
-          </span>
-        </div>
+        ) : null}
         <div className={styles.item} onClick={rateOnClick}>
           <div className={styles.label}>
             <FaHeart size={20} className={styles.icon} />
