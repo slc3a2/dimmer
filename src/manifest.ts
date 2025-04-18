@@ -3,7 +3,7 @@ import { defineManifest } from '@crxjs/vite-plugin'
 export default defineManifest({
   name: '__MSG_extName__',
   description: '__MSG_extDescription__',
-  version: '2.1.0',
+  version: '2.2.0',
   manifest_version: 3,
   icons: { '16': 'imgs/logo16.png', '128': 'imgs/logo128.png' },
   action: {
@@ -14,10 +14,10 @@ export default defineManifest({
     toggle_dark_mode: {
       suggested_key: {
         default: 'Alt+Shift+D',
-        mac: 'Alt+D'
+        mac: 'Alt+D',
       },
-      description: '__MSG_extToggleDarkMode__'
-    }
+      description: '__MSG_extToggleDarkMode__',
+    },
   },
   default_locale: 'en',
   background: {
